@@ -59,6 +59,7 @@
         android:layout_marginRight="50dp"
         android:layout_marginTop="30dp"
         android:alpha="0.7"
+        android:id="@+id/login_btn"
         android:background="@drawable/grad_login_button"
         android:text="LOGIN"
         android:textColor="@color/colorText"
