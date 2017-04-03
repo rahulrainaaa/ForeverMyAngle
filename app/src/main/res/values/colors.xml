@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#130917</color>
+    <color name="colorPrimaryDark">#130917</color>
+    <color name="colorAccent">#EF5691</color>
+
+    <color name="colorBGTheme">#130917</color>
+    <color name="colorBorder">#EF5691</color>
+    <color name="colorButton">#491A32</color>
+
+    <color name="colorText">#FFFFFF</color>
+    <color name="colorTextHint">#b1b1b1</color>
+
+</resources>
