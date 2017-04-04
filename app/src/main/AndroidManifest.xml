@@ -11,16 +11,17 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".LoginActivity"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait" />
+
+        <activity android:name=".DashboardActivity">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
-        <activity
-            android:name=".DashboardActivity"
-            android:label="@string/title_activity_dashboard"></activity>
     </application>
 
 </manifest>
