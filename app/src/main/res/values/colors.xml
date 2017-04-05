@@ -11,4 +11,6 @@
     <color name="colorText">#FFFFFF</color>
     <color name="colorTextHint">#b1b1b1</color>
 
+    <color name="colorShadow">#e4e4e4</color>
+
 </resources>
