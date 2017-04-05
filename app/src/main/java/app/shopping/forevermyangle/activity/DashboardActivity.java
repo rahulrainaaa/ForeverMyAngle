@@ -1,4 +1,4 @@
-package app.shopping.forevermyangle;
+package app.shopping.forevermyangle.activity;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -9,6 +9,8 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+
+import app.shopping.forevermyangle.R;
 
 public class DashboardActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
 

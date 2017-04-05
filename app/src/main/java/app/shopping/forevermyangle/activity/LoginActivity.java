@@ -1,9 +1,11 @@
-package app.shopping.forevermyangle;
+package app.shopping.forevermyangle.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
+
+import app.shopping.forevermyangle.R;
 
 public class LoginActivity extends FragmentActivity {
 
