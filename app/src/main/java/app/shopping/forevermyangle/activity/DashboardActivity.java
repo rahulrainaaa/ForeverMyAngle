@@ -49,8 +49,7 @@ public class DashboardActivity extends AppCompatActivity implements BottomNaviga
     @Override
     protected void onResume() {
         super.onResume();
-
-
+        loadFragment();
     }
 
     @Override
