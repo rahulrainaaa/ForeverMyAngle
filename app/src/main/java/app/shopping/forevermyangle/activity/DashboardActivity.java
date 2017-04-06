@@ -1,6 +1,5 @@
 package app.shopping.forevermyangle.activity;
 
-import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
@@ -8,14 +7,18 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Toast;
 
 import app.shopping.forevermyangle.R;
-import app.shopping.forevermyangle.fragment.HomeDashboardFragment;
+import app.shopping.forevermyangle.fragment.base.BaseFragment;
+import app.shopping.forevermyangle.fragment.fragments.HomeDashboardFragment;
+import app.shopping.forevermyangle.interfaces.fragment.OnTouchEventListener;
 
 /**
  * @class DashboardActivity
@@ -26,10 +29,11 @@ public class DashboardActivity extends AppCompatActivity implements BottomNaviga
     /**
      * Private data member objects.
      */
-    private Fragment mCurrentFragment = null;  // Fragment.
+    private BaseFragment mCurrentFragment = null;  // Fragment Custom Class.
     private int mFlagFragment = 1;      // Fragment Number current.
     private FragmentManager mFragmentManager = null;
     private FragmentTransaction mFragmentTransaction = null;
+    private OnTouchEventListener mOnTouchEventListener = null;
 
     /**
      * {@link AppCompatActivity} override method(s).
@@ -53,9 +57,27 @@ public class DashboardActivity extends AppCompatActivity implements BottomNaviga
     }
 
     @Override
+    protected void onPause() {
+        super.onPause();
+        mOnTouchEventListener = null;
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.dashboard_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+
+        Log.d("cbbbbbbbbbbbbbb", "before check");
+        if (mOnTouchEventListener != null) {                        // Send callback to fragment if present.
+            mOnTouchEventListener.onTouchEventCallback(event);
+
+            Log.d("cbbbbbbbbbbbbbb", "after check");
+        }
         return true;
     }
 
@@ -91,11 +113,11 @@ public class DashboardActivity extends AppCompatActivity implements BottomNaviga
     }
 
     /**
-     * @return Fragment
+     * @return {@link BaseFragment}
      * @method getCurrentFragment
      * @desc Method to get instance of current fragment appeared on UI.
      */
-    private Fragment getCurrentFragment() {
+    private BaseFragment getCurrentFragment() {
 
         switch (mFlagFragment) {
             case 1:     // Fragment 1 to load.
@@ -123,11 +145,12 @@ public class DashboardActivity extends AppCompatActivity implements BottomNaviga
     private void loadFragment() {
 
         mFragmentTransaction = mFragmentManager.beginTransaction();         // Begin with fragment transaction.
-        if (!mFragmentTransaction.isEmpty()) {
+        if (!mFragmentTransaction.isEmpty()) {                              // Remove older fragment if any.
             mFragmentTransaction.remove(mCurrentFragment);
         }
-        mCurrentFragment = getCurrentFragment();
-        mFragmentTransaction.replace(R.id.fragment, mCurrentFragment);
+        mCurrentFragment = getCurrentFragment();                            // Get a new Fragment for dashboard.
+        mOnTouchEventListener = mCurrentFragment;                           // Add {@link OnTouchEventListener} callback.
+        mFragmentTransaction.replace(R.id.fragment, mCurrentFragment);      // Replace with new fragment in the container.
         mFragmentTransaction.commit();                                      // Commit fragment transition finally.
     }
 
