@@ -37,10 +37,14 @@ public class DashboardActivity extends AppCompatActivity implements BottomNaviga
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // Set Custom Title.
         View view = getLayoutInflater().inflate(R.layout.app_title, null);
         getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         getSupportActionBar().setCustomView(view);
         setContentView(R.layout.activity_dashboard);
+
+        // Add bottom navigation.
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(this);
         mFragmentManager = getFragmentManager();

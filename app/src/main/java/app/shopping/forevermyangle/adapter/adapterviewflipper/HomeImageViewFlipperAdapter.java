@@ -1,4 +1,4 @@
-package app.shopping.forevermyangle.adapter;
+package app.shopping.forevermyangle.adapter.adapterviewflipper;
 
 import android.app.Activity;
 import android.support.annotation.LayoutRes;
