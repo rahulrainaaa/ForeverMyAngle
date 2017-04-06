@@ -2,19 +2,17 @@ package app.shopping.forevermyangle.fragment.fragments;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterViewFlipper;
-import android.widget.Toast;
 
 import app.shopping.forevermyangle.R;
 import app.shopping.forevermyangle.adapter.HomeImageViewFlipperAdapter;
 import app.shopping.forevermyangle.fragment.base.BaseFragment;
 
-public class HomeDashboardFragment extends BaseFragment {
+public class HomeDashboardFragment extends BaseFragment implements View.OnTouchListener {
 
     private AdapterViewFlipper mFlipperBanner = null;
     private HomeImageViewFlipperAdapter mFlipperAdapter = null;
@@ -37,15 +35,22 @@ public class HomeDashboardFragment extends BaseFragment {
         mFlipperBanner.setFlipInterval(4000);
         mFlipperBanner.startFlipping();
         mFlipperBanner.setAutoStart(true);
+        mFlipperBanner.setOnTouchListener(this);
+        mFlipperBanner.setInAnimation(getActivity(), android.R.animator.fade_in);
+        mFlipperBanner.setOutAnimation(getActivity(), android.R.animator.fade_out);
         return view;
     }
 
-
     @Override
-    public void onTouchEventCallback(MotionEvent event) {
+    public boolean onTouch(View view, MotionEvent event) {
 
-        Toast.makeText(getActivity(), "on touch", Toast.LENGTH_SHORT).show();
-        Log.d("cbbbbbbbbbbbbb","callback");
+        switch (event.getAction()) {
+            case MotionEvent.ACTION_DOWN:
+                mFlipperBanner.showNext();
+                break;
+        }
 
+        return false;
     }
+
 }
