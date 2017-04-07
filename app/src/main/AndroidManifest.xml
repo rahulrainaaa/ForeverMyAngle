@@ -16,7 +16,9 @@
             android:name=".activity.LoginActivity"
             android:screenOrientation="portrait" />
 
-        <activity android:name=".activity.DashboardActivity">
+        <activity
+            android:name=".activity.DashboardActivity"
+            android:screenOrientation="portrait">
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

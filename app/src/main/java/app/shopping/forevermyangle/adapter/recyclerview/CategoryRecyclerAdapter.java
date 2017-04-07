@@ -14,6 +14,7 @@ import android.widget.TextView;
 import java.util.List;
 
 import app.shopping.forevermyangle.R;
+import app.shopping.forevermyangle.view.RoundedImageView;
 
 public class CategoryRecyclerAdapter extends RecyclerView.Adapter<CategoryRecyclerAdapter.CategoryItemHolder> {
 
@@ -25,13 +26,13 @@ public class CategoryRecyclerAdapter extends RecyclerView.Adapter<CategoryRecycl
     public static class CategoryItemHolder extends RecyclerView.ViewHolder {
         public CardView cv;
         public TextView name;
-        public ImageView image;
+        public RoundedImageView image;
 
         CategoryItemHolder(View itemView) {
             super(itemView);
             cv = (CardView) itemView.findViewById(R.id.cv);
             name = (TextView) itemView.findViewById(R.id.name);
-            image = (ImageView) itemView.findViewById(R.id.image);
+            image = (RoundedImageView) itemView.findViewById(R.id.image);
         }
     }
 
@@ -60,7 +61,7 @@ public class CategoryRecyclerAdapter extends RecyclerView.Adapter<CategoryRecycl
         setAnimation(holder.image, i);
         setAnimation(holder.name, i);
     }
-
+    
     @Override
     public int getItemCount() {
         return categories.size();

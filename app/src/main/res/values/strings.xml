@@ -9,6 +9,6 @@
     <string name="title_notifications">Notifications</string>
 
     <!--Menu Strings-->
-    <string name="dashboard_menu_a">Menu A</string>
-    <string name="dashboard_menu_b">Menu B</string>
+    <string name="dashboard_menu_search">Search</string>
+    <string name="dashboard_menu_cart">Cart</string>
 </resources>
