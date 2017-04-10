@@ -81,6 +81,14 @@
 
         </LinearLayout>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -96,7 +104,7 @@
                 android:weightSum="10">
 
                 <ImageView
-                    android:layout_width="100dp"
+                    android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_marginRight="1dp"
                     android:layout_weight="6"
@@ -104,10 +112,36 @@
                     android:src="@mipmap/ic_launcher" />
 
                 <ImageView
-                    android:layout_width="100dp"
+                    android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_marginRight="1dp"
                     android:layout_weight="4"
+                    android:background="@drawable/shadow_small"
+                    android:src="@mipmap/ic_launcher" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="200dp"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:weightSum="10">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_marginRight="1dp"
+                    android:layout_weight="4.5"
+                    android:background="@drawable/shadow_small"
+                    android:src="@mipmap/ic_launcher" />
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_marginRight="1dp"
+                    android:layout_weight="5.5"
                     android:background="@drawable/shadow_small"
                     android:src="@mipmap/ic_launcher" />
 
