@@ -8,14 +8,14 @@
     <ImageView
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:background="@drawable/outline_box"
-        android:src="@drawable/f" />
+        android:src="@drawable/logo_fx" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingLeft="18dp"
         android:text="Forever My Angel"
+
         android:textColor="@color/colorText"
         android:textSize="20dp" />
 
