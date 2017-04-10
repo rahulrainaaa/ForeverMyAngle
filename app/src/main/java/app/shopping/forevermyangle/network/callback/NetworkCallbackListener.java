@@ -8,5 +8,4 @@ public interface NetworkCallbackListener {
 
     public void networkError(int requestCode);
 
-
 }
