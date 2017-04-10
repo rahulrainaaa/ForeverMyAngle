@@ -17,7 +17,7 @@
         <AdapterViewFlipper
             android:id="@+id/adapterviewflipper"
             android:layout_width="match_parent"
-            android:layout_height="200dp" />
+            android:layout_height="210dp" />
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rv_category"
@@ -25,6 +25,21 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
             android:layout_marginTop="10dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
+            android:layout_marginTop="2dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="CATEGORIES" />
+
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -46,14 +61,16 @@
                     android:layout_marginRight="1dp"
                     android:layout_weight="6"
                     android:background="@drawable/shadow_small"
-                    android:src="@mipmap/ic_launcher" />
+                    android:scaleType="fitXY"
+                    android:src="@drawable/temp_a" />
 
                 <ImageView
                     android:layout_width="0dp"
                     android:layout_height="100dp"
                     android:layout_weight="4"
                     android:background="@drawable/shadow_small"
-                    android:src="@mipmap/ic_launcher" />
+                    android:scaleType="fitXY"
+                    android:src="@drawable/temp_b" />
             </LinearLayout>
 
             <LinearLayout
@@ -69,15 +86,32 @@
                     android:layout_marginRight="1dp"
                     android:layout_weight="4.5"
                     android:background="@drawable/shadow_small"
-                    android:src="@mipmap/ic_launcher" />
+                    android:scaleType="fitXY"
+                    android:src="@drawable/temp_c" />
 
                 <ImageView
                     android:layout_width="0dp"
                     android:layout_height="100dp"
                     android:layout_weight="5.5"
                     android:background="@drawable/shadow_small"
-                    android:src="@mipmap/ic_launcher" />
+                    android:scaleType="fitXY"
+                    android:src="@drawable/temp_d" />
             </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="BEST SELLERS" />
 
         </LinearLayout>
 
@@ -109,15 +143,18 @@
                     android:layout_marginRight="1dp"
                     android:layout_weight="6"
                     android:background="@drawable/shadow_small"
-                    android:src="@mipmap/ic_launcher" />
+                    android:scaleType="fitXY"
+                    android:src="@drawable/temp_e" />
 
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_marginRight="1dp"
+                    android:layout_marginTop="1dp"
                     android:layout_weight="4"
                     android:background="@drawable/shadow_small"
-                    android:src="@mipmap/ic_launcher" />
+                    android:scaleType="fitXY"
+                    android:src="@drawable/temp_f" />
 
 
             </LinearLayout>
@@ -135,15 +172,18 @@
                     android:layout_marginRight="1dp"
                     android:layout_weight="4.5"
                     android:background="@drawable/shadow_small"
-                    android:src="@mipmap/ic_launcher" />
+                    android:scaleType="fitXY"
+                    android:src="@drawable/temp_g" />
 
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_marginRight="1dp"
+                    android:layout_marginTop="1dp"
                     android:layout_weight="5.5"
                     android:background="@drawable/shadow_small"
-                    android:src="@mipmap/ic_launcher" />
+                    android:scaleType="fitXY"
+                    android:src="@drawable/temp_h" />
 
 
             </LinearLayout>
@@ -151,6 +191,20 @@
 
         </LinearLayout>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="NEW ARRIVALS" />
+
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -172,14 +226,16 @@
                     android:layout_marginRight="1dp"
                     android:layout_weight="6"
                     android:background="@drawable/shadow_small"
-                    android:src="@mipmap/ic_launcher" />
+                    android:scaleType="fitXY"
+                    android:src="@drawable/temp_i" />
 
                 <ImageView
                     android:layout_width="0dp"
                     android:layout_height="100dp"
                     android:layout_weight="4"
                     android:background="@drawable/shadow_small"
-                    android:src="@mipmap/ic_launcher" />
+                    android:scaleType="fitXY"
+                    android:src="@drawable/temp_j" />
             </LinearLayout>
 
             <LinearLayout
@@ -195,14 +251,16 @@
                     android:layout_marginRight="1dp"
                     android:layout_weight="4.5"
                     android:background="@drawable/shadow_small"
-                    android:src="@mipmap/ic_launcher" />
+                    android:scaleType="fitXY"
+                    android:src="@drawable/temp_k" />
 
                 <ImageView
                     android:layout_width="0dp"
                     android:layout_height="100dp"
                     android:layout_weight="5.5"
                     android:background="@drawable/shadow_small"
-                    android:src="@mipmap/ic_launcher" />
+                    android:scaleType="fitXY"
+                    android:src="@drawable/temp_l" />
             </LinearLayout>
 
         </LinearLayout>
