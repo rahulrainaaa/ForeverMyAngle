@@ -1,20 +1,35 @@
 
 package app.shopping.forevermyangle.model.category;
 
-import java.util.HashMap;
-import java.util.Map;
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 
 public class ProductCategory {
 
+    @SerializedName("id")
+    @Expose
     private Integer id;
+    @SerializedName("name")
+    @Expose
     private String name;
+    @SerializedName("slug")
+    @Expose
     private String slug;
+    @SerializedName("parent")
+    @Expose
     private Integer parent;
+    @SerializedName("description")
+    @Expose
     private String description;
+    @SerializedName("display")
+    @Expose
     private String display;
+    @SerializedName("image")
+    @Expose
     private String image;
+    @SerializedName("count")
+    @Expose
     private Integer count;
-    private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
     public Integer getId() {
         return id;
@@ -78,14 +93,6 @@ public class ProductCategory {
 
     public void setCount(Integer count) {
         this.count = count;
-    }
-
-    public Map<String, Object> getAdditionalProperties() {
-        return this.additionalProperties;
-    }
-
-    public void setAdditionalProperty(String name, Object value) {
-        this.additionalProperties.put(name, value);
     }
 
 }

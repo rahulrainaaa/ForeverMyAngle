@@ -20,6 +20,7 @@ import app.shopping.forevermyangle.R;
 import app.shopping.forevermyangle.adapter.adapterviewflipper.HomeImageViewFlipperAdapter;
 import app.shopping.forevermyangle.adapter.recyclerview.CategoryRecyclerAdapter;
 import app.shopping.forevermyangle.fragment.base.BaseFragment;
+import app.shopping.forevermyangle.model.category.Category;
 import app.shopping.forevermyangle.network.handler.NetworkHandler;
 import app.shopping.forevermyangle.utils.Constants;
 import app.shopping.forevermyangle.utils.Network;
@@ -96,7 +97,7 @@ public class HomeDashboardFragment extends BaseFragment implements View.OnTouchL
 
         // Network Handler to load all categories.
         NetworkHandler networkHandler = new NetworkHandler();
-        networkHandler.httpCreate(1, null, new JSONObject(), Network.URL_GET_ALL_CATEGORIES);
+        networkHandler.httpCreate(1, getActivity(), null, new JSONObject(), Network.URL_GET_ALL_CATEGORIES, Category.class);
         networkHandler.executeGet();
 
         // Size handling method depending resolution.

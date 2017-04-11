@@ -1,17 +1,26 @@
 
 package app.shopping.forevermyangle.model.category;
 
-import java.util.HashMap;
-import java.util.Map;
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 
 public class Params {
 
+    @SerializedName("oauth_consumer_key")
+    @Expose
     private String oauthConsumerKey;
+    @SerializedName("oauth_timestamp")
+    @Expose
     private Integer oauthTimestamp;
+    @SerializedName("oauth_nonce")
+    @Expose
     private String oauthNonce;
+    @SerializedName("oauth_signature_method")
+    @Expose
     private String oauthSignatureMethod;
+    @SerializedName("oauth_signature")
+    @Expose
     private String oauthSignature;
-    private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
     public String getOauthConsumerKey() {
         return oauthConsumerKey;
@@ -51,14 +60,6 @@ public class Params {
 
     public void setOauthSignature(String oauthSignature) {
         this.oauthSignature = oauthSignature;
-    }
-
-    public Map<String, Object> getAdditionalProperties() {
-        return this.additionalProperties;
-    }
-
-    public void setAdditionalProperty(String name, Object value) {
-        this.additionalProperties.put(name, value);
     }
 
 }

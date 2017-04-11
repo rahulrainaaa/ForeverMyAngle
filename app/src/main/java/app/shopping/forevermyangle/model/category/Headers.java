@@ -1,22 +1,41 @@
 
 package app.shopping.forevermyangle.model.category;
 
-import java.util.HashMap;
-import java.util.Map;
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 
 public class Headers {
 
+    @SerializedName("Date")
+    @Expose
     private String date;
+    @SerializedName("Server")
+    @Expose
     private String server;
+    @SerializedName("X-Powered-By")
+    @Expose
     private String xPoweredBy;
+    @SerializedName("Set-Cookie")
+    @Expose
     private String setCookie;
+    @SerializedName("Expires")
+    @Expose
     private String expires;
+    @SerializedName("Cache-Control")
+    @Expose
     private String cacheControl;
+    @SerializedName("Pragma")
+    @Expose
     private String pragma;
+    @SerializedName("Vary")
+    @Expose
     private String vary;
+    @SerializedName("Content-Length")
+    @Expose
     private String contentLength;
+    @SerializedName("Content-Type")
+    @Expose
     private String contentType;
-    private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
     public String getDate() {
         return date;
@@ -96,14 +115,6 @@ public class Headers {
 
     public void setContentType(String contentType) {
         this.contentType = contentType;
-    }
-
-    public Map<String, Object> getAdditionalProperties() {
-        return this.additionalProperties;
-    }
-
-    public void setAdditionalProperty(String name, Object value) {
-        this.additionalProperties.put(name, value);
     }
 
 }

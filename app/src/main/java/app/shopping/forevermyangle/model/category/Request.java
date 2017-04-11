@@ -1,20 +1,33 @@
 
 package app.shopping.forevermyangle.model.category;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 
 public class Request {
 
+    @SerializedName("headers")
+    @Expose
     private List<String> headers = null;
+    @SerializedName("method")
+    @Expose
     private String method;
+    @SerializedName("url")
+    @Expose
     private String url;
+    @SerializedName("params")
+    @Expose
     private Params params;
+    @SerializedName("data")
+    @Expose
     private List<Object> data = null;
+    @SerializedName("body")
+    @Expose
     private Object body;
+    @SerializedName("duration")
+    @Expose
     private Double duration;
-    private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
     public List<String> getHeaders() {
         return headers;
@@ -70,14 +83,6 @@ public class Request {
 
     public void setDuration(Double duration) {
         this.duration = duration;
-    }
-
-    public Map<String, Object> getAdditionalProperties() {
-        return this.additionalProperties;
-    }
-
-    public void setAdditionalProperty(String name, Object value) {
-        this.additionalProperties.put(name, value);
     }
 
 }

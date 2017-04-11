@@ -1,15 +1,21 @@
 
 package app.shopping.forevermyangle.model.category;
 
-import java.util.HashMap;
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 import java.util.List;
-import java.util.Map;
 
-public class Category {
+import app.shopping.forevermyangle.model.base.BaseModel;
 
+public class Category extends BaseModel {
+
+    @SerializedName("product_categories")
+    @Expose
     private List<ProductCategory> productCategories = null;
+    @SerializedName("http")
+    @Expose
     private Http http;
-    private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
     public List<ProductCategory> getProductCategories() {
         return productCategories;
@@ -25,14 +31,6 @@ public class Category {
 
     public void setHttp(Http http) {
         this.http = http;
-    }
-
-    public Map<String, Object> getAdditionalProperties() {
-        return this.additionalProperties;
-    }
-
-    public void setAdditionalProperty(String name, Object value) {
-        this.additionalProperties.put(name, value);
     }
 
 }
