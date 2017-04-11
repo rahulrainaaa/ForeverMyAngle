@@ -9,6 +9,10 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterViewFlipper;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -16,6 +20,9 @@ import app.shopping.forevermyangle.R;
 import app.shopping.forevermyangle.adapter.adapterviewflipper.HomeImageViewFlipperAdapter;
 import app.shopping.forevermyangle.adapter.recyclerview.CategoryRecyclerAdapter;
 import app.shopping.forevermyangle.fragment.base.BaseFragment;
+import app.shopping.forevermyangle.network.handler.NetworkHandler;
+import app.shopping.forevermyangle.utils.Constants;
+import app.shopping.forevermyangle.utils.Network;
 
 public class HomeDashboardFragment extends BaseFragment implements View.OnTouchListener {
 
@@ -27,6 +34,10 @@ public class HomeDashboardFragment extends BaseFragment implements View.OnTouchL
     private CategoryRecyclerAdapter mCategoryRecyclerAdapter = null;
     private ArrayList<String> mCategoryList = new ArrayList<>();
 
+    private ImageView imgCategoryItem1, imgCategoryItem2, imgCategoryItem3, imgCategoryItem4;
+    private ImageView imgBestSellerItem1, imgBestSellerItem2, imgBestSellerItem3, imgBestSellerItem4;
+    private ImageView imgNewArrivalsItem1, imgNewArrivalsItem2, imgNewArrivalsItem3, imgNewArrivalsItem4;
+    private LinearLayout mLayoutBestSeller;
 
     @Nullable
     @Override
@@ -35,7 +46,6 @@ public class HomeDashboardFragment extends BaseFragment implements View.OnTouchL
         mBannerImagesUrl = new String[]{
 
                 "https://www.w3schools.com/css/img_fjords.jpg",
-                "http://www.infocurse.com/wp-content/uploads/2014/11/716988156_1368083660.png",
                 "https://www.w3schools.com/css/paris.jpg"
         };
 
@@ -45,6 +55,24 @@ public class HomeDashboardFragment extends BaseFragment implements View.OnTouchL
         }
 
         View view = inflater.inflate(R.layout.fragment_home_dashboard, container, false);
+
+        // BannerItems Product ImageViews.
+        imgCategoryItem1 = (ImageView) view.findViewById(R.id.imgCategoryItem1);
+        imgCategoryItem2 = (ImageView) view.findViewById(R.id.imgCategoryItem2);
+        imgCategoryItem3 = (ImageView) view.findViewById(R.id.imgCategoryItem3);
+        imgCategoryItem4 = (ImageView) view.findViewById(R.id.imgCategoryItem4);
+
+        mLayoutBestSeller = (LinearLayout) view.findViewById(R.id.layout_bestSeller);
+
+        imgBestSellerItem1 = (ImageView) view.findViewById(R.id.imgBestSellerItem1);
+        imgBestSellerItem2 = (ImageView) view.findViewById(R.id.imgBestSellerItem2);
+        imgBestSellerItem3 = (ImageView) view.findViewById(R.id.imgBestSellerItem3);
+        imgBestSellerItem4 = (ImageView) view.findViewById(R.id.imgBestSellerItem4);
+
+        imgNewArrivalsItem1 = (ImageView) view.findViewById(R.id.imgNewArrivals1);
+        imgNewArrivalsItem2 = (ImageView) view.findViewById(R.id.imgNewArrivals2);
+        imgNewArrivalsItem3 = (ImageView) view.findViewById(R.id.imgNewArrivals3);
+        imgNewArrivalsItem4 = (ImageView) view.findViewById(R.id.imgNewArrivals4);
 
         // Setting up AdapterViewFlipper - Animated image banner.
         mFlipperBanner = (AdapterViewFlipper) view.findViewById(R.id.adapterviewflipper);
@@ -66,6 +94,14 @@ public class HomeDashboardFragment extends BaseFragment implements View.OnTouchL
         mCategoryRecyclerView.setAdapter(mCategoryRecyclerAdapter);
         mCategoryRecyclerAdapter.notifyDataSetChanged();
 
+        // Network Handler to load all categories.
+        NetworkHandler networkHandler = new NetworkHandler();
+        networkHandler.httpCreate(1, null, new JSONObject(), Network.URL_GET_ALL_CATEGORIES);
+        networkHandler.executeGet();
+
+        // Size handling method depending resolution.
+        resolveResolutionDependency();
+
         return view;
     }
 
@@ -79,6 +115,33 @@ public class HomeDashboardFragment extends BaseFragment implements View.OnTouchL
         }
 
         return false;
+    }
+
+    /**
+     * @method resolveResolutionDependency
+     * @desc Method to check and change the dimension of views based on screen resolution.
+     */
+    private void resolveResolutionDependency() {
+
+        // Fix Banner height.
+        int flipperWidth = Integer.valueOf((380 * Constants.RES_WIDTH) / 700);
+        mFlipperBanner.getLayoutParams().height = flipperWidth;
+
+        // fix Display Item size.
+
+        int viewHeight = (16 * Constants.RES_WIDTH) / 60;
+
+        imgCategoryItem1.getLayoutParams().height = viewHeight;
+        imgCategoryItem2.getLayoutParams().height = viewHeight;
+        imgCategoryItem3.getLayoutParams().height = viewHeight;
+        imgCategoryItem4.getLayoutParams().height = viewHeight;
+
+        mLayoutBestSeller.getLayoutParams().height = viewHeight * 2;
+
+        imgNewArrivalsItem1.getLayoutParams().height = viewHeight;
+        imgNewArrivalsItem2.getLayoutParams().height = viewHeight;
+        imgNewArrivalsItem3.getLayoutParams().height = viewHeight;
+        imgNewArrivalsItem4.getLayoutParams().height = viewHeight;
     }
 
 }

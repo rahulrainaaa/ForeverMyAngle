@@ -17,7 +17,7 @@
         <AdapterViewFlipper
             android:id="@+id/adapterviewflipper"
             android:layout_width="match_parent"
-            android:layout_height="210dp" />
+            android:layout_height="440px" />
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rv_category"
@@ -56,6 +56,7 @@
                 android:weightSum="10">
 
                 <ImageView
+                    android:id="@+id/imgCategoryItem1"
                     android:layout_width="0dp"
                     android:layout_height="100dp"
                     android:layout_marginRight="1dp"
@@ -65,6 +66,7 @@
                     android:src="@drawable/temp_a" />
 
                 <ImageView
+                    android:id="@+id/imgCategoryItem2"
                     android:layout_width="0dp"
                     android:layout_height="100dp"
                     android:layout_weight="4"
@@ -81,6 +83,7 @@
                 android:weightSum="10">
 
                 <ImageView
+                    android:id="@+id/imgCategoryItem3"
                     android:layout_width="0dp"
                     android:layout_height="100dp"
                     android:layout_marginRight="1dp"
@@ -90,6 +93,7 @@
                     android:src="@drawable/temp_c" />
 
                 <ImageView
+                    android:id="@+id/imgCategoryItem4"
                     android:layout_width="0dp"
                     android:layout_height="100dp"
                     android:layout_weight="5.5"
@@ -126,32 +130,35 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:id="@+id/layout_bestSeller"
+            android:layout_height="200dp"
             android:orientation="horizontal"
             android:weightSum="2">
 
             <LinearLayout
                 android:layout_width="0dp"
-                android:layout_height="200dp"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:orientation="vertical"
                 android:weightSum="10">
 
                 <ImageView
+                    android:id="@+id/imgBestSellerItem1"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_marginRight="1dp"
-                    android:layout_weight="6"
+                    android:layout_weight="5.5"
                     android:background="@drawable/shadow_small"
                     android:scaleType="fitXY"
                     android:src="@drawable/temp_e" />
 
                 <ImageView
+                    android:id="@+id/imgBestSellerItem3"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_marginRight="1dp"
                     android:layout_marginTop="1dp"
-                    android:layout_weight="4"
+                    android:layout_weight="4.5"
                     android:background="@drawable/shadow_small"
                     android:scaleType="fitXY"
                     android:src="@drawable/temp_f" />
@@ -161,12 +168,13 @@
 
             <LinearLayout
                 android:layout_width="0dp"
-                android:layout_height="200dp"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:orientation="vertical"
                 android:weightSum="10">
 
                 <ImageView
+                    android:id="@+id/imgBestSellerItem2"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_marginRight="1dp"
@@ -176,6 +184,7 @@
                     android:src="@drawable/temp_g" />
 
                 <ImageView
+                    android:id="@+id/imgBestSellerItem4"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_marginRight="1dp"
@@ -221,6 +230,7 @@
                 android:weightSum="10">
 
                 <ImageView
+                    android:id="@+id/imgNewArrivals1"
                     android:layout_width="0dp"
                     android:layout_height="100dp"
                     android:layout_marginRight="1dp"
@@ -230,6 +240,7 @@
                     android:src="@drawable/temp_i" />
 
                 <ImageView
+                    android:id="@+id/imgNewArrivals2"
                     android:layout_width="0dp"
                     android:layout_height="100dp"
                     android:layout_weight="4"
@@ -246,6 +257,7 @@
                 android:weightSum="10">
 
                 <ImageView
+                    android:id="@+id/imgNewArrivals3"
                     android:layout_width="0dp"
                     android:layout_height="100dp"
                     android:layout_marginRight="1dp"
@@ -255,6 +267,7 @@
                     android:src="@drawable/temp_k" />
 
                 <ImageView
+                    android:id="@+id/imgNewArrivals4"
                     android:layout_width="0dp"
                     android:layout_height="100dp"
                     android:layout_weight="5.5"

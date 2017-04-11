@@ -2,11 +2,13 @@ package app.shopping.forevermyangle.activity;
 
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.graphics.Point;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Display;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -16,6 +18,7 @@ import android.widget.Toast;
 import app.shopping.forevermyangle.R;
 import app.shopping.forevermyangle.fragment.base.BaseFragment;
 import app.shopping.forevermyangle.fragment.fragments.HomeDashboardFragment;
+import app.shopping.forevermyangle.utils.Constants;
 
 /**
  * @class DashboardActivity
@@ -37,6 +40,15 @@ public class DashboardActivity extends AppCompatActivity implements BottomNaviga
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // Resolution dependency processing.
+        Display display = getWindowManager().getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+        Constants.RES_WIDTH = size.x;
+        Constants.RES_HEIGHT = size.y;
+
+        Toast.makeText(this, "" + size.x + "\n" + "" + size.y, Toast.LENGTH_LONG).show();
 
         // Set Custom Title.
         View view = getLayoutInflater().inflate(R.layout.app_title, null);
