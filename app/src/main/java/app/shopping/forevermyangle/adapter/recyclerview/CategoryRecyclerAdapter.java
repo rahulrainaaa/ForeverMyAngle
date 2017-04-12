@@ -101,7 +101,7 @@ public class CategoryRecyclerAdapter extends RecyclerView.Adapter<CategoryRecycl
     private void setAnimation(View viewToAnimate, int position) {
         // If the bound view wasn't previously displayed on screen, it's animated
         if (position > lastPosition) {
-            Animation animation = AnimationUtils.loadAnimation(this.activity, android.R.anim.slide_in_left);
+            Animation animation = AnimationUtils.loadAnimation(this.activity, R.anim.category_icons_load);
             viewToAnimate.startAnimation(animation);
             lastPosition = position;
         }

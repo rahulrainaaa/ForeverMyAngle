@@ -11,11 +11,13 @@ import android.view.ViewGroup;
 import android.widget.AdapterViewFlipper;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 import app.shopping.forevermyangle.R;
 import app.shopping.forevermyangle.adapter.adapterviewflipper.HomeImageViewFlipperAdapter;
@@ -44,7 +46,7 @@ public class HomeDashboardFragment extends BaseFragment implements View.OnTouchL
 
     private RecyclerView mCategoryRecyclerView = null;
     private CategoryRecyclerAdapter mCategoryRecyclerAdapter = null;
-    private ArrayList<ProductCategory> mCategoryList = new ArrayList<>();
+    private ArrayList<ProductCategory> mCategoryList = Constants.CATEGORY_LIST;
 
     private ImageView imgCategoryItem1, imgCategoryItem2, imgCategoryItem3, imgCategoryItem4;
     private ImageView imgBestSellerItem1, imgBestSellerItem2, imgBestSellerItem3, imgBestSellerItem4;
@@ -105,9 +107,13 @@ public class HomeDashboardFragment extends BaseFragment implements View.OnTouchL
         mCategoryRecyclerAdapter.notifyDataSetChanged();
 
         // Network Handler to load all categories.
-        NetworkHandler networkHandler = new NetworkHandler();
-        networkHandler.httpCreate(1, getActivity(), this, new JSONObject(), Network.URL_GET_ALL_CATEGORIES, Category.class);
-        networkHandler.executeGet();
+        if (mCategoryList.isEmpty()) {
+            NetworkHandler networkHandler = new NetworkHandler();
+            networkHandler.httpCreate(1, getActivity(), this, new JSONObject(), Network.URL_GET_ALL_CATEGORIES, Category.class);
+            networkHandler.executeGet();
+        } else {
+            // Already received category list data.
+        }
 
         // Size handling method depending resolution.
         resolveResolutionDependency();
@@ -160,8 +166,21 @@ public class HomeDashboardFragment extends BaseFragment implements View.OnTouchL
     @Override
     public void networkSuccessResponse(int requestCode, BaseModel responseModel) {
 
-        if (requestCode == 1) {
-            updateCategories(responseModel);
+        switch (requestCode) {
+            case 1:     // Get all categories.
+
+                Category category = (Category) responseModel;
+                updateCategories(category.getProductCategories());
+                break;
+
+            case 2:
+
+                break;
+
+            default:    // Unknown request code.
+
+                Toast.makeText(getActivity(), "Unhandled network Request Code.", Toast.LENGTH_SHORT).show();
+                break;
         }
     }
 
@@ -176,17 +195,19 @@ public class HomeDashboardFragment extends BaseFragment implements View.OnTouchL
     }
 
     /**
-     * @param responseModel BaseModel Class object.
+     * @param categoryList List of all categories.
      * @method updateCategories
      * @desc Method to reload all categories into recycler view from web response.
      */
-    private void updateCategories(BaseModel responseModel) {
+    private void updateCategories(List<ProductCategory> categoryList) {
+
+        // Clear and reload the data from response and notify with adapter.
         mCategoryList.clear();
-        Category category = (Category) responseModel;
-        Iterator<ProductCategory> categoryIterator = category.getProductCategories().iterator();
+        Iterator<ProductCategory> categoryIterator = categoryList.iterator();
         while (categoryIterator.hasNext()) {
             mCategoryList.add(categoryIterator.next());
         }
         mCategoryRecyclerAdapter.notifyDataSetChanged();
     }
+
 }
