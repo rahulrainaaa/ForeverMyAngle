@@ -15,31 +15,45 @@ import android.widget.LinearLayout;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import app.shopping.forevermyangle.R;
 import app.shopping.forevermyangle.adapter.adapterviewflipper.HomeImageViewFlipperAdapter;
 import app.shopping.forevermyangle.adapter.recyclerview.CategoryRecyclerAdapter;
 import app.shopping.forevermyangle.fragment.base.BaseFragment;
+import app.shopping.forevermyangle.model.base.BaseModel;
 import app.shopping.forevermyangle.model.category.Category;
+import app.shopping.forevermyangle.model.category.ProductCategory;
+import app.shopping.forevermyangle.network.callback.NetworkCallbackListener;
 import app.shopping.forevermyangle.network.handler.NetworkHandler;
 import app.shopping.forevermyangle.utils.Constants;
 import app.shopping.forevermyangle.utils.Network;
 
-public class HomeDashboardFragment extends BaseFragment implements View.OnTouchListener {
+/**
+ * @class HomeDashboardFragment
+ * @desc {@link BaseFragment} fragment class for handling home screen.
+ */
+public class HomeDashboardFragment extends BaseFragment implements View.OnTouchListener, NetworkCallbackListener {
 
+    /**
+     * Class private data members.
+     */
     private AdapterViewFlipper mFlipperBanner = null;
     private HomeImageViewFlipperAdapter mFlipperAdapter = null;
     private String[] mBannerImagesUrl = null;
 
     private RecyclerView mCategoryRecyclerView = null;
     private CategoryRecyclerAdapter mCategoryRecyclerAdapter = null;
-    private ArrayList<String> mCategoryList = new ArrayList<>();
+    private ArrayList<ProductCategory> mCategoryList = new ArrayList<>();
 
     private ImageView imgCategoryItem1, imgCategoryItem2, imgCategoryItem3, imgCategoryItem4;
     private ImageView imgBestSellerItem1, imgBestSellerItem2, imgBestSellerItem3, imgBestSellerItem4;
     private ImageView imgNewArrivalsItem1, imgNewArrivalsItem2, imgNewArrivalsItem3, imgNewArrivalsItem4;
     private LinearLayout mLayoutBestSeller;
 
+    /**
+     * {@link BaseFragment} class methods override.
+     */
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
@@ -49,11 +63,6 @@ public class HomeDashboardFragment extends BaseFragment implements View.OnTouchL
                 "https://www.w3schools.com/css/img_fjords.jpg",
                 "https://www.w3schools.com/css/paris.jpg"
         };
-
-        mCategoryList.add("All");
-        for (int i = 0; i < 100; i++) {
-            mCategoryList.add("Cat " + i);
-        }
 
         View view = inflater.inflate(R.layout.fragment_home_dashboard, container, false);
 
@@ -97,7 +106,7 @@ public class HomeDashboardFragment extends BaseFragment implements View.OnTouchL
 
         // Network Handler to load all categories.
         NetworkHandler networkHandler = new NetworkHandler();
-        networkHandler.httpCreate(1, getActivity(), null, new JSONObject(), Network.URL_GET_ALL_CATEGORIES, Category.class);
+        networkHandler.httpCreate(1, getActivity(), this, new JSONObject(), Network.URL_GET_ALL_CATEGORIES, Category.class);
         networkHandler.executeGet();
 
         // Size handling method depending resolution.
@@ -145,4 +154,39 @@ public class HomeDashboardFragment extends BaseFragment implements View.OnTouchL
         imgNewArrivalsItem4.getLayoutParams().height = viewHeight;
     }
 
+    /**
+     * {@link NetworkCallbackListener} Callback methods implemented.
+     */
+    @Override
+    public void networkSuccessResponse(int requestCode, BaseModel responseModel) {
+
+        if (requestCode == 1) {
+            updateCategories(responseModel);
+        }
+    }
+
+    @Override
+    public void networkFailResponse(int requestCode) {
+
+    }
+
+    @Override
+    public void networkErrorResponse(int requestCode) {
+
+    }
+
+    /**
+     * @param responseModel BaseModel Class object.
+     * @method updateCategories
+     * @desc Method to reload all categories into recycler view from web response.
+     */
+    private void updateCategories(BaseModel responseModel) {
+        mCategoryList.clear();
+        Category category = (Category) responseModel;
+        Iterator<ProductCategory> categoryIterator = category.getProductCategories().iterator();
+        while (categoryIterator.hasNext()) {
+            mCategoryList.add(categoryIterator.next());
+        }
+        mCategoryRecyclerAdapter.notifyDataSetChanged();
+    }
 }

@@ -16,8 +16,15 @@ import org.json.JSONObject;
 import app.shopping.forevermyangle.model.base.BaseModel;
 import app.shopping.forevermyangle.network.callback.NetworkCallbackListener;
 
+/**
+ * @class NetworkHandler
+ * @desc Network Handler Class (using Volley library) for the project.
+ */
 public class NetworkHandler implements Response.Listener<JSONObject>, Response.ErrorListener {
 
+    /**
+     * Class private data members
+     */
     private Activity mActivity = null;
     private String mUrl = null;
     private int mRequestCode = -1;
@@ -25,6 +32,16 @@ public class NetworkHandler implements Response.Listener<JSONObject>, Response.E
     private Class<? extends BaseModel> mClass = null;
     private NetworkCallbackListener mNetworkCallbackListener = null;
 
+    /**
+     * @param requestCode             user specific code to determine the request among multiple.
+     * @param activity
+     * @param networkCallbackListener
+     * @param jsonRequest             API request packet.
+     * @param url                     API url.
+     * @param c                       Response Model class.
+     * @method httpCreate
+     * @desc Method to initialize the class datamembers and create network handler.
+     */
     public void httpCreate(int requestCode, Activity activity, NetworkCallbackListener networkCallbackListener, JSONObject jsonRequest, String url, Class<? extends BaseModel> c) {
 
         this.mUrl = url;
@@ -51,12 +68,11 @@ public class NetworkHandler implements Response.Listener<JSONObject>, Response.E
     @Override
     public void onResponse(JSONObject response) {
 
-        Toast.makeText(mActivity, "" + response.toString(), Toast.LENGTH_LONG).show();
         Gson gson = new Gson();
         try {
             BaseModel model = gson.fromJson(String.valueOf(response), mClass);
-            if (this.mNetworkCallbackListener == null) {
-                mNetworkCallbackListener.networkAPISuccessResponse(this.mRequestCode);
+            if (this.mNetworkCallbackListener != null) {
+                mNetworkCallbackListener.networkSuccessResponse(this.mRequestCode, model);
             }
 
         } catch (Exception e) {
