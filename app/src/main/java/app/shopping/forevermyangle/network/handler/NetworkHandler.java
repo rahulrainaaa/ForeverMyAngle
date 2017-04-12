@@ -52,11 +52,21 @@ public class NetworkHandler implements Response.Listener<JSONObject>, Response.E
         this.mClass = c;
     }
 
+    /**
+     * @method executeGet
+     * @desc Method to execute POST request with the available data.
+     */
     public void executePost() {
 
     }
 
     public void executeGet() {
+
+        if (mUrl == null) {
+
+        } else if (mUrl.isEmpty()) {
+
+        }
 
         RequestQueue requestQueue = Volley.newRequestQueue(mActivity);
 

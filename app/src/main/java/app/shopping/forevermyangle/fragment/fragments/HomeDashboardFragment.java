@@ -38,16 +38,22 @@ import app.shopping.forevermyangle.utils.Network;
 public class HomeDashboardFragment extends BaseFragment implements View.OnTouchListener, NetworkCallbackListener {
 
     /**
-     * Class private data members.
+     * Class private data members for {@link AdapterViewFlipper}.
      */
     private AdapterViewFlipper mFlipperBanner = null;
     private HomeImageViewFlipperAdapter mFlipperAdapter = null;
     private String[] mBannerImagesUrl = null;
 
+    /**
+     * Class private data members for {@link RecyclerView}.
+     */
     private RecyclerView mCategoryRecyclerView = null;
     private CategoryRecyclerAdapter mCategoryRecyclerAdapter = null;
     private ArrayList<ProductCategory> mCategoryList = Constants.CATEGORY_LIST;
 
+    /**
+     * Class private data members for Home screen images.
+     */
     private ImageView imgCategoryItem1, imgCategoryItem2, imgCategoryItem3, imgCategoryItem4;
     private ImageView imgBestSellerItem1, imgBestSellerItem2, imgBestSellerItem3, imgBestSellerItem4;
     private ImageView imgNewArrivalsItem1, imgNewArrivalsItem2, imgNewArrivalsItem3, imgNewArrivalsItem4;
