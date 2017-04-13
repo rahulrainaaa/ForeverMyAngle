@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import app.shopping.forevermyangle.R;
 import app.shopping.forevermyangle.fragment.base.BaseFragment;
+import app.shopping.forevermyangle.fragment.fragments.CategoryDashboardFragment;
 import app.shopping.forevermyangle.fragment.fragments.HomeDashboardFragment;
 import app.shopping.forevermyangle.utils.Constants;
 
@@ -123,13 +124,13 @@ public class DashboardActivity extends AppCompatActivity implements BottomNaviga
                 return new HomeDashboardFragment();
 
             case 2:     // Fragment 2 to load.
-                return new HomeDashboardFragment();
+                return new CategoryDashboardFragment();
 
             case 3:     // Fragment 3 to load.
                 return new HomeDashboardFragment();
 
             case 4:     // Fragment 4 to load.
-                return new HomeDashboardFragment();
+                return new CategoryDashboardFragment();
 
             default:    // Unexpected value for fragment load: Warning.
                 Toast.makeText(this, "Warning: Unexpected value for mFlagFragment=" + mFlagFragment, Toast.LENGTH_SHORT).show();

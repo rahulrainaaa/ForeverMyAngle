@@ -209,9 +209,14 @@ public class HomeDashboardFragment extends BaseFragment implements View.OnTouchL
 
         // Clear and reload the data from response and notify with adapter.
         mCategoryList.clear();
+        Constants.ALL_CATEGORY_LIST.clear();
         Iterator<ProductCategory> categoryIterator = categoryList.iterator();
         while (categoryIterator.hasNext()) {
-            mCategoryList.add(categoryIterator.next());
+            ProductCategory tempData = categoryIterator.next();
+            Constants.ALL_CATEGORY_LIST.add(tempData);
+            if (tempData.getParent() == 0) {
+                mCategoryList.add(tempData);
+            }
         }
         mCategoryRecyclerAdapter.notifyDataSetChanged();
     }
