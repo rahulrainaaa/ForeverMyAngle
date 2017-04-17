@@ -1,6 +1,5 @@
 package app.shopping.forevermyangle.fragment.fragments;
 
-import android.app.ExpandableListActivity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -19,6 +18,10 @@ import app.shopping.forevermyangle.adapter.expandablelistview.CategoryExpandable
 import app.shopping.forevermyangle.fragment.base.BaseFragment;
 import app.shopping.forevermyangle.utils.ExpandableListDataPump;
 
+/**
+ * @class CategoryDashboardFragment
+ * @desc Fragment on dashboard scree to handle the category list.
+ */
 public class CategoryDashboardFragment extends BaseFragment {
 
     private ExpandableListView mCategoryExpandableListView = null;
