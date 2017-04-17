@@ -14,22 +14,39 @@ import java.util.List;
 
 import app.shopping.forevermyangle.R;
 
+/**
+ * @class CategoryExpandableListAdapter
+ * @desc {@link BaseExpandableListAdapter} adapter class for showing expandable listview to show categories and sub-categories.
+ */
 public class CategoryExpandableListAdapter extends BaseExpandableListAdapter {
 
-    private Context context;
-    private List<String> expandableListTitle;
-    private HashMap<String, List<String>> expandableListDetail;
+    /**
+     * Class private data members.`
+     */
+    private Context mContext = null;
+    private List<String> mExpandableListTitle = null;
+    private HashMap<String, List<String>> mExpandableListDetail = null;
 
+    /**
+     * @param context
+     * @param expandableListTitle
+     * @param expandableListDetail
+     * @constructor CategoryExpandableListAdapter
+     * @desc Constructor class to initialize the data object members.
+     */
     public CategoryExpandableListAdapter(Context context, List<String> expandableListTitle,
                                          HashMap<String, List<String>> expandableListDetail) {
-        this.context = context;
-        this.expandableListTitle = expandableListTitle;
-        this.expandableListDetail = expandableListDetail;
+        this.mContext = context;
+        this.mExpandableListTitle = expandableListTitle;
+        this.mExpandableListDetail = expandableListDetail;
     }
 
+    /**
+     * {@link BaseExpandableListAdapter} class override methods.
+     */
     @Override
     public Object getChild(int listPosition, int expandedListPosition) {
-        return this.expandableListDetail.get(this.expandableListTitle.get(listPosition))
+        return this.mExpandableListDetail.get(this.mExpandableListTitle.get(listPosition))
                 .get(expandedListPosition);
     }
 
@@ -43,7 +60,7 @@ public class CategoryExpandableListAdapter extends BaseExpandableListAdapter {
                              boolean isLastChild, View convertView, ViewGroup parent) {
         final String expandedListText = (String) getChild(listPosition, expandedListPosition);
         if (convertView == null) {
-            LayoutInflater layoutInflater = (LayoutInflater) this.context
+            LayoutInflater layoutInflater = (LayoutInflater) this.mContext
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = layoutInflater.inflate(R.layout.elv_subcategory_item, null);
         }
@@ -55,18 +72,18 @@ public class CategoryExpandableListAdapter extends BaseExpandableListAdapter {
 
     @Override
     public int getChildrenCount(int listPosition) {
-        return this.expandableListDetail.get(this.expandableListTitle.get(listPosition))
+        return this.mExpandableListDetail.get(this.mExpandableListTitle.get(listPosition))
                 .size();
     }
 
     @Override
     public Object getGroup(int listPosition) {
-        return this.expandableListTitle.get(listPosition);
+        return this.mExpandableListTitle.get(listPosition);
     }
 
     @Override
     public int getGroupCount() {
-        return this.expandableListTitle.size();
+        return this.mExpandableListTitle.size();
     }
 
     @Override
@@ -79,7 +96,7 @@ public class CategoryExpandableListAdapter extends BaseExpandableListAdapter {
                              View convertView, ViewGroup parent) {
         String listTitle = (String) getGroup(listPosition);
         if (convertView == null) {
-            LayoutInflater layoutInflater = (LayoutInflater) this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            LayoutInflater layoutInflater = (LayoutInflater) this.mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = layoutInflater.inflate(R.layout.elv_category_item, null);
         }
         TextView listTitleTextView = (TextView) convertView.findViewById(R.id.listTitle);

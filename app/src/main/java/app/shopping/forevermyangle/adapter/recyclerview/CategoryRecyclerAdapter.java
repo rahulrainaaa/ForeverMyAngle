@@ -19,12 +19,16 @@ import app.shopping.forevermyangle.model.category.ProductCategory;
 import app.shopping.forevermyangle.utils.Constants;
 import app.shopping.forevermyangle.view.RoundedImageView;
 
+/**
+ * @class CategoryRecyclerAdapter
+ * @desc {@link RecyclerView.Adapter} adapter class for category recycler view on home dashboard fragment.
+ */
 public class CategoryRecyclerAdapter extends RecyclerView.Adapter<CategoryRecyclerAdapter.CategoryItemHolder> {
 
 
     /**
      * @class CategoryItemHolder
-     * @desc ViewHolder for Recycler View items.
+     * @desc {@link RecyclerView.ViewHolder} holder static class for Recycler View items.
      */
     public static class CategoryItemHolder extends RecyclerView.ViewHolder {
         public CardView cv;
@@ -40,21 +44,24 @@ public class CategoryRecyclerAdapter extends RecyclerView.Adapter<CategoryRecycl
     }
 
     /**
-     * {@link CategoryRecyclerAdapter} Class Data members.
+     * private class Data members.
      */
     private List<ProductCategory> categories = null;
     private Activity activity = null;
     private int lastPosition;
 
     /**
-     * @constructor SectionAdapter
-     * @desc Constructor method for SectionAdapter class.
+     * @constructor CategoryRecyclerAdapter
+     * @desc Constructor method for this class.
      */
     public CategoryRecyclerAdapter(Activity activity, List<ProductCategory> categories) {
         this.activity = activity;
         this.categories = categories;
     }
 
+    /**
+     * {@link RecyclerView.Adapter} adapter class override methods.
+     */
     @Override
     public CategoryItemHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_rv_category, parent, false);

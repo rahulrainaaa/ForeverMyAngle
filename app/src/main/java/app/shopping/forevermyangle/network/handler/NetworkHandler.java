@@ -54,12 +54,17 @@ public class NetworkHandler implements Response.Listener<JSONObject>, Response.E
 
     /**
      * @method executeGet
-     * @desc Method to execute POST request with the available data.
+     * @desc Method to execute POST request with the available JSON data.
      */
     public void executePost() {
 
     }
 
+
+    /**
+     * @method executeGet
+     * @desc Method to execute network API call with GET Method via Volley.
+     */
     public void executeGet() {
 
         if (mUrl == null) {
@@ -75,6 +80,9 @@ public class NetworkHandler implements Response.Listener<JSONObject>, Response.E
 
     }
 
+    /**
+     * {@link com.android.volley.Response.Listener} interface implemented method.
+     */
     @Override
     public void onResponse(JSONObject response) {
 
@@ -91,6 +99,9 @@ public class NetworkHandler implements Response.Listener<JSONObject>, Response.E
 
     }
 
+    /**
+     * {@link com.android.volley.Response.ErrorListener} interface method implemented.
+     */
     @Override
     public void onErrorResponse(VolleyError error) {
 

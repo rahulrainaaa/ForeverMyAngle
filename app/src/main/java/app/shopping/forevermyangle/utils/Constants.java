@@ -31,4 +31,10 @@ public class Constants {
      * SQlite Insert Table Queries.
      */
     public static String SQL_I_PRODUCT_CATEGORY = "INSERT INTO product_category (id, name, slug, parent, description, display, image, count) VALUES (?,?,?,?,?,?,?,?);";
+
+    /**
+     * SQLite Delete from Table Query.
+     */
+    public static String SQL_D_PRODUCT_CATEGORY = "DELETE FROM product_category";
+
 }
