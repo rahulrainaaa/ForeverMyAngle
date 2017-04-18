@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 
+import app.shopping.forevermyangle.utils.Constants;
+
 /**
  * @class DBHandler
  * @desc Singleton Class for SQLite Handling.
@@ -21,7 +23,6 @@ class DBHandler {
     private SQLiteDatabase mDatabase = null;    // Database name.
     private boolean mMutex = false;             // true=openDB, false=closeDB.
     private String DB_NAME = "FMADBASE";        //DB Name.
-    private Activity mActivity = null;
 
     /**
      * This class instance.
@@ -41,10 +42,10 @@ class DBHandler {
      * @method openDatabase
      * @desc Method to open database. Close the older, if already open.
      */
-    public void openDatabase() {
+    public void openDatabase(Activity activity) {
         closeDatabase();
         this.DB_NAME = DB_NAME.trim();
-        mDatabase = mActivity.openOrCreateDatabase(DB_NAME, Context.MODE_PRIVATE, null);
+        mDatabase = activity.openOrCreateDatabase(DB_NAME, Context.MODE_PRIVATE, null);
     }
 
     /**
@@ -84,6 +85,7 @@ class DBHandler {
      */
     public void createApplicationDatabaseSchema() {
 
+        mDatabase.execSQL(Constants.SQL_C_PRODUCT_CATEGORY);
     }
 
     /**

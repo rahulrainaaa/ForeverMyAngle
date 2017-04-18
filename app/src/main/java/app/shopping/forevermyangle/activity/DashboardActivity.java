@@ -61,6 +61,7 @@ public class DashboardActivity extends AppCompatActivity implements BottomNaviga
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(this);
         mFragmentManager = getFragmentManager();
+
     }
 
     @Override

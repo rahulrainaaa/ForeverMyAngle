@@ -13,6 +13,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import app.shopping.forevermyangle.R;
+import app.shopping.forevermyangle.model.category.ProductCategory;
 
 /**
  * @class CategoryExpandableListAdapter
@@ -24,8 +25,8 @@ public class CategoryExpandableListAdapter extends BaseExpandableListAdapter {
      * Class private data members.`
      */
     private Context mContext = null;
-    private List<String> mExpandableListTitle = null;
-    private HashMap<String, List<String>> mExpandableListDetail = null;
+    private List<ProductCategory> mTitleCategoryList = null;
+    private HashMap<ProductCategory, List<ProductCategory>> mSubCategoryMap = null;
 
     /**
      * @param context
@@ -34,56 +35,53 @@ public class CategoryExpandableListAdapter extends BaseExpandableListAdapter {
      * @constructor CategoryExpandableListAdapter
      * @desc Constructor class to initialize the data object members.
      */
-    public CategoryExpandableListAdapter(Context context, List<String> expandableListTitle,
-                                         HashMap<String, List<String>> expandableListDetail) {
+    public CategoryExpandableListAdapter(Context context, List<ProductCategory> expandableListTitle,
+                                         HashMap<ProductCategory, List<ProductCategory>> expandableListDetail) {
         this.mContext = context;
-        this.mExpandableListTitle = expandableListTitle;
-        this.mExpandableListDetail = expandableListDetail;
+        this.mTitleCategoryList = expandableListTitle;
+        this.mSubCategoryMap = expandableListDetail;
     }
 
     /**
      * {@link BaseExpandableListAdapter} class override methods.
      */
+
     @Override
-    public Object getChild(int listPosition, int expandedListPosition) {
-        return this.mExpandableListDetail.get(this.mExpandableListTitle.get(listPosition))
-                .get(expandedListPosition);
+    public long getChildId(int titlePosition, int childPosition) {
+        return this.mSubCategoryMap.get(mTitleCategoryList.get(titlePosition)).size();
     }
 
     @Override
-    public long getChildId(int listPosition, int expandedListPosition) {
-        return expandedListPosition;
-    }
+    public View getChildView(int titlePosition, final int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
 
-    @Override
-    public View getChildView(int listPosition, final int expandedListPosition,
-                             boolean isLastChild, View convertView, ViewGroup parent) {
-        final String expandedListText = (String) getChild(listPosition, expandedListPosition);
+        final String expandedListText = mSubCategoryMap.get(mTitleCategoryList.get(titlePosition)).get(childPosition).getName();
         if (convertView == null) {
-            LayoutInflater layoutInflater = (LayoutInflater) this.mContext
-                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            LayoutInflater layoutInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = layoutInflater.inflate(R.layout.elv_subcategory_item, null);
         }
-        TextView expandedListTextView = (TextView) convertView
-                .findViewById(R.id.expandedListItem);
+        TextView expandedListTextView = (TextView) convertView.findViewById(R.id.expandedListItem);
         expandedListTextView.setText(expandedListText);
         return convertView;
     }
 
     @Override
     public int getChildrenCount(int listPosition) {
-        return this.mExpandableListDetail.get(this.mExpandableListTitle.get(listPosition))
-                .size();
+        return mSubCategoryMap.get(mTitleCategoryList.get(listPosition)).size();
     }
 
     @Override
     public Object getGroup(int listPosition) {
-        return this.mExpandableListTitle.get(listPosition);
+        return mTitleCategoryList.get(listPosition);
+    }
+
+    @Override
+    public Object getChild(int groupPosition, int childPosition) {
+        return null;
     }
 
     @Override
     public int getGroupCount() {
-        return this.mExpandableListTitle.size();
+        return mTitleCategoryList.size();
     }
 
     @Override
@@ -92,9 +90,9 @@ public class CategoryExpandableListAdapter extends BaseExpandableListAdapter {
     }
 
     @Override
-    public View getGroupView(int listPosition, boolean isExpanded,
-                             View convertView, ViewGroup parent) {
-        String listTitle = (String) getGroup(listPosition);
+    public View getGroupView(int listPosition, boolean isExpanded, View convertView, ViewGroup parent) {
+
+        String listTitle = mTitleCategoryList.get(listPosition).getName();
         if (convertView == null) {
             LayoutInflater layoutInflater = (LayoutInflater) this.mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = layoutInflater.inflate(R.layout.elv_category_item, null);

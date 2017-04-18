@@ -28,7 +28,9 @@ import app.shopping.forevermyangle.model.category.Category;
 import app.shopping.forevermyangle.model.category.ProductCategory;
 import app.shopping.forevermyangle.network.callback.NetworkCallbackListener;
 import app.shopping.forevermyangle.network.handler.NetworkHandler;
+import app.shopping.forevermyangle.parser.category.CategoryParser;
 import app.shopping.forevermyangle.utils.Constants;
+import app.shopping.forevermyangle.utils.GlobalData;
 import app.shopping.forevermyangle.utils.Network;
 
 /**
@@ -49,7 +51,7 @@ public class HomeDashboardFragment extends BaseFragment implements View.OnTouchL
      */
     private RecyclerView mCategoryRecyclerView = null;
     private CategoryRecyclerAdapter mCategoryRecyclerAdapter = null;
-    private ArrayList<ProductCategory> mCategoryList = Constants.CATEGORY_LIST;
+    private ArrayList<ProductCategory> mCategoryList = new ArrayList<>();
 
     /**
      * Class private data members for Home screen images.
@@ -207,16 +209,15 @@ public class HomeDashboardFragment extends BaseFragment implements View.OnTouchL
      */
     private void updateCategories(List<ProductCategory> categoryList) {
 
-        // Clear and reload the data from response and notify with adapter.
+        // Parse the raw category list.
+        CategoryParser categoryParser = new CategoryParser();
+        categoryParser.parseRawCategoryList(categoryList);
         mCategoryList.clear();
-        Constants.ALL_CATEGORY_LIST.clear();
-        Iterator<ProductCategory> categoryIterator = categoryList.iterator();
-        while (categoryIterator.hasNext()) {
-            ProductCategory tempData = categoryIterator.next();
-            Constants.ALL_CATEGORY_LIST.add(tempData);
-            if (tempData.getParent() == 0) {
-                mCategoryList.add(tempData);
-            }
+
+        // Populate the category into recycler View.
+        Iterator<ProductCategory> iterator = GlobalData.category.keySet().iterator();
+        while (iterator.hasNext()) {
+            mCategoryList.add(iterator.next());
         }
         mCategoryRecyclerAdapter.notifyDataSetChanged();
     }
