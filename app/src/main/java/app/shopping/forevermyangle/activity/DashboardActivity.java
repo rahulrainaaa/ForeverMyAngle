@@ -20,12 +20,13 @@ import app.shopping.forevermyangle.fragment.base.BaseFragment;
 import app.shopping.forevermyangle.fragment.fragments.CategoryDashboardFragment;
 import app.shopping.forevermyangle.fragment.fragments.HomeDashboardFragment;
 import app.shopping.forevermyangle.utils.Constants;
+import app.shopping.forevermyangle.view.FMAActivity;
 
 /**
  * @class DashboardActivity
  * @desc {@link AppCompatActivity} to handle dashboard Activity.
  */
-public class DashboardActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
+public class DashboardActivity extends FMAActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
 
     /**
      * Private data member objects.
@@ -48,8 +49,6 @@ public class DashboardActivity extends AppCompatActivity implements BottomNaviga
         display.getSize(size);
         Constants.RES_WIDTH = size.x;
         Constants.RES_HEIGHT = size.y;
-
-        Toast.makeText(this, "" + size.x + "\n" + "" + size.y, Toast.LENGTH_LONG).show();
 
         // Set Custom Title.
         View view = getLayoutInflater().inflate(R.layout.app_title, null);
@@ -74,6 +73,7 @@ public class DashboardActivity extends AppCompatActivity implements BottomNaviga
     protected void onPause() {
         super.onPause();
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

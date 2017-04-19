@@ -15,6 +15,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import app.shopping.forevermyangle.R;
+import app.shopping.forevermyangle.activity.DashboardActivity;
 import app.shopping.forevermyangle.adapter.expandablelistview.CategoryExpandableListAdapter;
 import app.shopping.forevermyangle.fragment.base.BaseFragment;
 import app.shopping.forevermyangle.model.category.ProductCategory;
@@ -38,6 +39,8 @@ public class CategoryDashboardFragment extends BaseFragment {
         View view = inflater.inflate(R.layout.fragment_category_dashboard, container, false);
         mCategoryExpandableListView = (ExpandableListView) view.findViewById(R.id.category_expandablelist);
 
+
+        //  da.setProgressing(true);
         mSubCategoriesMap = GlobalData.category;
         mCategoryList = new ArrayList<>();
         Iterator<ProductCategory> iterator = mSubCategoriesMap.keySet().iterator();
@@ -53,6 +56,8 @@ public class CategoryDashboardFragment extends BaseFragment {
                 Toast.makeText(getActivity(),
                         mCategoryList.get(groupPosition) + " List Expanded.",
                         Toast.LENGTH_SHORT).show();
+                DashboardActivity da = (DashboardActivity) getActivity();
+                da.showProgressing(null);
             }
         });
 

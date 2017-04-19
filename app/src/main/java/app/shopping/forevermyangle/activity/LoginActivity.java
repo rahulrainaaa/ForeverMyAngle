@@ -7,12 +7,15 @@ import android.view.View;
 import android.widget.Toast;
 
 import app.shopping.forevermyangle.R;
+import app.shopping.forevermyangle.view.FMAProgessDialog;
 
 /**
  * @class LoginActivity
  * @desc Activity for handling Login Activity.
  */
 public class LoginActivity extends FragmentActivity implements View.OnClickListener {
+
+    private FMAProgessDialog mFMAProgessDialog = null;
 
     /**
      * {@link FragmentActivity} class override methods.
@@ -23,6 +26,15 @@ public class LoginActivity extends FragmentActivity implements View.OnClickListe
         setContentView(R.layout.activity_login);
         findViewById(R.id.login_btn).setOnClickListener(this);
         // Picasso.with(this).load(R.drawable.login_bg).into(mLayout);
+        mFMAProgessDialog = new FMAProgessDialog(this);
+
+    }
+
+    @Override
+    protected void onDestroy() {
+        mFMAProgessDialog.dismiss();
+        mFMAProgessDialog = null;
+        super.onDestroy();
     }
 
     /**
@@ -40,5 +52,10 @@ public class LoginActivity extends FragmentActivity implements View.OnClickListe
                 Toast.makeText(this, "Warning: Unhandeled OnClick Event on LoginActivity.", Toast.LENGTH_SHORT).show();
                 break;
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+
     }
 }
