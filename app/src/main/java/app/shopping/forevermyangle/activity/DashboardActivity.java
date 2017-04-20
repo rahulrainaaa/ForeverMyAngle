@@ -105,22 +105,22 @@ public class DashboardActivity extends FMAActivity implements BottomNavigationVi
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.navigation_home:              // Navigation item 1 selected.
+            case R.id.navigation_home:              // Navigation home selected.
 
                 mFlagFragment = 1;
                 break;
 
-            case R.id.navigation_dashboard:         // Navigation item 2 selected.
+            case R.id.navigation_category:         // Navigation category selected.
 
                 mFlagFragment = 2;
                 break;
 
-            case R.id.navigation_notifications:     // Navigation item 3 selected.
+            case R.id.navigation_cart:     // Navigation item cart selected.
 
                 mFlagFragment = 3;
                 break;
 
-            case R.id.navigation_notificationss:    // Navigation item 4 selected.
+            case R.id.navigation_profile:    // Navigation item profile selected.
 
                 mFlagFragment = 4;
                 break;

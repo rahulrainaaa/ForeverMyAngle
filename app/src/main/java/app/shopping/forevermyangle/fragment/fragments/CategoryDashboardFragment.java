@@ -41,11 +41,8 @@ public class CategoryDashboardFragment extends BaseFragment {
 
             @Override
             public void onGroupExpand(int groupPosition) {
-                Toast.makeText(getActivity(),
-                        GlobalData.parentCategories.get(groupPosition) + " List Expanded.",
-                        Toast.LENGTH_SHORT).show();
-                //DashboardActivity da = (DashboardActivity) getActivity();
-                //da.showProgressing(null);
+
+                //expandable list expanded.
             }
         });
 
@@ -53,9 +50,8 @@ public class CategoryDashboardFragment extends BaseFragment {
 
             @Override
             public void onGroupCollapse(int groupPosition) {
-                Toast.makeText(getActivity(),
-                        GlobalData.parentCategories.get(groupPosition) + " List Collapsed.",
-                        Toast.LENGTH_SHORT).show();
+
+                // expandable list collapsed.
 
             }
         });
