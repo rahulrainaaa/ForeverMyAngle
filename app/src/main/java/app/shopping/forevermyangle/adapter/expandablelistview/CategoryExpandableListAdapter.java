@@ -26,7 +26,7 @@ public class CategoryExpandableListAdapter extends BaseExpandableListAdapter {
      */
     private Context mContext = null;
     private List<ProductCategory> mTitleCategoryList = null;
-    private HashMap<ProductCategory, List<ProductCategory>> mSubCategoryMap = null;
+    private HashMap<Integer, List<ProductCategory>> mSubCategoryMap = null;
 
     /**
      * @param context
@@ -36,7 +36,7 @@ public class CategoryExpandableListAdapter extends BaseExpandableListAdapter {
      * @desc Constructor class to initialize the data object members.
      */
     public CategoryExpandableListAdapter(Context context, List<ProductCategory> expandableListTitle,
-                                         HashMap<ProductCategory, List<ProductCategory>> expandableListDetail) {
+                                         HashMap<Integer, List<ProductCategory>> expandableListDetail) {
         this.mContext = context;
         this.mTitleCategoryList = expandableListTitle;
         this.mSubCategoryMap = expandableListDetail;
@@ -48,13 +48,13 @@ public class CategoryExpandableListAdapter extends BaseExpandableListAdapter {
 
     @Override
     public long getChildId(int titlePosition, int childPosition) {
-        return this.mSubCategoryMap.get(mTitleCategoryList.get(titlePosition)).size();
+        return this.mSubCategoryMap.get(titlePosition).size();
     }
 
     @Override
     public View getChildView(int titlePosition, final int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
 
-        final String expandedListText = mSubCategoryMap.get(mTitleCategoryList.get(titlePosition)).get(childPosition).getName();
+        final String expandedListText = mSubCategoryMap.get(titlePosition).get(childPosition).getName();
         if (convertView == null) {
             LayoutInflater layoutInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = layoutInflater.inflate(R.layout.elv_subcategory_item, null);
@@ -66,7 +66,7 @@ public class CategoryExpandableListAdapter extends BaseExpandableListAdapter {
 
     @Override
     public int getChildrenCount(int listPosition) {
-        return mSubCategoryMap.get(mTitleCategoryList.get(listPosition)).size();
+        return mSubCategoryMap.get(listPosition).size();
     }
 
     @Override

@@ -1,6 +1,7 @@
 package app.shopping.forevermyangle.utils;
 
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -15,6 +16,7 @@ public class GlobalData {
     /**
      * Category {@link HashMap<ProductCategory, List<ProductCategory>} for Expandable list view.
      */
-    public static HashMap<ProductCategory, List<ProductCategory>> category = new HashMap<ProductCategory, List<ProductCategory>>();
+    public static HashMap<Integer, List<ProductCategory>> category = new HashMap<Integer, List<ProductCategory>>();
+    public static ArrayList<ProductCategory> parentCategories = new ArrayList<ProductCategory>();
 
 }

@@ -11,4 +11,5 @@
     <!--Menu Strings-->
     <string name="dashboard_menu_search">Search</string>
     <string name="dashboard_menu_cart">Cart</string>
+    <string name="dashboard_menu_wishlist">Wishlist</string>
 </resources>

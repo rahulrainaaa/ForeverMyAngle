@@ -20,6 +20,7 @@ public class CategoryParser extends BaseParser {
 
         // Clean the map and iterate raw data for parent = 0 (main category).
         GlobalData.category.clear();
+        GlobalData.parentCategories.clear();
         Iterator<ProductCategory> categoryIterator = raw.iterator();
 
         while (categoryIterator.hasNext()) {
@@ -27,6 +28,7 @@ public class CategoryParser extends BaseParser {
 
             if (tempData.getParent() == 0) {
 
+                GlobalData.parentCategories.add(tempData);
                 // Iterate the raw data to find sub category of main category.
                 ArrayList<ProductCategory> subCategoryList = new ArrayList<>();
                 Iterator<ProductCategory> subCategoryIterator = raw.iterator();
@@ -38,7 +40,7 @@ public class CategoryParser extends BaseParser {
                         subCategoryList.add(tempSubData);
                     }
                 }
-                GlobalData.category.put(tempData, subCategoryList);
+                GlobalData.category.put(new Integer(GlobalData.parentCategories.size() - 1), subCategoryList);
 
             }
 

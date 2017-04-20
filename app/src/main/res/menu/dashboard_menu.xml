@@ -2,14 +2,14 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/option_menu_a"
+        android:id="@+id/option_menu_search"
         android:icon="@android:drawable/ic_menu_search"
         android:title="@string/dashboard_menu_search"
         app:showAsAction="ifRoom" />
     <item
-        android:id="@+id/option_menu_b"
-        android:icon="@drawable/cart"
-        android:title="@string/dashboard_menu_cart"
+        android:id="@+id/option_menu_wishlist"
+        android:icon="@drawable/wishlist"
+        android:title="@string/dashboard_menu_wishlist"
         app:showAsAction="ifRoom" />
 
 </menu>

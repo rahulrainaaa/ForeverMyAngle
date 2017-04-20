@@ -71,7 +71,6 @@ public class FMAProgessDialog {
 
     public void dismiss() {
 
-        hide();
         alert = null;
         builder = null;
         mTextView = null;

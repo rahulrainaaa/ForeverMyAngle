@@ -9,13 +9,10 @@ import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
 import android.widget.Toast;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 
 import app.shopping.forevermyangle.R;
-import app.shopping.forevermyangle.activity.DashboardActivity;
 import app.shopping.forevermyangle.adapter.expandablelistview.CategoryExpandableListAdapter;
 import app.shopping.forevermyangle.fragment.base.BaseFragment;
 import app.shopping.forevermyangle.model.category.ProductCategory;
@@ -29,8 +26,7 @@ public class CategoryDashboardFragment extends BaseFragment {
 
     private ExpandableListView mCategoryExpandableListView = null;
     private ExpandableListAdapter expandableListAdapter = null;
-    private List<ProductCategory> mCategoryList = null;
-    private HashMap<ProductCategory, List<ProductCategory>> mSubCategoriesMap = null;
+    private HashMap<Integer, List<ProductCategory>> mSubCategoriesMap = null;
 
     @Nullable
     @Override
@@ -39,25 +35,17 @@ public class CategoryDashboardFragment extends BaseFragment {
         View view = inflater.inflate(R.layout.fragment_category_dashboard, container, false);
         mCategoryExpandableListView = (ExpandableListView) view.findViewById(R.id.category_expandablelist);
 
-
-        //  da.setProgressing(true);
-        mSubCategoriesMap = GlobalData.category;
-        mCategoryList = new ArrayList<>();
-        Iterator<ProductCategory> iterator = mSubCategoriesMap.keySet().iterator();
-        while (iterator.hasNext()) {
-            mCategoryList.add(iterator.next());
-        }
-        expandableListAdapter = new CategoryExpandableListAdapter(getActivity(), mCategoryList, mSubCategoriesMap);
+        expandableListAdapter = new CategoryExpandableListAdapter(getActivity(), GlobalData.parentCategories, GlobalData.category);
         mCategoryExpandableListView.setAdapter(expandableListAdapter);
         mCategoryExpandableListView.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
 
             @Override
             public void onGroupExpand(int groupPosition) {
                 Toast.makeText(getActivity(),
-                        mCategoryList.get(groupPosition) + " List Expanded.",
+                        GlobalData.parentCategories.get(groupPosition) + " List Expanded.",
                         Toast.LENGTH_SHORT).show();
-                DashboardActivity da = (DashboardActivity) getActivity();
-                da.showProgressing(null);
+                //DashboardActivity da = (DashboardActivity) getActivity();
+                //da.showProgressing(null);
             }
         });
 
@@ -66,7 +54,7 @@ public class CategoryDashboardFragment extends BaseFragment {
             @Override
             public void onGroupCollapse(int groupPosition) {
                 Toast.makeText(getActivity(),
-                        mCategoryList.get(groupPosition) + " List Collapsed.",
+                        GlobalData.parentCategories.get(groupPosition) + " List Collapsed.",
                         Toast.LENGTH_SHORT).show();
 
             }
@@ -76,14 +64,8 @@ public class CategoryDashboardFragment extends BaseFragment {
             @Override
             public boolean onChildClick(ExpandableListView parent, View v,
                                         int groupPosition, int childPosition, long id) {
-                Toast.makeText(
-                        getActivity(),
-                        mCategoryList.get(groupPosition)
-                                + " -> "
-                                + mSubCategoriesMap.get(
-                                mCategoryList.get(groupPosition)).get(
-                                childPosition), Toast.LENGTH_SHORT
-                ).show();
+                ProductCategory selectedCategory = GlobalData.category.get(groupPosition).get(childPosition);
+                Toast.makeText(getActivity(), "" + selectedCategory.getName(), Toast.LENGTH_SHORT).show();
                 return false;
             }
         });

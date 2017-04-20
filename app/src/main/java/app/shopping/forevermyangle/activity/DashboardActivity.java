@@ -2,6 +2,7 @@ package app.shopping.forevermyangle.activity;
 
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -79,6 +80,21 @@ public class DashboardActivity extends FMAActivity implements BottomNavigationVi
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.dashboard_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()) {
+            case R.id.option_menu_search:
+
+                startActivity(new Intent(this, SearchProductActivity.class));
+                break;
+            case R.id.option_menu_wishlist:
+
+                break;
+        }
         return true;
     }
 

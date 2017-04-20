@@ -16,7 +16,6 @@ import android.widget.Toast;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import app.shopping.forevermyangle.R;
@@ -74,6 +73,7 @@ public class HomeDashboardFragment extends BaseFragment implements View.OnTouchL
                 "https://www.w3schools.com/css/paris.jpg"
         };
 
+        mCategoryList = GlobalData.parentCategories;
         View view = inflater.inflate(R.layout.fragment_home_dashboard, container, false);
 
         // BannerItems Product ImageViews.
@@ -212,13 +212,7 @@ public class HomeDashboardFragment extends BaseFragment implements View.OnTouchL
         // Parse the raw category list.
         CategoryParser categoryParser = new CategoryParser();
         categoryParser.parseRawCategoryList(categoryList);
-        mCategoryList.clear();
 
-        // Populate the category into recycler View.
-        Iterator<ProductCategory> iterator = GlobalData.category.keySet().iterator();
-        while (iterator.hasNext()) {
-            mCategoryList.add(iterator.next());
-        }
         mCategoryRecyclerAdapter.notifyDataSetChanged();
     }
 

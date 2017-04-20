@@ -1,7 +1,6 @@
 package app.shopping.forevermyangle.view;
 
 import android.support.v7.app.AppCompatActivity;
-import android.widget.Toast;
 
 public class FMAActivity extends AppCompatActivity {
 
@@ -27,9 +26,7 @@ public class FMAActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
-        mFMAProgessDialog.dismiss();
         mFMAProgessDialog = null;
-        Toast.makeText(this, "FMA act des", Toast.LENGTH_SHORT).show();
         super.onDestroy();
     }
 }
