@@ -2,7 +2,6 @@ package app.shopping.forevermyangle.network.handler;
 
 
 import android.app.Activity;
-import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -94,9 +93,10 @@ public class NetworkHandler implements Response.Listener<JSONObject>, Response.E
             }
 
         } catch (Exception e) {
-            Toast.makeText(mActivity, "Exception: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+            if (this.mNetworkCallbackListener != null) {
+                mNetworkCallbackListener.networkErrorResponse(this.mRequestCode);
+            }
         }
-
     }
 
     /**
@@ -105,6 +105,8 @@ public class NetworkHandler implements Response.Listener<JSONObject>, Response.E
     @Override
     public void onErrorResponse(VolleyError error) {
 
-        Toast.makeText(mActivity, "" + error.getMessage(), Toast.LENGTH_LONG).show();
+        if (this.mNetworkCallbackListener != null) {
+            mNetworkCallbackListener.networkFailResponse(this.mRequestCode);
+        }
     }
 }

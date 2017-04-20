@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import app.shopping.forevermyangle.R;
+import app.shopping.forevermyangle.activity.DashboardActivity;
 import app.shopping.forevermyangle.adapter.adapterviewflipper.HomeImageViewFlipperAdapter;
 import app.shopping.forevermyangle.adapter.recyclerview.CategoryRecyclerAdapter;
 import app.shopping.forevermyangle.fragment.base.BaseFragment;
@@ -59,6 +60,7 @@ public class HomeDashboardFragment extends BaseFragment implements View.OnTouchL
     private ImageView imgBestSellerItem1, imgBestSellerItem2, imgBestSellerItem3, imgBestSellerItem4;
     private ImageView imgNewArrivalsItem1, imgNewArrivalsItem2, imgNewArrivalsItem3, imgNewArrivalsItem4;
     private LinearLayout mLayoutBestSeller;
+    private DashboardActivity activity;
 
     /**
      * {@link BaseFragment} class methods override.
@@ -66,6 +68,8 @@ public class HomeDashboardFragment extends BaseFragment implements View.OnTouchL
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
+
+        activity = (DashboardActivity) getActivity();
 
         mBannerImagesUrl = new String[]{
 
@@ -116,12 +120,14 @@ public class HomeDashboardFragment extends BaseFragment implements View.OnTouchL
 
         // Network Handler to load all categories.
         if (mCategoryList.isEmpty()) {
+            activity.showProgressing("Loading.");
             NetworkHandler networkHandler = new NetworkHandler();
             networkHandler.httpCreate(1, getActivity(), this, new JSONObject(), Network.URL_GET_ALL_CATEGORIES, Category.class);
             networkHandler.executeGet();
         } else {
             // Already received category list data.
         }
+
 
         // Size handling method depending resolution.
         resolveResolutionDependency();
@@ -177,6 +183,7 @@ public class HomeDashboardFragment extends BaseFragment implements View.OnTouchL
         switch (requestCode) {
             case 1:     // Get all categories.
 
+                activity.hideProgressing();
                 Category category = (Category) responseModel;
                 updateCategories(category.getProductCategories());
                 break;
@@ -195,11 +202,13 @@ public class HomeDashboardFragment extends BaseFragment implements View.OnTouchL
     @Override
     public void networkFailResponse(int requestCode) {
 
+        activity.hideProgressing();
     }
 
     @Override
     public void networkErrorResponse(int requestCode) {
 
+        activity.hideProgressing();
     }
 
     /**
