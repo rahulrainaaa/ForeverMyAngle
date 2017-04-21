@@ -19,6 +19,7 @@ import android.widget.Toast;
 import app.shopping.forevermyangle.R;
 import app.shopping.forevermyangle.fragment.base.BaseFragment;
 import app.shopping.forevermyangle.fragment.fragments.CategoryDashboardFragment;
+import app.shopping.forevermyangle.fragment.fragments.ConnectionFailFragment;
 import app.shopping.forevermyangle.fragment.fragments.HomeDashboardFragment;
 import app.shopping.forevermyangle.utils.Constants;
 import app.shopping.forevermyangle.view.FMAActivity;
@@ -144,7 +145,7 @@ public class DashboardActivity extends FMAActivity implements BottomNavigationVi
                 return new CategoryDashboardFragment();
 
             case 3:     // Fragment 3 to load.
-                return new HomeDashboardFragment();
+                return new ConnectionFailFragment();
 
             case 4:     // Fragment 4 to load.
                 return new CategoryDashboardFragment();
@@ -170,4 +171,27 @@ public class DashboardActivity extends FMAActivity implements BottomNavigationVi
         mFragmentTransaction.commit();                                      // Commit fragment transition finally.
     }
 
+    @Override
+    public void signalMessage(int signal) {
+
+        switch (signal) {
+            case 1:         // Load Connection Page.
+
+                mFragmentTransaction = mFragmentManager.beginTransaction();         // Begin with fragment transaction.
+                if (!mFragmentTransaction.isEmpty()) {                              // Remove older fragment if any.
+                    mFragmentTransaction.remove(mCurrentFragment);
+                }
+                mCurrentFragment = new ConnectionFailFragment();                    // Get a new Fragment for dashboard.
+                mFragmentTransaction.replace(R.id.fragment, mCurrentFragment);      // Replace with new fragment in the container.
+                mFragmentTransaction.commit();
+                break;
+
+            case 2:         // Load Current Page.
+
+                loadFragment();
+            default:
+
+                break;
+        }
+    }
 }

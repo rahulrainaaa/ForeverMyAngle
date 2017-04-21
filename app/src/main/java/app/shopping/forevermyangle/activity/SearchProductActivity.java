@@ -2,7 +2,7 @@ package app.shopping.forevermyangle.activity;
 
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
-import android.widget.ListView;
+import android.widget.GridView;
 
 import java.util.ArrayList;
 
@@ -16,7 +16,7 @@ import app.shopping.forevermyangle.adapter.listviewadapter.ProductListViewAdapte
 
 public class SearchProductActivity extends FragmentActivity {
 
-    private ListView productList = null;
+    private GridView mProductGridList = null;
 
     /**
      * {@link android.support.v7.app.AppCompatActivity} Override methods.
@@ -26,12 +26,12 @@ public class SearchProductActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
 
-        productList = (ListView) findViewById(R.id.product_listview);
+        mProductGridList = (GridView) findViewById(R.id.product_listview);
         ArrayList<String> list = new ArrayList<String>();
         for (int i = 0; i < 200; i++) {
             list.add("" + i);
         }
-        ProductListViewAdapter adapter = new ProductListViewAdapter(this, R.layout.item_listview_product, list);
-        productList.setAdapter(adapter);
+        ProductListViewAdapter adapter = new ProductListViewAdapter(this, R.layout.item_gridview_product, list);
+        mProductGridList.setAdapter(adapter);
     }
 }

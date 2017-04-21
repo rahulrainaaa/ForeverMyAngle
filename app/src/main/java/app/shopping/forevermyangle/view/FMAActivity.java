@@ -2,7 +2,7 @@ package app.shopping.forevermyangle.view;
 
 import android.support.v7.app.AppCompatActivity;
 
-public class FMAActivity extends AppCompatActivity {
+public abstract class FMAActivity extends AppCompatActivity {
 
     private FMAProgessDialog mFMAProgessDialog = null;
 
@@ -29,4 +29,6 @@ public class FMAActivity extends AppCompatActivity {
         mFMAProgessDialog = null;
         super.onDestroy();
     }
+
+    public abstract void signalMessage(int signal);
 }

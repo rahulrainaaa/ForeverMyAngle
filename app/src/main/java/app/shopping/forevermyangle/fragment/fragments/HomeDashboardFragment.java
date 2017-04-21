@@ -203,12 +203,14 @@ public class HomeDashboardFragment extends BaseFragment implements View.OnTouchL
     public void networkFailResponse(int requestCode) {
 
         activity.hideProgressing();
+        activity.signalMessage(1);
     }
 
     @Override
     public void networkErrorResponse(int requestCode) {
 
         activity.hideProgressing();
+        activity.signalMessage(1);
     }
 
     /**
