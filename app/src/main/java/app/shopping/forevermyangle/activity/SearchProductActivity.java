@@ -27,6 +27,7 @@ public class SearchProductActivity extends FragmentActivity {
         setContentView(R.layout.activity_search);
 
         mProductGridList = (GridView) findViewById(R.id.product_listview);
+        mProductGridList.setNumColumns(2);
         ArrayList<String> list = new ArrayList<String>();
         for (int i = 0; i < 200; i++) {
             list.add("" + i);

@@ -64,6 +64,8 @@
         android:id="@+id/product_listview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:verticalSpacing="3dp"
+        android:horizontalSpacing="3dp"
         android:numColumns="2" />
 
 </LinearLayout>

@@ -49,7 +49,7 @@ public class LoginActivity extends FragmentActivity implements View.OnClickListe
                 break;
             default:
 
-                Toast.makeText(this, "Warning: Unhandeled OnClick Event on LoginActivity.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Warning: Unhandled OnClick Event on LoginActivity.", Toast.LENGTH_SHORT).show();
                 break;
         }
     }
