@@ -3,6 +3,8 @@
     package="app.shopping.forevermyangle">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:name=".application.ForeverMyAngelApplication"
@@ -23,8 +25,19 @@
         </activity>
         <activity
             android:name=".activity.DashboardActivity"
-            android:screenOrientation="portrait"></activity>
-        <activity android:name=".activity.SearchProductActivity"></activity>
+            android:screenOrientation="portrait" />
+        <activity android:name=".activity.SearchProductActivity" />
+
+        <receiver
+            android:name=".receiver.ConnectionBroadcastReceiver"
+            android:enabled="true"
+            android:exported="true">
+
+            <intent-filter>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+            </intent-filter>
+
+        </receiver>
     </application>
 
 </manifest>
