@@ -171,6 +171,9 @@ public class DashboardActivity extends FMAActivity implements BottomNavigationVi
         mFragmentTransaction.commit();                                      // Commit fragment transition finally.
     }
 
+    /**
+     * {@link FMAActivity} Override method.
+     */
     @Override
     public void signalMessage(int signal) {
 

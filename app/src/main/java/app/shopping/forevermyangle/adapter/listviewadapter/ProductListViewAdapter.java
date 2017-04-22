@@ -11,6 +11,9 @@ import android.widget.ArrayAdapter;
 
 import java.util.ArrayList;
 
+/**
+ * @class Product
+ */
 public class ProductListViewAdapter extends ArrayAdapter<String> {
 
     Activity mActivity = null;
