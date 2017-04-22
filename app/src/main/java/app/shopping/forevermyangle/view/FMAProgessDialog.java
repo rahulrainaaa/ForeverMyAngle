@@ -48,6 +48,11 @@ public class FMAProgessDialog {
 
     }
 
+    /**
+     * @param message
+     * @method setMessage
+     * @desc Method to set the message for processing dialog. (null for no message).
+     */
     public void setMessage(String message) {
         if (mTextView == null) {
             return;
@@ -55,6 +60,10 @@ public class FMAProgessDialog {
         mTextView.setText(message.trim());
     }
 
+    /**
+     * @method show
+     * @desc Method to show the processing dialog.
+     */
     public void show() {
         if (alert == null) {
             return;
@@ -62,6 +71,10 @@ public class FMAProgessDialog {
         alert.show();
     }
 
+    /**
+     * @method hide
+     * @desc Method to hide the processing dialog.
+     */
     public void hide() {
         if (alert == null) {
             return;
@@ -69,6 +82,10 @@ public class FMAProgessDialog {
         alert.hide();
     }
 
+    /**
+     * @method dismiss
+     * @desc Method to dismiss processing dialog and release the objects.
+     */
     public void dismiss() {
 
         alert = null;
@@ -76,6 +93,8 @@ public class FMAProgessDialog {
         mTextView = null;
         mProgress = null;
         mActivity = null;
+
+        // Init Garbage connection.`
         System.gc();
     }
 

@@ -13,6 +13,9 @@ import android.view.ViewGroup;
  */
 public abstract class BaseFragment extends Fragment {
 
+    /**
+     * {@link Fragment} Class override method.
+     */
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {

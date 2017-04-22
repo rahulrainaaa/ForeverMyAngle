@@ -7,8 +7,12 @@ package app.shopping.forevermyangle.utils;
 public class Network {
 
     /**
-     * URL to get all categorie
+     * URL to get all categories.
      */
-    public static String URL_GET_ALL_CATEGORIES = "http://forevermyangel.com/fma-api.php?action=getallcategories";
+    public static final String URL_GET_ALL_CATEGORIES = "http://forevermyangel.com/fma-api.php?action=getallcategories";
 
+    /**
+     * URL to get product.
+     */
+    public static final String URL_GET_ALL_PRODUCTS = "http://......";
 }

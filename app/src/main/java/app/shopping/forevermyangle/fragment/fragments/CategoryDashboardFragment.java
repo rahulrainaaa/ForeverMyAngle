@@ -24,10 +24,16 @@ import app.shopping.forevermyangle.utils.GlobalData;
  */
 public class CategoryDashboardFragment extends BaseFragment {
 
+    /**
+     * Private class data members.
+     */
     private ExpandableListView mCategoryExpandableListView = null;
     private ExpandableListAdapter expandableListAdapter = null;
     private HashMap<Integer, List<ProductCategory>> mSubCategoriesMap = null;
 
+    /**
+     * {@link BaseFragment} Class override methods.
+     */
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {

@@ -4,10 +4,17 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
-import app.shopping.forevermyangle.receiver.ConnectionBroadcastReceiver;
-
+/**
+ * @class NetworkUtils
+ * @desc Utility class for Network business logic handling.
+ */
 public class NetworkUtils {
 
+    /**
+     * @param context
+     * @return boolean true = connection_available / false = no_connection_available.
+     * @method isOnline
+     */
     public static boolean isOnline(Context context) {
 
         ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);

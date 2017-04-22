@@ -8,7 +8,10 @@ import app.shopping.forevermyangle.model.category.ProductCategory;
 import app.shopping.forevermyangle.parser.BaseParser.BaseParser;
 import app.shopping.forevermyangle.utils.GlobalData;
 
-
+/**
+ * @class CategoryParser
+ * @desc Parser class to parse the category class.
+ */
 public class CategoryParser extends BaseParser {
 
     /**

@@ -8,19 +8,39 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
 /**
- * @class Product
+ * @class ProductListViewAdapter
+ * @desc Adapter class for showing product list on GridView.
  */
 public class ProductListViewAdapter extends ArrayAdapter<String> {
 
-    Activity mActivity = null;
-    LayoutInflater mInflater = null;
-    int mResource;
-    ArrayList<String> mList = null;
+    /**
+     * Private class data members.
+     */
+    private Activity mActivity = null;
+    private LayoutInflater mInflater = null;
+    private int mResource;
+    private ArrayList<String> mList = null;
 
+    /**
+     * @class Holder
+     * @desc Holder class to hold the id (reference) of view.
+     */
+    private static class Holder {
+        private ImageView imgproduct = null;
+        private TextView txtProductName = null;
+        private TextView txtProductPrice = null;
+        private TextView txtproductRate = null;
+    }
+
+    /**
+     * {@link ArrayAdapter<>} class override methods.
+     */
     public ProductListViewAdapter(@NonNull Activity activity, @LayoutRes int resource, ArrayList<String> list) {
         super(activity, resource, list);
 
@@ -34,8 +54,11 @@ public class ProductListViewAdapter extends ArrayAdapter<String> {
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
 
-        View view = mInflater.inflate(mResource, null);
+        if (convertView == null) {
+            convertView = mInflater.inflate(mResource, null);
+        }
 
-        return view;
+
+        return convertView;
     }
 }

@@ -15,9 +15,16 @@ import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.widget.ImageView;
 
+/**
+ * @class RoundedImageView
+ * @desc {@link ImageView} derived class to make it rounded.
+ */
 @SuppressLint("AppCompatCustomView")
 public class RoundedImageView extends ImageView {
 
+    /**
+     * {@link ImageView} class override method.
+     */
     public RoundedImageView(Context context) {
         super(context);
     }
