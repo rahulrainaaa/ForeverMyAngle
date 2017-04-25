@@ -64,8 +64,7 @@ public class CategoryDashboardFragment extends BaseFragment {
 
         mCategoryExpandableListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
             @Override
-            public boolean onChildClick(ExpandableListView parent, View v,
-                                        int groupPosition, int childPosition, long id) {
+            public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
                 ProductCategory selectedCategory = GlobalData.category.get(groupPosition).get(childPosition);
                 Toast.makeText(getActivity(), "" + selectedCategory.getName(), Toast.LENGTH_SHORT).show();
                 return false;

@@ -185,7 +185,11 @@ public class HomeDashboardFragment extends BaseFragment implements View.OnTouchL
 
                 activity.hideProgressing();
                 Category category = (Category) responseModel;
-                updateCategories(category.getProductCategories());
+                int responseCode = category.getHttp().getResponse().getCode();
+                if (responseCode == 200) {
+                    updateCategories(category.getProductCategories());
+                } else {
+                }
                 break;
 
             case 2:
