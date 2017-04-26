@@ -3,6 +3,7 @@ package app.shopping.forevermyangle.network.handler;
 
 import android.app.Activity;
 
+import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -57,6 +58,7 @@ public class NetworkHandler implements Response.Listener<JSONObject>, Response.E
      */
     public void executePost() {
 
+        execute(Request.Method.POST);
     }
 
 
@@ -66,17 +68,19 @@ public class NetworkHandler implements Response.Listener<JSONObject>, Response.E
      */
     public void executeGet() {
 
+        execute(Request.Method.GET);
+    }
+
+    private void execute(int method) {
         if (mUrl == null) {
-
+            return;
         } else if (mUrl.isEmpty()) {
-
+            return;
         }
 
         RequestQueue requestQueue = Volley.newRequestQueue(mActivity);
-
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(mUrl, this, this);
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(method, mUrl, this, this);
         requestQueue.add(jsonObjectRequest);
-
     }
 
     /**

@@ -15,4 +15,9 @@ public class Network {
      * URL to get product.
      */
     public static final String URL_GET_ALL_PRODUCTS = "http://......";
+
+    /**
+     * URL for  FMA user login.
+     */
+    public static final String URL_FMA_USER_LOGIN = "http://forevermyangel.com/wp-json/jwt-auth/v1/token";
 }

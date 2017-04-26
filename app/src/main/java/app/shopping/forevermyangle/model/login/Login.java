@@ -1,12 +1,11 @@
 package app.shopping.forevermyangle.model.login;
 
-
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import app.shopping.forevermyangle.model.base.BaseModel;
 
-public class LoginResponse extends BaseModel {
+public class Login extends BaseModel {
 
     @SerializedName("token")
     @Expose

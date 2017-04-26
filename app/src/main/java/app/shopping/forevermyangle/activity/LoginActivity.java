@@ -4,18 +4,27 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import app.shopping.forevermyangle.R;
+import app.shopping.forevermyangle.model.base.BaseModel;
+import app.shopping.forevermyangle.network.callback.NetworkCallbackListener;
+import app.shopping.forevermyangle.network.handler.NetworkHandler;
+import app.shopping.forevermyangle.utils.Network;
 import app.shopping.forevermyangle.view.FMAProgessDialog;
 
 /**
  * @class LoginActivity
  * @desc Activity for handling Login Activity.
  */
-public class LoginActivity extends FragmentActivity implements View.OnClickListener {
+public class LoginActivity extends FragmentActivity implements View.OnClickListener, NetworkCallbackListener {
 
     private FMAProgessDialog mFMAProgessDialog = null;
+    private TextView mTxtUsername = null;
+    private TextView mTxtPassword = null;
+    private String mStrUsername = null;
+    private String mStrPassword = null;
 
     /**
      * {@link FragmentActivity} class override methods.
@@ -24,8 +33,9 @@ public class LoginActivity extends FragmentActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        mTxtUsername = (TextView) findViewById(R.id.txt_username);
+        mTxtPassword = (TextView) findViewById(R.id.txt_password);
         findViewById(R.id.login_btn).setOnClickListener(this);
-        // Picasso.with(this).load(R.drawable.login_bg).into(mLayout);
         mFMAProgessDialog = new FMAProgessDialog(this);
 
     }
@@ -45,7 +55,7 @@ public class LoginActivity extends FragmentActivity implements View.OnClickListe
         switch (v.getId()) {
             case R.id.login_btn:
 
-                startActivity(new Intent(this, DashboardActivity.class));
+                sendLoginRequest();
                 break;
             default:
 
@@ -56,6 +66,67 @@ public class LoginActivity extends FragmentActivity implements View.OnClickListe
 
     @Override
     public void onBackPressed() {
+
+        startActivity(new Intent(this, DashboardActivity.class));
+        finish();
+    }
+
+    /**
+     * @return boolean true = data valid, false = validation fail.
+     * @method checkValidation
+     * @desc Method to check the username and password field input data validation. true = valid, false = invalid
+     */
+    private boolean checkValidation() {
+
+        boolean validationFlag = true;
+        mStrUsername = mTxtUsername.getText().toString();
+        mStrPassword = mTxtPassword.getText().toString();
+
+        if (mStrUsername.isEmpty()) {
+
+            mTxtUsername.setError("Username cannot be empty");
+            validationFlag = false;
+        }
+        if (mStrPassword.isEmpty()) {
+
+            mTxtPassword.setError("Password cannot be empty");
+            validationFlag = false;
+        }
+
+        mTxtUsername.setError(null);
+        mTxtPassword.setError(null);
+
+        return validationFlag;
+    }
+
+    /**
+     * @method sendLoginRequest
+     * @desc Method to create a request packet and send login request.
+     */
+    public void sendLoginRequest() {
+
+        if (checkValidation()) {
+
+            NetworkHandler networkHandler = new NetworkHandler();
+            networkHandler.httpCreate(1, this, this, null, Network.URL_FMA_USER_LOGIN, BaseModel.class);
+            networkHandler.executePost();
+        } else {
+            // Validation failed for the Username-Password login fields.
+        }
+    }
+
+    @Override
+    public void networkSuccessResponse(int requestCode, BaseModel responseModel) {
+
+    }
+
+    @Override
+    public void networkFailResponse(int requestCode) {
+
+    }
+
+    @Override
+    public void networkErrorResponse(int requestCode) {
 
     }
 }
