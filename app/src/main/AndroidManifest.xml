@@ -26,7 +26,10 @@
         <activity
             android:name=".activity.DashboardActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".activity.SearchProductActivity" />
+
+        <activity
+            android:name=".activity.SearchProductActivity"
+            android:screenOrientation="portrait" />
 
         <receiver
             android:name=".receiver.ConnectionBroadcastReceiver"

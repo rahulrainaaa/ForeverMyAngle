@@ -5,8 +5,16 @@
     android:orientation="vertical">
 
     <ExpandableListView
+        android:layout_marginLeft="1dp"
+        android:layout_marginRight="1dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginBottom="7dp"
         android:id="@+id/category_expandablelist"
+        android:scrollbars="none"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:divider="@color/colorText"
+        android:childDivider="@color/colorText"
+        android:dividerHeight="1dp" />
 
 </LinearLayout>
