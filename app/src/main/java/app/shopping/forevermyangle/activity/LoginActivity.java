@@ -1,5 +1,6 @@
 package app.shopping.forevermyangle.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
@@ -79,8 +80,8 @@ public class LoginActivity extends FragmentActivity implements View.OnClickListe
     private boolean checkValidation() {
 
         boolean validationFlag = true;
-        mStrUsername = mTxtUsername.getText().toString();
-        mStrPassword = mTxtPassword.getText().toString();
+        mStrUsername = mTxtUsername.getText().toString().trim();
+        mStrPassword = mTxtPassword.getText().toString().trim();
 
         if (mStrUsername.isEmpty()) {
 
@@ -91,6 +92,9 @@ public class LoginActivity extends FragmentActivity implements View.OnClickListe
 
             mTxtPassword.setError("Password cannot be empty");
             validationFlag = false;
+        }
+        if (validationFlag == false) {
+            return validationFlag;
         }
 
         mTxtUsername.setError(null);
@@ -129,9 +133,10 @@ public class LoginActivity extends FragmentActivity implements View.OnClickListe
             Login login = (Login) responseModel;
             GlobalData.login = login;
             Gson gson = new Gson();
-            String jsonLoginData = gson.toJson(Login.class);
+            String jsonLoginData = gson.toJson(login);
             getSharedPreferences(Constants.CACHE_NAME, 0).edit().putString(Constants.CACHE_LOGIN, jsonLoginData).commit();
-
+            startActivity(new Intent(this, DashboardActivity.class));
+            finish();
         }
     }
 

@@ -109,8 +109,16 @@ public class NetworkHandler implements Response.Listener<JSONObject>, Response.E
     @Override
     public void onErrorResponse(VolleyError error) {
 
+        String responseMessage = null;
+        if (error.getCause() == null) {
+            responseMessage = error.getLocalizedMessage();
+        } else {
+            responseMessage = error.getCause().getMessage();
+        }
+
+
         if (this.mNetworkCallbackListener != null) {
-            mNetworkCallbackListener.networkFailResponse(this.mRequestCode, error.getMessage());
+            mNetworkCallbackListener.networkFailResponse(this.mRequestCode, responseMessage);
         }
     }
 }
