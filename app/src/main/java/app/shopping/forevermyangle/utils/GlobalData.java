@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import app.shopping.forevermyangle.model.category.ProductCategory;
+import app.shopping.forevermyangle.model.login.Login;
 
 /**
  * @class GlobalData
@@ -19,4 +20,8 @@ public class GlobalData {
     public static HashMap<Integer, List<ProductCategory>> category = new HashMap<Integer, List<ProductCategory>>();
     public static ArrayList<ProductCategory> parentCategories = new ArrayList<ProductCategory>();
 
+    /**
+     * Login Session related data.
+     */
+    public static Login login = null;
 }

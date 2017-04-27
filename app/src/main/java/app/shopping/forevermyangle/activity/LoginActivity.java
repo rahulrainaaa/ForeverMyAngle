@@ -6,6 +6,8 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+
 import org.json.JSONObject;
 
 import app.shopping.forevermyangle.R;
@@ -13,6 +15,8 @@ import app.shopping.forevermyangle.model.base.BaseModel;
 import app.shopping.forevermyangle.model.login.Login;
 import app.shopping.forevermyangle.network.callback.NetworkCallbackListener;
 import app.shopping.forevermyangle.network.handler.NetworkHandler;
+import app.shopping.forevermyangle.utils.Constants;
+import app.shopping.forevermyangle.utils.GlobalData;
 import app.shopping.forevermyangle.utils.Network;
 import app.shopping.forevermyangle.view.FMAProgessDialog;
 
@@ -121,20 +125,35 @@ public class LoginActivity extends FragmentActivity implements View.OnClickListe
     @Override
     public void networkSuccessResponse(int requestCode, BaseModel responseModel) {
         if (requestCode == 1) {
+            mFMAProgessDialog.hide();
             Login login = (Login) responseModel;
-            Toast.makeText(this, "login done", Toast.LENGTH_SHORT).show();
-            
+            GlobalData.login = login;
+            Gson gson = new Gson();
+            String jsonLoginData = gson.toJson(Login.class);
+            getSharedPreferences(Constants.CACHE_NAME, 0).edit().putString(Constants.CACHE_LOGIN, jsonLoginData).commit();
 
         }
     }
 
     @Override
-    public void networkFailResponse(int requestCode) {
-        Toast.makeText(this, "error response in response code ", Toast.LENGTH_SHORT).show();
+    public void networkFailResponse(int requestCode, String message) {
+        mFMAProgessDialog.hide();
+        switch (requestCode) {
+            case 1:
+
+                Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+                break;
+        }
     }
 
     @Override
-    public void networkErrorResponse(int requestCode) {
+    public void networkErrorResponse(int requestCode, String message) {
+        mFMAProgessDialog.hide();
+        switch (requestCode) {
+            case 1:
 
+                Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+                break;
+        }
     }
 }

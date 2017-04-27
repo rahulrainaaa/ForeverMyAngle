@@ -18,16 +18,18 @@ public interface NetworkCallbackListener {
 
     /**
      * @param requestCode
+     * @param message
      * @callback networkFailResponse
      * @desc Callback method for Fail in server response, connection error. Server status code != 200.
      */
-    public void networkFailResponse(int requestCode);
+    public void networkFailResponse(int requestCode, String message);
 
     /**
      * @param requestCode
+     * @param message
      * @callback networkErrorResponse
      * @desc Callback Method for Error/Exception in response parsing when server response status code = 200 (Success).
      */
-    public void networkErrorResponse(int requestCode);
+    public void networkErrorResponse(int requestCode, String message);
 
 }

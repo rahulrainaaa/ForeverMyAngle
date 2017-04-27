@@ -98,7 +98,7 @@ public class NetworkHandler implements Response.Listener<JSONObject>, Response.E
 
         } catch (Exception e) {
             if (this.mNetworkCallbackListener != null) {
-                mNetworkCallbackListener.networkErrorResponse(this.mRequestCode);
+                mNetworkCallbackListener.networkErrorResponse(this.mRequestCode, e.getMessage());
             }
         }
     }
@@ -110,7 +110,7 @@ public class NetworkHandler implements Response.Listener<JSONObject>, Response.E
     public void onErrorResponse(VolleyError error) {
 
         if (this.mNetworkCallbackListener != null) {
-            mNetworkCallbackListener.networkFailResponse(this.mRequestCode);
+            mNetworkCallbackListener.networkFailResponse(this.mRequestCode, error.getMessage());
         }
     }
 }

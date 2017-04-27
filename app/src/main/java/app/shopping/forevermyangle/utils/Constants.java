@@ -12,5 +12,9 @@ public class Constants {
     public static int RES_WIDTH = 0;
     public static int RES_HEIGHT = 0;
 
-
+    /**
+     * Cache Handling values.
+     */
+    public static String CACHE_NAME = "FMACache";
+    public static String CACHE_LOGIN = "LOGIN_DATA";
 }
