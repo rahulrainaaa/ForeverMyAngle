@@ -3,11 +3,13 @@ package app.shopping.forevermyangle.utils;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+
 /**
- * @class CacheHandler
- * @desc Class to handle the method for SharedPreferences to save and retrieve data values from cache.
+ * @class CacheUtils
+ * @desc Class to handle SharedPreferences methods.
  */
-public class CacheHandler {
+
+class CacheUtils {
 
     /**
      * class private constants.
@@ -17,20 +19,24 @@ public class CacheHandler {
     /**
      * Class private data members.
      */
+    private static final CacheUtils ourInstance = new CacheUtils();
     private SharedPreferences.Editor mEditor = null;
     private SharedPreferences mSharedPreferences = null;
     private Context mContext = null;
-    private static CacheHandler mCacheHandler = new CacheHandler();
 
     /**
      * @method getInstance
      * @desc Method to get the instance of this class.
      */
-    public CacheHandler getInstance(Context context) {
-
-        return mCacheHandler;
+    static CacheUtils getInstance() {
+        return ourInstance;
     }
 
+    /**
+     * @param context
+     * @method setContext
+     * @desc Method to save the context.
+     */
     public void setContext(Context context) {
 
         this.mContext = context;
@@ -59,4 +65,5 @@ public class CacheHandler {
 
         return mSharedPreferences.getString(key.trim(), defVal);
     }
+
 }
