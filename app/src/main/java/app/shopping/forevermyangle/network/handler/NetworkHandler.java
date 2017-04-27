@@ -79,7 +79,7 @@ public class NetworkHandler implements Response.Listener<JSONObject>, Response.E
         }
 
         RequestQueue requestQueue = Volley.newRequestQueue(mActivity);
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(method, mUrl, this, this);
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(method, mUrl, mJsonRequest.toString(), this, this);
         requestQueue.add(jsonObjectRequest);
     }
 

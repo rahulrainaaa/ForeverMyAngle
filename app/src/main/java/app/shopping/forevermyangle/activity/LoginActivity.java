@@ -1,14 +1,16 @@
 package app.shopping.forevermyangle.activity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONObject;
+
 import app.shopping.forevermyangle.R;
 import app.shopping.forevermyangle.model.base.BaseModel;
+import app.shopping.forevermyangle.model.login.Login;
 import app.shopping.forevermyangle.network.callback.NetworkCallbackListener;
 import app.shopping.forevermyangle.network.handler.NetworkHandler;
 import app.shopping.forevermyangle.utils.Network;
@@ -21,6 +23,7 @@ import app.shopping.forevermyangle.view.FMAProgessDialog;
 public class LoginActivity extends FragmentActivity implements View.OnClickListener, NetworkCallbackListener {
 
     private FMAProgessDialog mFMAProgessDialog = null;
+    private NetworkHandler mNetworkHandler = null;
     private TextView mTxtUsername = null;
     private TextView mTxtPassword = null;
     private String mStrUsername = null;
@@ -64,13 +67,6 @@ public class LoginActivity extends FragmentActivity implements View.OnClickListe
         }
     }
 
-    @Override
-    public void onBackPressed() {
-
-        startActivity(new Intent(this, DashboardActivity.class));
-        finish();
-    }
-
     /**
      * @return boolean true = data valid, false = validation fail.
      * @method checkValidation
@@ -106,10 +102,17 @@ public class LoginActivity extends FragmentActivity implements View.OnClickListe
     public void sendLoginRequest() {
 
         if (checkValidation()) {
+            JSONObject jsonRequest = new JSONObject();
+            try {
+                jsonRequest.put("username", mStrUsername.trim());
+                jsonRequest.put("password", mStrPassword.trim());
+            } catch (Exception exception) {
 
-            NetworkHandler networkHandler = new NetworkHandler();
-            networkHandler.httpCreate(1, this, this, null, Network.URL_FMA_USER_LOGIN, BaseModel.class);
-            networkHandler.executePost();
+            }
+            mNetworkHandler = new NetworkHandler();
+            mNetworkHandler.httpCreate(1, this, this, jsonRequest, Network.URL_FMA_USER_LOGIN, Login.class);
+            mFMAProgessDialog.show();
+            mNetworkHandler.executePost();
         } else {
             // Validation failed for the Username-Password login fields.
         }
@@ -117,12 +120,15 @@ public class LoginActivity extends FragmentActivity implements View.OnClickListe
 
     @Override
     public void networkSuccessResponse(int requestCode, BaseModel responseModel) {
-
+        if (requestCode == 1) {
+            Login login = (Login) responseModel;
+            Toast.makeText(this, "login done", Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override
     public void networkFailResponse(int requestCode) {
-
+        Toast.makeText(this, "error response in response code ", Toast.LENGTH_SHORT).show();
     }
 
     @Override
