@@ -19,7 +19,6 @@
             android:launchMode="singleInstance"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize|stateHidden" />
-
         <activity
             android:name=".activity.DashboardActivity"
             android:launchMode="singleInstance"
@@ -30,21 +29,23 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".activity.SearchProductActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".activity.SplashActivity"
             android:screenOrientation="portrait" />
 
         <receiver
             android:name=".receiver.ConnectionBroadcastReceiver"
             android:enabled="true"
             android:exported="true">
-
             <intent-filter>
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
             </intent-filter>
-
         </receiver>
+
     </application>
 
 </manifest>

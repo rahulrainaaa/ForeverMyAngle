@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center|left"
-    android:orientation="horizontal">
+    android:background="@color/colorBorder"
+    android:gravity="center"
+    android:orientation="vertical">
 
     <ImageView
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:src="@drawable/logo_fx" />
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@drawable/f_splash" />
 
     <TextView
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:paddingLeft="10dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:text="FOREVER MY ANGEL"
         android:textColor="@color/colorText"
         android:textSize="12sp"
