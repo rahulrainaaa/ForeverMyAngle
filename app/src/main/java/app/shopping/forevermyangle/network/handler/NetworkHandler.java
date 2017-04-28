@@ -53,6 +53,15 @@ public class NetworkHandler implements Response.Listener<JSONObject>, Response.E
     }
 
     /**
+     * @method stopExecute
+     * @desc Method to remove callback and stop the network api call execution.
+     */
+    public void stopExecute() {
+
+        mNetworkCallbackListener = null;
+    }
+
+    /**
      * @method executeGet
      * @desc Method to execute POST request with the available JSON data.
      */
@@ -111,9 +120,9 @@ public class NetworkHandler implements Response.Listener<JSONObject>, Response.E
 
         String responseMessage = null;
         if (error.getCause() == null) {
-            responseMessage = error.getLocalizedMessage();
+            responseMessage = error.getMessage();       // API authentication fail error.
         } else {
-            responseMessage = error.getCause().getMessage();
+            responseMessage = error.getCause().getMessage();    // Network issue.
         }
 
 

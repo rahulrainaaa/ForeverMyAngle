@@ -178,7 +178,7 @@ public class DashboardActivity extends FMAActivity implements BottomNavigationVi
     public void signalMessage(int signal) {
 
         switch (signal) {
-            case 1:         // Load Connection Page.
+            case 1:         // Load Connection Page fragment.
 
                 mFragmentTransaction = mFragmentManager.beginTransaction();         // Begin with fragment transaction.
                 if (!mFragmentTransaction.isEmpty()) {                              // Remove older fragment if any.

@@ -126,15 +126,22 @@ public class LoginActivity extends FragmentActivity implements View.OnClickListe
         }
     }
 
+    /**
+     * {@link NetworkCallbackListener} interface callback methods.
+     */
     @Override
     public void networkSuccessResponse(int requestCode, BaseModel responseModel) {
-        if (requestCode == 1) {
+        if (requestCode == 1) {     // Success Login Response.
             mFMAProgessDialog.hide();
+
+            // Save the login model in sharedPreferences.
             Login login = (Login) responseModel;
             GlobalData.login = login;
             Gson gson = new Gson();
             String jsonLoginData = gson.toJson(login);
             getSharedPreferences(Constants.CACHE_NAME, 0).edit().putString(Constants.CACHE_LOGIN, jsonLoginData).commit();
+
+            // Start the new activity.
             startActivity(new Intent(this, DashboardActivity.class));
             finish();
         }
@@ -143,10 +150,15 @@ public class LoginActivity extends FragmentActivity implements View.OnClickListe
     @Override
     public void networkFailResponse(int requestCode, String message) {
         mFMAProgessDialog.hide();
-        switch (requestCode) {
+        switch (requestCode) {      // Login Response.
             case 1:
 
-                Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+                mTxtPassword.setText("");
+                if (message == null) {
+                    Toast.makeText(this, "Invalid Credentials.", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+                }
                 break;
         }
     }
@@ -155,9 +167,14 @@ public class LoginActivity extends FragmentActivity implements View.OnClickListe
     public void networkErrorResponse(int requestCode, String message) {
         mFMAProgessDialog.hide();
         switch (requestCode) {
-            case 1:
+            case 1:         // Login Response.
 
-                Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+                mTxtPassword.setText("");
+                if (message == null) {
+                    Toast.makeText(this, "Invalid Credentials.", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+                }
                 break;
         }
     }
