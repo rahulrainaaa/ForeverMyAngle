@@ -230,5 +230,4 @@ public class HomeDashboardFragment extends BaseFragment implements View.OnTouchL
 
         mCategoryRecyclerAdapter.notifyDataSetChanged();
     }
-
 }

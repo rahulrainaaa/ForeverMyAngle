@@ -24,4 +24,5 @@ public class GlobalData {
      * Login Session related data.
      */
     public static Login login = null;
+
 }
