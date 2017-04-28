@@ -1,9 +1,10 @@
-package app.shopping.forevermyangle.receiver;
+package app.shopping.forevermyangle.receiver.receiverClass;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.widget.Toast;
+
+import app.shopping.forevermyangle.utils.GlobalData;
 
 /**
  * @class ConnectionBroadcastReceiver
@@ -16,9 +17,10 @@ public class ConnectionBroadcastReceiver extends BroadcastReceiver {
      */
     @Override
     public void onReceive(Context context, Intent intent) {
-        Toast.makeText(context, "connection change : FMA BCR", Toast.LENGTH_SHORT).show();
 
+        // Send the callback if there is an existing instance.
+        if (GlobalData.connectionCallback != null) {
+            GlobalData.connectionCallback.networkConnectionStateChange();
+        }
     }
-
-
 }

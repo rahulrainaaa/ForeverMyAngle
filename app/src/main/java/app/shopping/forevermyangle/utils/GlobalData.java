@@ -7,6 +7,7 @@ import java.util.List;
 
 import app.shopping.forevermyangle.model.category.ProductCategory;
 import app.shopping.forevermyangle.model.login.Login;
+import app.shopping.forevermyangle.receiver.callback.ConnectionReceiverCallback;
 
 /**
  * @class GlobalData
@@ -24,5 +25,10 @@ public class GlobalData {
      * Login Session related data.
      */
     public static Login login = null;
+
+    /**
+     * Network callback interface
+     */
+    public static ConnectionReceiverCallback connectionCallback = null;
 
 }
