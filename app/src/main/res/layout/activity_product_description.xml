@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/bottom_panel">
@@ -12,6 +12,25 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+
+            <StackView
+                android:id="@+id/stackview"
+                android:layout_width="match_parent"
+                android:layout_height="196dp"
+                android:layout_margin="5dp"
+                android:alwaysDrawnWithCache="false"
+                android:animateFirstView="true"
+                android:animateLayoutChanges="true"
+                android:elevation="100dp"
+                android:fitsSystemWindows="true"
+                android:layoutDirection="rtl"
+                android:layoutMode="opticalBounds"
+                android:orientation="horizontal"
+                android:outlineProvider="paddedBounds"
+                android:overScrollMode="ifContentScrolls"
+                android:pointerIcon="wait"
+                android:soundEffectsEnabled="true"
+                android:verticalScrollbarPosition="right" />
 
             <ImageView
                 android:layout_width="match_parent"
@@ -75,12 +94,21 @@
 
             </HorizontalScrollView>
 
+
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="3dp"
                 android:gravity="center"
                 android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="Luxuary Necklace"
+                    android:textSize="17dp" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -128,12 +156,6 @@
 
                 </LinearLayout>
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="Luxuary Necklace"
-                    android:textSize="17dp" />
 
             </LinearLayout>
 
@@ -149,25 +171,33 @@
 
         </LinearLayout>
 
-    </ScrollView>
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/bottom_panel"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:background="#c0504e"
         android:gravity="center"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:weightSum="2">
 
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="wrap_content"
+        <Button
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:layout_marginTop="8dp"
-            android:text="FOREVER MY ANGEL"
-            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:layout_margin="4dp"
+            android:layout_weight="1"
+            android:background="@color/colorPrimaryDark"
+            android:text="Add To Wishlist"
+            android:textColor="#ffffff" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            android:layout_weight="1"
+            android:background="@color/colorBorder"
+            android:text="Add To Cart"
             android:textColor="#ffffff" />
 
     </LinearLayout>
