@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/bottom_panel">
@@ -12,25 +12,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-
-            <StackView
-                android:id="@+id/stackview"
-                android:layout_width="match_parent"
-                android:layout_height="196dp"
-                android:layout_margin="5dp"
-                android:alwaysDrawnWithCache="false"
-                android:animateFirstView="true"
-                android:animateLayoutChanges="true"
-                android:elevation="100dp"
-                android:fitsSystemWindows="true"
-                android:layoutDirection="rtl"
-                android:layoutMode="opticalBounds"
-                android:orientation="horizontal"
-                android:outlineProvider="paddedBounds"
-                android:overScrollMode="ifContentScrolls"
-                android:pointerIcon="wait"
-                android:soundEffectsEnabled="true"
-                android:verticalScrollbarPosition="right" />
 
             <ImageView
                 android:layout_width="match_parent"
@@ -93,7 +74,6 @@
                 </LinearLayout>
 
             </HorizontalScrollView>
-
 
 
             <LinearLayout
@@ -171,7 +151,7 @@
 
         </LinearLayout>
 
-    </LinearLayout>
+    </ScrollView>
 
     <LinearLayout
         android:id="@+id/bottom_panel"
