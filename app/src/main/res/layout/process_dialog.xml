@@ -14,7 +14,6 @@
         android:id="@+id/process_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="Loading..." />
+        android:gravity="center" />
 
 </LinearLayout>

@@ -27,7 +27,7 @@ public class GlobalData {
     public static Login login = null;
 
     /**
-     * Network callback interface
+     * Network Found Receiver callback interface.
      */
     public static ConnectionReceiverCallback connectionCallback = null;
 
