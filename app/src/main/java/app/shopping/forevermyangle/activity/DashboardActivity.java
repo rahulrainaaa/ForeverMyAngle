@@ -21,14 +21,16 @@ import app.shopping.forevermyangle.fragment.base.BaseFragment;
 import app.shopping.forevermyangle.fragment.fragments.CategoryDashboardFragment;
 import app.shopping.forevermyangle.fragment.fragments.ConnectionFailFragment;
 import app.shopping.forevermyangle.fragment.fragments.HomeDashboardFragment;
+import app.shopping.forevermyangle.receiver.callback.ConnectionReceiverCallback;
 import app.shopping.forevermyangle.utils.Constants;
+import app.shopping.forevermyangle.utils.GlobalData;
 import app.shopping.forevermyangle.view.FMAActivity;
 
 /**
  * @class DashboardActivity
  * @desc {@link AppCompatActivity} to handle dashboard Activity.
  */
-public class DashboardActivity extends FMAActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
+public class DashboardActivity extends FMAActivity implements BottomNavigationView.OnNavigationItemSelectedListener, ConnectionReceiverCallback {
 
     /**
      * Private data member objects.
@@ -69,10 +71,12 @@ public class DashboardActivity extends FMAActivity implements BottomNavigationVi
     protected void onResume() {
         super.onResume();
         loadFragment();
+        GlobalData.connectionCallback = this;
     }
 
     @Override
     protected void onPause() {
+        GlobalData.connectionCallback = null;
         super.onPause();
     }
 
@@ -196,5 +200,13 @@ public class DashboardActivity extends FMAActivity implements BottomNavigationVi
 
                 break;
         }
+    }
+
+    /**
+     * {@link ConnectionReceiverCallback} interface callback method.
+     */
+    @Override
+    public void networkConnectionStateChange() {
+        signalMessage(2);
     }
 }

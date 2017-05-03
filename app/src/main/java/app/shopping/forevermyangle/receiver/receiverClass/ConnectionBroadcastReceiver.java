@@ -21,6 +21,7 @@ public class ConnectionBroadcastReceiver extends BroadcastReceiver {
         // Send the callback if there is an existing instance.
         if (GlobalData.connectionCallback != null) {
             GlobalData.connectionCallback.networkConnectionStateChange();
+
         }
     }
 }

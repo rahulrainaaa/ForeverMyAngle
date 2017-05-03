@@ -29,7 +29,6 @@ import app.shopping.forevermyangle.model.category.ProductCategory;
 import app.shopping.forevermyangle.network.callback.NetworkCallbackListener;
 import app.shopping.forevermyangle.network.handler.NetworkHandler;
 import app.shopping.forevermyangle.parser.category.CategoryParser;
-import app.shopping.forevermyangle.receiver.callback.ConnectionReceiverCallback;
 import app.shopping.forevermyangle.utils.Constants;
 import app.shopping.forevermyangle.utils.GlobalData;
 import app.shopping.forevermyangle.utils.Network;
@@ -38,7 +37,7 @@ import app.shopping.forevermyangle.utils.Network;
  * @class HomeDashboardFragment
  * @desc {@link BaseFragment} fragment class for handling home screen.
  */
-public class HomeDashboardFragment extends BaseFragment implements View.OnTouchListener, NetworkCallbackListener, ConnectionReceiverCallback {
+public class HomeDashboardFragment extends BaseFragment implements View.OnTouchListener, NetworkCallbackListener {
 
     /**
      * Class private data members for {@link AdapterViewFlipper}.
@@ -129,7 +128,6 @@ public class HomeDashboardFragment extends BaseFragment implements View.OnTouchL
             // Already received category list data.
         }
 
-
         // Size handling method depending resolution.
         resolveResolutionDependency();
 
@@ -146,18 +144,6 @@ public class HomeDashboardFragment extends BaseFragment implements View.OnTouchL
         }
 
         return false;
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        GlobalData.connectionCallback = this;
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        GlobalData.connectionCallback = null;
     }
 
     /**
@@ -244,17 +230,4 @@ public class HomeDashboardFragment extends BaseFragment implements View.OnTouchL
         mCategoryRecyclerAdapter.notifyDataSetChanged();
     }
 
-    @Override
-    public void networkConnectionStateChange() {
-        // Network Handler to load all categories.
-        if (mCategoryList.isEmpty()) {
-            Toast.makeText(activity, "Refreshing Page", Toast.LENGTH_SHORT).show();
-            activity.showProgressing("");
-            NetworkHandler networkHandler = new NetworkHandler();
-            networkHandler.httpCreate(1, getActivity(), this, new JSONObject(), Network.URL_GET_ALL_CATEGORIES, Category.class);
-            networkHandler.executeGet();
-        } else {
-            // Already received category list data.
-        }
-    }
 }
