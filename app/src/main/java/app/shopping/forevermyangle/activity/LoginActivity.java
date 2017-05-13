@@ -11,6 +11,8 @@ import com.google.gson.Gson;
 
 import org.json.JSONObject;
 
+import java.util.List;
+
 import app.shopping.forevermyangle.R;
 import app.shopping.forevermyangle.model.base.BaseModel;
 import app.shopping.forevermyangle.model.login.Login;
@@ -18,7 +20,6 @@ import app.shopping.forevermyangle.network.callback.NetworkCallbackListener;
 import app.shopping.forevermyangle.network.handler.NetworkHandler;
 import app.shopping.forevermyangle.utils.Constants;
 import app.shopping.forevermyangle.utils.GlobalData;
-import app.shopping.forevermyangle.utils.Network;
 import app.shopping.forevermyangle.view.FMAProgessDialog;
 
 /**
@@ -117,10 +118,10 @@ public class LoginActivity extends FragmentActivity implements View.OnClickListe
             } catch (Exception exception) {
 
             }
-            mNetworkHandler = new NetworkHandler();
-            mNetworkHandler.httpCreate(1, this, this, jsonRequest, Network.URL_FMA_USER_LOGIN, Login.class);
-            mFMAProgessDialog.show();
-            mNetworkHandler.executePost();
+//            mNetworkHandler = new NetworkHandler();
+//            mNetworkHandler.httpCreate(1, this, this, jsonRequest, Network.URL_FMA_USER_LOGIN, Login.class);
+//            mFMAProgessDialog.show();
+//            mNetworkHandler.executePost();
         } else {
             // Validation failed for the Username-Password login fields.
         }
@@ -130,7 +131,7 @@ public class LoginActivity extends FragmentActivity implements View.OnClickListe
      * {@link NetworkCallbackListener} interface callback methods.
      */
     @Override
-    public void networkSuccessResponse(int requestCode, BaseModel responseModel) {
+    public void networkSuccessResponse(int requestCode, BaseModel responseModel, List<? extends BaseModel> list) {
         if (requestCode == 1) {     // Success Login Response.
             mFMAProgessDialog.hide();
 
@@ -152,22 +153,6 @@ public class LoginActivity extends FragmentActivity implements View.OnClickListe
         mFMAProgessDialog.hide();
         switch (requestCode) {      // Login Response.
             case 1:
-
-                mTxtPassword.setText("");
-                if (message == null) {
-                    Toast.makeText(this, "Invalid Credentials.", Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
-                }
-                break;
-        }
-    }
-
-    @Override
-    public void networkErrorResponse(int requestCode, String message) {
-        mFMAProgessDialog.hide();
-        switch (requestCode) {
-            case 1:         // Login Response.
 
                 mTxtPassword.setText("");
                 if (message == null) {

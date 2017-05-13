@@ -25,7 +25,6 @@ import app.shopping.forevermyangle.adapter.recyclerview.CategoryRecyclerAdapter;
 import app.shopping.forevermyangle.fragment.base.BaseFragment;
 import app.shopping.forevermyangle.model.base.BaseModel;
 import app.shopping.forevermyangle.model.category.Category;
-import app.shopping.forevermyangle.model.category.ProductCategory;
 import app.shopping.forevermyangle.network.callback.NetworkCallbackListener;
 import app.shopping.forevermyangle.network.handler.NetworkHandler;
 import app.shopping.forevermyangle.parser.category.CategoryParser;
@@ -51,7 +50,7 @@ public class HomeDashboardFragment extends BaseFragment implements View.OnTouchL
      */
     private RecyclerView mCategoryRecyclerView = null;
     private CategoryRecyclerAdapter mCategoryRecyclerAdapter = null;
-    private ArrayList<ProductCategory> mCategoryList = new ArrayList<>();
+    private ArrayList<Category> mCategoryList = new ArrayList<>();
 
     /**
      * Class private data members for Home screen images.
@@ -122,7 +121,7 @@ public class HomeDashboardFragment extends BaseFragment implements View.OnTouchL
         if (mCategoryList.isEmpty()) {
             activity.showProgressing("Loading.");
             NetworkHandler networkHandler = new NetworkHandler();
-            networkHandler.httpCreate(1, getActivity(), this, new JSONObject(), Network.URL_GET_ALL_CATEGORIES, Category.class);
+            networkHandler.httpCreate(1, getActivity(), this, new JSONObject(), Network.URL_GET_ALL_CATEGORIES, Category.class, 2);
             networkHandler.executeGet();
         } else {
             // Already received category list data.
@@ -177,18 +176,14 @@ public class HomeDashboardFragment extends BaseFragment implements View.OnTouchL
      * {@link NetworkCallbackListener} Callback methods implemented.
      */
     @Override
-    public void networkSuccessResponse(int requestCode, BaseModel responseModel) {
+    public void networkSuccessResponse(int requestCode, BaseModel responseModel, List<? extends BaseModel> list) {
 
         switch (requestCode) {
             case 1:     // Get all categories.
 
                 activity.hideProgressing();
-                Category category = (Category) responseModel;
-                int responseCode = category.getHttp().getResponse().getCode();
-                if (responseCode == 200) {
-                    updateCategories(category.getProductCategories());
-                } else {
-                }
+                ArrayList<Category> category = (ArrayList<Category>) list;
+                updateCategories(category);
                 break;
 
             case 2:
@@ -209,19 +204,12 @@ public class HomeDashboardFragment extends BaseFragment implements View.OnTouchL
         activity.signalMessage(1);
     }
 
-    @Override
-    public void networkErrorResponse(int requestCode, String message) {
-
-        activity.hideProgressing();
-        activity.signalMessage(1);
-    }
-
     /**
      * @param categoryList List of all categories.
      * @method updateCategories
      * @desc Method to reload all categories into recycler view from web response.
      */
-    private void updateCategories(List<ProductCategory> categoryList) {
+    private void updateCategories(List<Category> categoryList) {
 
         // Parse the raw category list.
         CategoryParser categoryParser = new CategoryParser();

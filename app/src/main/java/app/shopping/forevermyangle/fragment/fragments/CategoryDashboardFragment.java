@@ -15,7 +15,7 @@ import java.util.List;
 import app.shopping.forevermyangle.R;
 import app.shopping.forevermyangle.adapter.expandablelistview.CategoryExpandableListAdapter;
 import app.shopping.forevermyangle.fragment.base.BaseFragment;
-import app.shopping.forevermyangle.model.category.ProductCategory;
+import app.shopping.forevermyangle.model.category.Category;
 import app.shopping.forevermyangle.utils.GlobalData;
 
 /**
@@ -29,7 +29,7 @@ public class CategoryDashboardFragment extends BaseFragment {
      */
     private ExpandableListView mCategoryExpandableListView = null;
     private ExpandableListAdapter expandableListAdapter = null;
-    private HashMap<Integer, List<ProductCategory>> mSubCategoriesMap = null;
+    private HashMap<Integer, List<Category>> mSubCategoriesMap = null;
 
     /**
      * {@link BaseFragment} Class override methods.
@@ -65,7 +65,7 @@ public class CategoryDashboardFragment extends BaseFragment {
         mCategoryExpandableListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
             @Override
             public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
-                ProductCategory selectedCategory = GlobalData.category.get(groupPosition).get(childPosition);
+                Category selectedCategory = GlobalData.category.get(groupPosition).get(childPosition);
                 Toast.makeText(getActivity(), "" + selectedCategory.getName(), Toast.LENGTH_SHORT).show();
                 return false;
             }

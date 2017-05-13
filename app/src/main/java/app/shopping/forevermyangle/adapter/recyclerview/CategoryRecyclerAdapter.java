@@ -15,7 +15,7 @@ import com.squareup.picasso.Picasso;
 import java.util.List;
 
 import app.shopping.forevermyangle.R;
-import app.shopping.forevermyangle.model.category.ProductCategory;
+import app.shopping.forevermyangle.model.category.Category;
 import app.shopping.forevermyangle.utils.Constants;
 import app.shopping.forevermyangle.view.RoundedImageView;
 
@@ -46,7 +46,7 @@ public class CategoryRecyclerAdapter extends RecyclerView.Adapter<CategoryRecycl
     /**
      * private class Data members.
      */
-    private List<ProductCategory> categories = null;
+    private List<Category> categories = null;
     private Activity activity = null;
     private int lastPosition;
 
@@ -54,7 +54,7 @@ public class CategoryRecyclerAdapter extends RecyclerView.Adapter<CategoryRecycl
      * @constructor CategoryRecyclerAdapter
      * @desc Constructor method for this class.
      */
-    public CategoryRecyclerAdapter(Activity activity, List<ProductCategory> categories) {
+    public CategoryRecyclerAdapter(Activity activity, List<Category> categories) {
         this.activity = activity;
         this.categories = categories;
     }
@@ -77,15 +77,11 @@ public class CategoryRecyclerAdapter extends RecyclerView.Adapter<CategoryRecycl
     @Override
     public void onBindViewHolder(final CategoryItemHolder holder, int position) {
 
-        ProductCategory category = categories.get(position);
+        Category category = categories.get(position);
 
         // Load image into imageView. (LazyLoading).
         try {
-            if (!category.getImage().isEmpty()) {
-                Picasso.with(activity).load(category.getImage()).into(holder.image);
-            } else {
-                Picasso.with(activity).load(R.drawable.shape_border_circle).into(holder.image);
-            }
+            Picasso.with(activity).load(category.getImage().getSrc()).into(holder.image);
             holder.name.setText("" + category.getName().trim());
         } catch (Exception e) {
             e.printStackTrace();

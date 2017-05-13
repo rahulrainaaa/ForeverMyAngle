@@ -16,7 +16,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import app.shopping.forevermyangle.R;
-import app.shopping.forevermyangle.model.category.ProductCategory;
+import app.shopping.forevermyangle.model.category.Category;
 import app.shopping.forevermyangle.view.RoundedImageView;
 
 /**
@@ -29,8 +29,8 @@ public class CategoryExpandableListAdapter extends BaseExpandableListAdapter {
      * Class private data members.`
      */
     private Context mContext = null;
-    private List<ProductCategory> mTitleCategoryList = null;
-    private HashMap<Integer, List<ProductCategory>> mSubCategoryMap = null;
+    private List<Category> mTitleCategoryList = null;
+    private HashMap<Integer, List<Category>> mSubCategoryMap = null;
 
     /**
      * @param context
@@ -39,8 +39,8 @@ public class CategoryExpandableListAdapter extends BaseExpandableListAdapter {
      * @constructor CategoryExpandableListAdapter
      * @desc Constructor class to initialize the data object members.
      */
-    public CategoryExpandableListAdapter(Context context, List<ProductCategory> expandableListTitle,
-                                         HashMap<Integer, List<ProductCategory>> expandableListDetail) {
+    public CategoryExpandableListAdapter(Context context, List<Category> expandableListTitle,
+                                         HashMap<Integer, List<Category>> expandableListDetail) {
         this.mContext = context;
         this.mTitleCategoryList = expandableListTitle;
         this.mSubCategoryMap = expandableListDetail;
@@ -59,7 +59,7 @@ public class CategoryExpandableListAdapter extends BaseExpandableListAdapter {
     public View getChildView(int titlePosition, final int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
 
         String subCategoryText = mSubCategoryMap.get(titlePosition).get(childPosition).getName();
-        String subCategoryImage = mSubCategoryMap.get(titlePosition).get(childPosition).getImage();
+        String subCategoryImage = mSubCategoryMap.get(titlePosition).get(childPosition).getImage().getSrc();
 
         if (convertView == null) {
             LayoutInflater layoutInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);

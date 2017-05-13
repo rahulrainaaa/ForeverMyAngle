@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import app.shopping.forevermyangle.model.category.ProductCategory;
+import app.shopping.forevermyangle.model.category.Category;
 import app.shopping.forevermyangle.model.login.Login;
 import app.shopping.forevermyangle.receiver.callback.ConnectionReceiverCallback;
 
@@ -16,10 +16,10 @@ import app.shopping.forevermyangle.receiver.callback.ConnectionReceiverCallback;
 public class GlobalData {
 
     /**
-     * Category {@link HashMap<ProductCategory, List<ProductCategory>} for Expandable list view.
+     * Category {@link HashMap<app.shopping.forevermyangle.model.category.Category, List<app.shopping.forevermyangle.model.category.Category>} for Expandable list view.
      */
-    public static HashMap<Integer, List<ProductCategory>> category = new HashMap<Integer, List<ProductCategory>>();
-    public static ArrayList<ProductCategory> parentCategories = new ArrayList<ProductCategory>();
+    public static HashMap<Integer, List<Category>> category = new HashMap<Integer, List<Category>>();
+    public static ArrayList<Category> parentCategories = new ArrayList<Category>();
 
     /**
      * Login Session related data.

@@ -7,11 +7,15 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
+
+import java.util.List;
 
 import app.shopping.forevermyangle.model.base.BaseModel;
 import app.shopping.forevermyangle.network.callback.NetworkCallbackListener;
@@ -20,13 +24,20 @@ import app.shopping.forevermyangle.network.callback.NetworkCallbackListener;
  * @class NetworkHandler
  * @desc Network Handler Class (using Volley library) for the project.
  */
-public class NetworkHandler implements Response.Listener<JSONObject>, Response.ErrorListener {
+public class NetworkHandler implements Response.ErrorListener {
+
+    /**
+     * Class public static data members.
+     */
+    public static int RESPONSE_JSON = 1;    // if response is JSONObject.
+    public static int RESPONSE_ARRAY = 2;   // if response is JSONArray.
 
     /**
      * Class private data members
      */
     private Activity mActivity = null;
     private String mUrl = null;
+    private int mResponseType = 1;
     private int mRequestCode = -1;
     private JSONObject mJsonRequest = null;
     private Class<? extends BaseModel> mClass = null;
@@ -39,10 +50,11 @@ public class NetworkHandler implements Response.Listener<JSONObject>, Response.E
      * @param jsonRequest             API request packet.
      * @param url                     API url.
      * @param c                       Response Model class.
+     * @param responseType            JSONObject or JSONArray.
      * @method httpCreate
      * @desc Method to initialize the class datamembers and create network handler.
      */
-    public void httpCreate(int requestCode, Activity activity, NetworkCallbackListener networkCallbackListener, JSONObject jsonRequest, String url, Class<? extends BaseModel> c) {
+    public void httpCreate(int requestCode, Activity activity, NetworkCallbackListener networkCallbackListener, JSONObject jsonRequest, String url, Class<? extends BaseModel> c, int responseType) {
 
         this.mUrl = url;
         this.mActivity = activity;
@@ -87,30 +99,73 @@ public class NetworkHandler implements Response.Listener<JSONObject>, Response.E
             return;
         }
 
+
         RequestQueue requestQueue = Volley.newRequestQueue(mActivity);
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(method, mUrl, mJsonRequest.toString(), this, this);
-        requestQueue.add(jsonObjectRequest);
+
+        if (mResponseType == 1) {           // JSONObject response.
+            JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(method, mUrl, mJsonRequest.toString(), new JsonObjectResponse(), this);
+            requestQueue.add(jsonObjectRequest);
+        } else if (mResponseType == 2) {    // JSONArray response.
+            JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(method, mUrl, mJsonRequest.toString(), new JsonArrayResponse(), this);
+            requestQueue.add(jsonArrayRequest);
+        }
+
     }
 
     /**
-     * {@link com.android.volley.Response.Listener} interface implemented method.
+     * @class JsonObjectResponse
+     * @desc Class to handle the success response in case of JSONObject response.
      */
-    @Override
-    public void onResponse(JSONObject response) {
+    private class JsonObjectResponse implements Response.Listener<JSONObject> {
 
-        Gson gson = new Gson();
-        try {
-            BaseModel model = gson.fromJson(String.valueOf(response), mClass);
-            if (this.mNetworkCallbackListener != null) {
-                mNetworkCallbackListener.networkSuccessResponse(this.mRequestCode, model);
-            }
+        /**
+         * {@link com.android.volley.Response.Listener} interface implemented method.
+         */
+        @Override
+        public void onResponse(JSONObject response) {
 
-        } catch (Exception e) {
-            if (this.mNetworkCallbackListener != null) {
-                mNetworkCallbackListener.networkErrorResponse(this.mRequestCode, e.getMessage());
+            Gson gson = new Gson();
+            try {
+                BaseModel model = gson.fromJson(String.valueOf(response), mClass);
+                if (NetworkHandler.this.mNetworkCallbackListener != null) {
+                    mNetworkCallbackListener.networkSuccessResponse(NetworkHandler.this.mRequestCode, model, null);
+                }
+
+            } catch (Exception e) {
+                if (NetworkHandler.this.mNetworkCallbackListener != null) {
+                    mNetworkCallbackListener.networkFailResponse(NetworkHandler.this.mRequestCode, e.getMessage());
+                }
             }
         }
     }
+
+    /**
+     * @class JSONArrayResponse
+     * @desc Class to handle the success response in case of JSONArray response.
+     */
+    private class JsonArrayResponse implements Response.Listener<JSONArray> {
+
+        /**
+         * {@link com.android.volley.Response.Listener} interface implemented method.
+         */
+        @Override
+        public void onResponse(JSONArray response) {
+
+            Gson gson = new Gson();
+            try {
+                List<? extends BaseModel> list = gson.fromJson(String.valueOf(response), List.class);
+                if (NetworkHandler.this.mNetworkCallbackListener != null) {
+                    mNetworkCallbackListener.networkSuccessResponse(NetworkHandler.this.mRequestCode, null, list);
+                }
+
+            } catch (Exception e) {
+                if (NetworkHandler.this.mNetworkCallbackListener != null) {
+                    mNetworkCallbackListener.networkFailResponse(NetworkHandler.this.mRequestCode, e.getMessage());
+                }
+            }
+        }
+    }
+
 
     /**
      * {@link com.android.volley.Response.ErrorListener} interface method implemented.
