@@ -1,5 +1,7 @@
 package app.shopping.forevermyangle.parser.category;
 
+import com.google.gson.Gson;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -25,8 +27,9 @@ public class CategoryParser extends BaseParser {
         GlobalData.category.clear();
         GlobalData.parentCategories.clear();
         Iterator<Category> categoryIterator = raw.iterator();
-
+        Gson gson = new Gson();
         while (categoryIterator.hasNext()) {
+
             Category tempData = categoryIterator.next();
 
             if (tempData.getParent() == 0) {

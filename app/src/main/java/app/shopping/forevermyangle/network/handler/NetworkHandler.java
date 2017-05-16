@@ -7,18 +7,19 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonArrayRequest;
-import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.util.List;
+import java.util.ArrayList;
 
 import app.shopping.forevermyangle.model.base.BaseModel;
 import app.shopping.forevermyangle.network.callback.NetworkCallbackListener;
+import app.shopping.forevermyangle.network.custom.FmaJsonArrayRequest;
+import app.shopping.forevermyangle.network.custom.FmaJsonObjectRequest;
 
 /**
  * @class NetworkHandler
@@ -62,6 +63,7 @@ public class NetworkHandler implements Response.ErrorListener {
         this.mJsonRequest = jsonRequest;
         this.mNetworkCallbackListener = networkCallbackListener;
         this.mClass = c;
+        this.mResponseType = responseType;
     }
 
     /**
@@ -71,6 +73,7 @@ public class NetworkHandler implements Response.ErrorListener {
     public void stopExecute() {
 
         mNetworkCallbackListener = null;
+
     }
 
     /**
@@ -92,6 +95,11 @@ public class NetworkHandler implements Response.ErrorListener {
         execute(Request.Method.GET);
     }
 
+    /**
+     * @param method {@link com.android.volley.Request.Method} GET/POST.
+     * @method execute
+     * @desc Method to call REST API with given Http Method.
+     */
     private void execute(int method) {
         if (mUrl == null) {
             return;
@@ -99,17 +107,15 @@ public class NetworkHandler implements Response.ErrorListener {
             return;
         }
 
-
         RequestQueue requestQueue = Volley.newRequestQueue(mActivity);
 
         if (mResponseType == 1) {           // JSONObject response.
-            JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(method, mUrl, mJsonRequest.toString(), new JsonObjectResponse(), this);
-            requestQueue.add(jsonObjectRequest);
+            FmaJsonObjectRequest fmaJsonObjectRequest = new FmaJsonObjectRequest(method, mUrl, mJsonRequest.toString(), new JsonObjectResponse(), this);
+            requestQueue.add(fmaJsonObjectRequest);
         } else if (mResponseType == 2) {    // JSONArray response.
-            JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(method, mUrl, mJsonRequest.toString(), new JsonArrayResponse(), this);
-            requestQueue.add(jsonArrayRequest);
+            FmaJsonArrayRequest fmaJsonArrayRequest = new FmaJsonArrayRequest(method, mUrl, mJsonRequest.toString(), new JsonArrayResponse(), this);
+            requestQueue.add(fmaJsonArrayRequest);
         }
-
     }
 
     /**
@@ -153,7 +159,20 @@ public class NetworkHandler implements Response.ErrorListener {
 
             Gson gson = new Gson();
             try {
-                List<? extends BaseModel> list = gson.fromJson(String.valueOf(response), List.class);
+                ArrayList rawList = gson.fromJson(String.valueOf(response), ArrayList.class);
+                ArrayList<BaseModel> list = new ArrayList<>();
+                for (int i = 0; i < rawList.size(); i++) {
+
+                    try {
+                        JsonObject json = gson.toJsonTree(rawList.get(i)).getAsJsonObject();
+                        BaseModel model = gson.fromJson(json, mClass);
+                        list.add(model);
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+                }
                 if (NetworkHandler.this.mNetworkCallbackListener != null) {
                     mNetworkCallbackListener.networkSuccessResponse(NetworkHandler.this.mRequestCode, null, list);
                 }
