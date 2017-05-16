@@ -66,16 +66,16 @@ public class Product extends BaseModel {
     private String salePrice;
     @SerializedName("date_on_sale_from")
     @Expose
-    private Object dateOnSaleFrom;
+    private String dateOnSaleFrom;
     @SerializedName("date_on_sale_from_gmt")
     @Expose
-    private Object dateOnSaleFromGmt;
+    private String dateOnSaleFromGmt;
     @SerializedName("date_on_sale_to")
     @Expose
-    private Object dateOnSaleTo;
+    private String dateOnSaleTo;
     @SerializedName("date_on_sale_to_gmt")
     @Expose
-    private Object dateOnSaleToGmt;
+    private String dateOnSaleToGmt;
     @SerializedName("price_html")
     @Expose
     private String priceHtml;
@@ -357,15 +357,15 @@ public class Product extends BaseModel {
         return dateOnSaleFrom;
     }
 
-    public void setDateOnSaleFrom(Object dateOnSaleFrom) {
+    public void setDateOnSaleFrom(String dateOnSaleFrom) {
         this.dateOnSaleFrom = dateOnSaleFrom;
     }
 
-    public Object getDateOnSaleFromGmt() {
+    public String getDateOnSaleFromGmt() {
         return dateOnSaleFromGmt;
     }
 
-    public void setDateOnSaleFromGmt(Object dateOnSaleFromGmt) {
+    public void setDateOnSaleFromGmt(String dateOnSaleFromGmt) {
         this.dateOnSaleFromGmt = dateOnSaleFromGmt;
     }
 
@@ -373,15 +373,15 @@ public class Product extends BaseModel {
         return dateOnSaleTo;
     }
 
-    public void setDateOnSaleTo(Object dateOnSaleTo) {
+    public void setDateOnSaleTo(String dateOnSaleTo) {
         this.dateOnSaleTo = dateOnSaleTo;
     }
 
-    public Object getDateOnSaleToGmt() {
+    public String getDateOnSaleToGmt() {
         return dateOnSaleToGmt;
     }
 
-    public void setDateOnSaleToGmt(Object dateOnSaleToGmt) {
+    public void setDateOnSaleToGmt(String dateOnSaleToGmt) {
         this.dateOnSaleToGmt = dateOnSaleToGmt;
     }
 
