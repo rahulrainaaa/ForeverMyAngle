@@ -1,5 +1,5 @@
 
-package app.shopping.forevermyangle.model.product;
+package app.shopping.forevermyangle.model.products;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

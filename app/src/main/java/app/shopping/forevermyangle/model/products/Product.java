@@ -1,5 +1,5 @@
 
-package app.shopping.forevermyangle.model.product;
+package app.shopping.forevermyangle.model.products;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -25,9 +25,15 @@ public class Product extends BaseModel {
     @SerializedName("date_created")
     @Expose
     private String dateCreated;
+    @SerializedName("date_created_gmt")
+    @Expose
+    private String dateCreatedGmt;
     @SerializedName("date_modified")
     @Expose
     private String dateModified;
+    @SerializedName("date_modified_gmt")
+    @Expose
+    private String dateModifiedGmt;
     @SerializedName("type")
     @Expose
     private String type;
@@ -60,10 +66,16 @@ public class Product extends BaseModel {
     private String salePrice;
     @SerializedName("date_on_sale_from")
     @Expose
-    private String dateOnSaleFrom;
+    private Object dateOnSaleFrom;
+    @SerializedName("date_on_sale_from_gmt")
+    @Expose
+    private Object dateOnSaleFromGmt;
     @SerializedName("date_on_sale_to")
     @Expose
-    private String dateOnSaleTo;
+    private Object dateOnSaleTo;
+    @SerializedName("date_on_sale_to_gmt")
+    @Expose
+    private Object dateOnSaleToGmt;
     @SerializedName("price_html")
     @Expose
     private String priceHtml;
@@ -91,9 +103,6 @@ public class Product extends BaseModel {
     @SerializedName("download_expiry")
     @Expose
     private Integer downloadExpiry;
-    @SerializedName("download_type")
-    @Expose
-    private String downloadType;
     @SerializedName("external_url")
     @Expose
     private String externalUrl;
@@ -193,6 +202,9 @@ public class Product extends BaseModel {
     @SerializedName("menu_order")
     @Expose
     private Integer menuOrder;
+    @SerializedName("meta_data")
+    @Expose
+    private List<MetaDatum> metaData = null;
     @SerializedName("_links")
     @Expose
     private Links links;
@@ -237,12 +249,28 @@ public class Product extends BaseModel {
         this.dateCreated = dateCreated;
     }
 
+    public String getDateCreatedGmt() {
+        return dateCreatedGmt;
+    }
+
+    public void setDateCreatedGmt(String dateCreatedGmt) {
+        this.dateCreatedGmt = dateCreatedGmt;
+    }
+
     public String getDateModified() {
         return dateModified;
     }
 
     public void setDateModified(String dateModified) {
         this.dateModified = dateModified;
+    }
+
+    public String getDateModifiedGmt() {
+        return dateModifiedGmt;
+    }
+
+    public void setDateModifiedGmt(String dateModifiedGmt) {
+        this.dateModifiedGmt = dateModifiedGmt;
     }
 
     public String getType() {
@@ -325,20 +353,36 @@ public class Product extends BaseModel {
         this.salePrice = salePrice;
     }
 
-    public String getDateOnSaleFrom() {
+    public Object getDateOnSaleFrom() {
         return dateOnSaleFrom;
     }
 
-    public void setDateOnSaleFrom(String dateOnSaleFrom) {
+    public void setDateOnSaleFrom(Object dateOnSaleFrom) {
         this.dateOnSaleFrom = dateOnSaleFrom;
     }
 
-    public String getDateOnSaleTo() {
+    public Object getDateOnSaleFromGmt() {
+        return dateOnSaleFromGmt;
+    }
+
+    public void setDateOnSaleFromGmt(Object dateOnSaleFromGmt) {
+        this.dateOnSaleFromGmt = dateOnSaleFromGmt;
+    }
+
+    public Object getDateOnSaleTo() {
         return dateOnSaleTo;
     }
 
-    public void setDateOnSaleTo(String dateOnSaleTo) {
+    public void setDateOnSaleTo(Object dateOnSaleTo) {
         this.dateOnSaleTo = dateOnSaleTo;
+    }
+
+    public Object getDateOnSaleToGmt() {
+        return dateOnSaleToGmt;
+    }
+
+    public void setDateOnSaleToGmt(Object dateOnSaleToGmt) {
+        this.dateOnSaleToGmt = dateOnSaleToGmt;
     }
 
     public String getPriceHtml() {
@@ -411,14 +455,6 @@ public class Product extends BaseModel {
 
     public void setDownloadExpiry(Integer downloadExpiry) {
         this.downloadExpiry = downloadExpiry;
-    }
-
-    public String getDownloadType() {
-        return downloadType;
-    }
-
-    public void setDownloadType(String downloadType) {
-        this.downloadType = downloadType;
     }
 
     public String getExternalUrl() {
@@ -683,6 +719,14 @@ public class Product extends BaseModel {
 
     public void setMenuOrder(Integer menuOrder) {
         this.menuOrder = menuOrder;
+    }
+
+    public List<MetaDatum> getMetaData() {
+        return metaData;
+    }
+
+    public void setMetaData(List<MetaDatum> metaData) {
+        this.metaData = metaData;
     }
 
     public Links getLinks() {

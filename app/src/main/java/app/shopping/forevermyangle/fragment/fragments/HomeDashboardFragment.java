@@ -13,6 +13,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.squareup.picasso.Picasso;
+
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -25,6 +27,7 @@ import app.shopping.forevermyangle.adapter.recyclerview.CategoryRecyclerAdapter;
 import app.shopping.forevermyangle.fragment.base.BaseFragment;
 import app.shopping.forevermyangle.model.base.BaseModel;
 import app.shopping.forevermyangle.model.category.Category;
+import app.shopping.forevermyangle.model.products.Product;
 import app.shopping.forevermyangle.network.callback.NetworkCallbackListener;
 import app.shopping.forevermyangle.network.handler.NetworkHandler;
 import app.shopping.forevermyangle.parser.category.CategoryParser;
@@ -127,8 +130,12 @@ public class HomeDashboardFragment extends BaseFragment implements View.OnTouchL
             // Already received category list data.
         }
 
+        // Network handler to call all 3 Fragment Products on dashboard.
+        getDashboardBannerProducts();
+
         // Size handling method depending resolution.
         resolveResolutionDependency();
+
 
         return view;
     }
@@ -186,10 +193,17 @@ public class HomeDashboardFragment extends BaseFragment implements View.OnTouchL
                 updateCategories(category);
                 break;
 
-            case 2:
+            case 2:     // get all 4 new arrival products.
+
+                ArrayList<Product> newArrivalProducts = (ArrayList<Product>) list;
+                updateNewArrivals(newArrivalProducts);
+                break;
+            case 3:
 
                 break;
+            case 4:
 
+                break;
             default:    // Unknown request code.
 
                 Toast.makeText(getActivity(), "Unhandled network Request Code.", Toast.LENGTH_SHORT).show();
@@ -200,8 +214,27 @@ public class HomeDashboardFragment extends BaseFragment implements View.OnTouchL
     @Override
     public void networkFailResponse(int requestCode, String message) {
 
-        activity.hideProgressing();
-        activity.signalMessage(1);
+        switch (requestCode) {
+
+            case 1:         // Get all categories.
+
+                activity.hideProgressing();
+                activity.signalMessage(1);
+                break;
+            case 2:         // Get 4 new arrival products.
+
+                Toast.makeText(activity, "New Arrivals:\n" + message, Toast.LENGTH_SHORT).show();
+                break;
+            case 3:
+
+                break;
+            case 4:
+
+                break;
+            default:
+
+                break;
+        }
     }
 
     /**
@@ -218,4 +251,38 @@ public class HomeDashboardFragment extends BaseFragment implements View.OnTouchL
         mCategoryRecyclerAdapter.notifyDataSetChanged();
     }
 
+    /**
+     * @method getDashboardBannerProducts
+     * @desc Method to call all 12 products of 3 fragments on DashboardFragment.
+     */
+    private void getDashboardBannerProducts() {
+
+        // Call for 4 New Arrival products.
+        NetworkHandler networkHandlerNewArrivals = new NetworkHandler();
+        String urlNewArrivals = Network.URL_GET_ALL_PRODUCTS;// + "?per_page=8&orderby=date&order=desc";
+        networkHandlerNewArrivals.httpCreate(2, getActivity(), this, new JSONObject(), urlNewArrivals, Product.class, 2);
+        networkHandlerNewArrivals.executeGet();
+
+    }
+
+    /**
+     * @param list {@link ArrayList<Product>} from the response.
+     * @method updateNewArrivals
+     * @desc Method to publish 4 new arrived products from http response list.
+     */
+    private void updateNewArrivals(ArrayList<Product> list) {
+
+        GlobalData.NewArrivedProducts = list;
+        ImageView[] imgHolder = {imgNewArrivalsItem1, imgNewArrivalsItem2, imgNewArrivalsItem3, imgNewArrivalsItem4};
+        int i = 0;
+        for (i = 0; i < list.size(); i++) {
+
+            Picasso.with(getActivity()).load(list.get(i).getImages().get(0).getSrc()).into(imgHolder[i]);
+            imgHolder[i].setOnClickListener(null);
+        }
+
+        while (i < 4) {
+            imgHolder[i++].setOnClickListener(null);
+        }
+    }
 }

@@ -7,6 +7,7 @@ import java.util.List;
 
 import app.shopping.forevermyangle.model.category.Category;
 import app.shopping.forevermyangle.model.login.Login;
+import app.shopping.forevermyangle.model.products.Product;
 import app.shopping.forevermyangle.receiver.callback.ConnectionReceiverCallback;
 
 /**
@@ -30,5 +31,10 @@ public class GlobalData {
      * Network Found Receiver callback interface.
      */
     public static ConnectionReceiverCallback connectionCallback = null;
+
+    /**
+     * Dashboard Banner 12 products for 3 fragment types.
+     */
+    public static ArrayList<Product> NewArrivedProducts = new ArrayList<Product>();
 
 }

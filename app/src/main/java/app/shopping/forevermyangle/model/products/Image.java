@@ -1,5 +1,5 @@
 
-package app.shopping.forevermyangle.model.product;
+package app.shopping.forevermyangle.model.products;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -12,9 +12,15 @@ public class Image {
     @SerializedName("date_created")
     @Expose
     private String dateCreated;
+    @SerializedName("date_created_gmt")
+    @Expose
+    private String dateCreatedGmt;
     @SerializedName("date_modified")
     @Expose
     private String dateModified;
+    @SerializedName("date_modified_gmt")
+    @Expose
+    private String dateModifiedGmt;
     @SerializedName("src")
     @Expose
     private String src;
@@ -44,12 +50,28 @@ public class Image {
         this.dateCreated = dateCreated;
     }
 
+    public String getDateCreatedGmt() {
+        return dateCreatedGmt;
+    }
+
+    public void setDateCreatedGmt(String dateCreatedGmt) {
+        this.dateCreatedGmt = dateCreatedGmt;
+    }
+
     public String getDateModified() {
         return dateModified;
     }
 
     public void setDateModified(String dateModified) {
         this.dateModified = dateModified;
+    }
+
+    public String getDateModifiedGmt() {
+        return dateModifiedGmt;
+    }
+
+    public void setDateModifiedGmt(String dateModifiedGmt) {
+        this.dateModifiedGmt = dateModifiedGmt;
     }
 
     public String getSrc() {

@@ -2,6 +2,8 @@ package app.shopping.forevermyangle.network.handler;
 
 
 import android.app.Activity;
+import android.util.Log;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -157,6 +159,11 @@ public class NetworkHandler implements Response.ErrorListener {
         @Override
         public void onResponse(JSONArray response) {
 
+            if (mRequestCode == 2) {
+                int xxxxx = 0;
+                Log.d("", "");
+                Toast.makeText(mActivity, "" + response.length(), Toast.LENGTH_SHORT).show();
+            }
             Gson gson = new Gson();
             try {
                 ArrayList rawList = gson.fromJson(String.valueOf(response), ArrayList.class);
