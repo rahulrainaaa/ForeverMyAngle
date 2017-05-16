@@ -12,6 +12,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonSyntaxException;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -162,7 +163,7 @@ public class NetworkHandler implements Response.ErrorListener {
             if (mRequestCode == 2) {
                 int xxxxx = 0;
                 Log.d("", "");
-                Toast.makeText(mActivity, "" + response.length(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(mActivity, "" + response, Toast.LENGTH_SHORT).show();
             }
             Gson gson = new Gson();
             try {
@@ -173,8 +174,12 @@ public class NetworkHandler implements Response.ErrorListener {
                     try {
                         JsonObject json = gson.toJsonTree(rawList.get(i)).getAsJsonObject();
                         BaseModel model = gson.fromJson(json, mClass);
-                        list.add(model);
 
+
+                        list.add((BaseModel) model);
+
+                    } catch (JsonSyntaxException jse) {
+                        jse.printStackTrace();
                     } catch (Exception e) {
                         e.printStackTrace();
                     }

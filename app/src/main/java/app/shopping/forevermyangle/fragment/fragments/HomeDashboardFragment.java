@@ -272,6 +272,7 @@ public class HomeDashboardFragment extends BaseFragment implements View.OnTouchL
      */
     private void updateNewArrivals(ArrayList<Product> list) {
 
+        Toast.makeText(activity, "" + list.size(), Toast.LENGTH_SHORT).show();
         GlobalData.NewArrivedProducts = list;
         ImageView[] imgHolder = {imgNewArrivalsItem1, imgNewArrivalsItem2, imgNewArrivalsItem3, imgNewArrivalsItem4};
         int i = 0;

@@ -353,7 +353,7 @@ public class Product extends BaseModel {
         this.salePrice = salePrice;
     }
 
-    public Object getDateOnSaleFrom() {
+    public String getDateOnSaleFrom() {
         return dateOnSaleFrom;
     }
 
@@ -369,7 +369,7 @@ public class Product extends BaseModel {
         this.dateOnSaleFromGmt = dateOnSaleFromGmt;
     }
 
-    public Object getDateOnSaleTo() {
+    public String getDateOnSaleTo() {
         return dateOnSaleTo;
     }
 
