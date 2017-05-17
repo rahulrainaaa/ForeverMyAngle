@@ -1,13 +1,14 @@
 package app.shopping.forevermyangle.utils;
 
 
+import org.json.JSONArray;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 import app.shopping.forevermyangle.model.category.Category;
 import app.shopping.forevermyangle.model.login.Login;
-import app.shopping.forevermyangle.model.products.Product;
 import app.shopping.forevermyangle.receiver.callback.ConnectionReceiverCallback;
 
 /**
@@ -35,6 +36,8 @@ public class GlobalData {
     /**
      * Dashboard Banner 12 products for 3 fragment types.
      */
-    public static ArrayList<Product> NewArrivedProducts = new ArrayList<Product>();
+    public static JSONArray NewArrivedProducts = new JSONArray();
+    public static JSONArray TopRatedProducts = new JSONArray();
+    public static JSONArray TopSellProducts = new JSONArray();
 
 }

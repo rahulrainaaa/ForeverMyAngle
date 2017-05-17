@@ -1,9 +1,7 @@
 package app.shopping.forevermyangle.network.callback;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import app.shopping.forevermyangle.model.base.BaseModel;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 /**
  * @interface NetworkCallbackListener
@@ -13,12 +11,12 @@ public interface NetworkCallbackListener {
 
     /**
      * @param requestCode
-     * @param responseModel
-     * @param list
+     * @param rawArray
+     * @param rawObject
      * @callback networkSuccessResponse
      * @desc Callback method for success response from server and response parsed successfully.
      */
-    public void networkSuccessResponse(int requestCode, BaseModel responseModel, List<? extends BaseModel> list);
+    public void networkSuccessResponse(int requestCode, JSONObject rawObject, JSONArray rawArray);
 
     /**
      * @param requestCode The request id by user to handle distinctly.

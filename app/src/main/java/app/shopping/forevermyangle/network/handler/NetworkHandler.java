@@ -2,24 +2,16 @@ package app.shopping.forevermyangle.network.handler;
 
 
 import android.app.Activity;
-import android.util.Log;
-import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.Volley;
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonSyntaxException;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
-
-import app.shopping.forevermyangle.model.base.BaseModel;
 import app.shopping.forevermyangle.network.callback.NetworkCallbackListener;
 import app.shopping.forevermyangle.network.custom.FmaJsonArrayRequest;
 import app.shopping.forevermyangle.network.custom.FmaJsonObjectRequest;
@@ -44,7 +36,6 @@ public class NetworkHandler implements Response.ErrorListener {
     private int mResponseType = 1;
     private int mRequestCode = -1;
     private JSONObject mJsonRequest = null;
-    private Class<? extends BaseModel> mClass = null;
     private NetworkCallbackListener mNetworkCallbackListener = null;
 
     /**
@@ -53,19 +44,17 @@ public class NetworkHandler implements Response.ErrorListener {
      * @param networkCallbackListener
      * @param jsonRequest             API request packet.
      * @param url                     API url.
-     * @param c                       Response Model class.
      * @param responseType            JSONObject or JSONArray.
      * @method httpCreate
      * @desc Method to initialize the class datamembers and create network handler.
      */
-    public void httpCreate(int requestCode, Activity activity, NetworkCallbackListener networkCallbackListener, JSONObject jsonRequest, String url, Class<? extends BaseModel> c, int responseType) {
+    public void httpCreate(int requestCode, Activity activity, NetworkCallbackListener networkCallbackListener, JSONObject jsonRequest, String url, int responseType) {
 
         this.mUrl = url;
         this.mActivity = activity;
         this.mRequestCode = requestCode;
         this.mJsonRequest = jsonRequest;
         this.mNetworkCallbackListener = networkCallbackListener;
-        this.mClass = c;
         this.mResponseType = responseType;
     }
 
@@ -133,17 +122,8 @@ public class NetworkHandler implements Response.ErrorListener {
         @Override
         public void onResponse(JSONObject response) {
 
-            Gson gson = new Gson();
-            try {
-                BaseModel model = gson.fromJson(String.valueOf(response), mClass);
-                if (NetworkHandler.this.mNetworkCallbackListener != null) {
-                    mNetworkCallbackListener.networkSuccessResponse(NetworkHandler.this.mRequestCode, model, null);
-                }
-
-            } catch (Exception e) {
-                if (NetworkHandler.this.mNetworkCallbackListener != null) {
-                    mNetworkCallbackListener.networkFailResponse(NetworkHandler.this.mRequestCode, e.getMessage());
-                }
+            if (NetworkHandler.this.mNetworkCallbackListener != null) {
+                mNetworkCallbackListener.networkSuccessResponse(NetworkHandler.this.mRequestCode, response, null);
             }
         }
     }
@@ -160,43 +140,11 @@ public class NetworkHandler implements Response.ErrorListener {
         @Override
         public void onResponse(JSONArray response) {
 
-            if (mRequestCode == 2) {
-                int xxxxx = 0;
-                Log.d("", "");
-                Toast.makeText(mActivity, "" + response, Toast.LENGTH_SHORT).show();
-            }
-            Gson gson = new Gson();
-            try {
-                ArrayList rawList = gson.fromJson(String.valueOf(response), ArrayList.class);
-                ArrayList<BaseModel> list = new ArrayList<>();
-                for (int i = 0; i < rawList.size(); i++) {
-
-                    try {
-                        JsonObject json = gson.toJsonTree(rawList.get(i)).getAsJsonObject();
-                        BaseModel model = gson.fromJson(json, mClass);
-
-
-                        list.add((BaseModel) model);
-
-                    } catch (JsonSyntaxException jse) {
-                        jse.printStackTrace();
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-
-                }
-                if (NetworkHandler.this.mNetworkCallbackListener != null) {
-                    mNetworkCallbackListener.networkSuccessResponse(NetworkHandler.this.mRequestCode, null, list);
-                }
-
-            } catch (Exception e) {
-                if (NetworkHandler.this.mNetworkCallbackListener != null) {
-                    mNetworkCallbackListener.networkFailResponse(NetworkHandler.this.mRequestCode, e.getMessage());
-                }
+            if (NetworkHandler.this.mNetworkCallbackListener != null) {
+                mNetworkCallbackListener.networkSuccessResponse(NetworkHandler.this.mRequestCode, null, response);
             }
         }
     }
-
 
     /**
      * {@link com.android.volley.Response.ErrorListener} interface method implemented.

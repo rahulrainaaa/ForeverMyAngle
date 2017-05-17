@@ -1,6 +1,10 @@
 package app.shopping.forevermyangle.parser.category;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonSyntaxException;
+
+import org.json.JSONArray;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -17,17 +21,40 @@ import app.shopping.forevermyangle.utils.GlobalData;
 public class CategoryParser extends BaseParser {
 
     /**
-     * @param raw {@link List<Category>}
+     * @param rawJsonArray
      * @method parseRawCategoryList
      * @desc Method to parse Raw category list (from web service) into expandable List as {@link java.util.HashMap<Category, List<Category>>}.
      */
-    public void parseRawCategoryList(List<Category> raw) {
+    public void parseRawCategoryList(JSONArray rawJsonArray) {
+
+        // Gson: response to model mapping: Parsing Raw data from http.
+        Gson gson = new Gson();
+
+        ArrayList rawList = gson.fromJson(String.valueOf(rawJsonArray), ArrayList.class);
+        ArrayList<Category> list = new ArrayList<>();       // List to store all categories.
+
+        for (int i = 0; i < rawList.size(); i++) {
+
+            try {
+                JsonObject json = gson.toJsonTree(rawList.get(i)).getAsJsonObject();
+                Category model = gson.fromJson(json, Category.class);
+
+
+                list.add(model);
+
+            } catch (JsonSyntaxException jse) {
+                jse.printStackTrace();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
 
         // Clean the map and iterate raw data for parent = 0 (main category).
         GlobalData.category.clear();
         GlobalData.parentCategories.clear();
-        Iterator<Category> categoryIterator = raw.iterator();
-        Gson gson = new Gson();
+
+        // Start Iterator.
+        Iterator<Category> categoryIterator = list.iterator();
         while (categoryIterator.hasNext()) {
 
             Category tempData = categoryIterator.next();
@@ -37,7 +64,7 @@ public class CategoryParser extends BaseParser {
                 GlobalData.parentCategories.add(tempData);
                 // Iterate the raw data to find sub category of main category.
                 ArrayList<Category> subCategoryList = new ArrayList<>();
-                Iterator<Category> subCategoryIterator = raw.iterator();
+                Iterator<Category> subCategoryIterator = list.iterator();
 
                 while (subCategoryIterator.hasNext()) {
                     Category tempSubData = subCategoryIterator.next();

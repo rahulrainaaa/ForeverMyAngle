@@ -9,9 +9,8 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
-
-import java.util.List;
 
 import app.shopping.forevermyangle.R;
 import app.shopping.forevermyangle.model.base.BaseModel;
@@ -131,10 +130,11 @@ public class LoginActivity extends FragmentActivity implements View.OnClickListe
      * {@link NetworkCallbackListener} interface callback methods.
      */
     @Override
-    public void networkSuccessResponse(int requestCode, BaseModel responseModel, List<? extends BaseModel> list) {
+    public void networkSuccessResponse(int requestCode, JSONObject rawObject, JSONArray rawArray) {
         if (requestCode == 1) {     // Success Login Response.
             mFMAProgessDialog.hide();
 
+            BaseModel responseModel = new Login();      //Save the login data.
             // Save the login model in sharedPreferences.
             Login login = (Login) responseModel;
             GlobalData.login = login;

@@ -15,19 +15,18 @@ import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import app.shopping.forevermyangle.R;
 import app.shopping.forevermyangle.activity.DashboardActivity;
 import app.shopping.forevermyangle.adapter.adapterviewflipper.HomeImageViewFlipperAdapter;
 import app.shopping.forevermyangle.adapter.recyclerview.CategoryRecyclerAdapter;
 import app.shopping.forevermyangle.fragment.base.BaseFragment;
-import app.shopping.forevermyangle.model.base.BaseModel;
 import app.shopping.forevermyangle.model.category.Category;
-import app.shopping.forevermyangle.model.products.Product;
 import app.shopping.forevermyangle.network.callback.NetworkCallbackListener;
 import app.shopping.forevermyangle.network.handler.NetworkHandler;
 import app.shopping.forevermyangle.parser.category.CategoryParser;
@@ -39,7 +38,7 @@ import app.shopping.forevermyangle.utils.Network;
  * @class HomeDashboardFragment
  * @desc {@link BaseFragment} fragment class for handling home screen.
  */
-public class HomeDashboardFragment extends BaseFragment implements View.OnTouchListener, NetworkCallbackListener {
+public class HomeDashboardFragment extends BaseFragment implements View.OnTouchListener, NetworkCallbackListener, View.OnClickListener {
 
     /**
      * Class private data members for {@link AdapterViewFlipper}.
@@ -58,8 +57,8 @@ public class HomeDashboardFragment extends BaseFragment implements View.OnTouchL
     /**
      * Class private data members for Home screen images.
      */
-    private ImageView imgCategoryItem1, imgCategoryItem2, imgCategoryItem3, imgCategoryItem4;
-    private ImageView imgBestSellerItem1, imgBestSellerItem2, imgBestSellerItem3, imgBestSellerItem4;
+    private ImageView imgTopRated1, imgTopRated2, imgTopRated3, imgTopRated4;
+    private ImageView imgTopSell1, imgTopSell2, imgTopSell3, imgTopSell4;
     private ImageView imgNewArrivalsItem1, imgNewArrivalsItem2, imgNewArrivalsItem3, imgNewArrivalsItem4;
     private LinearLayout mLayoutBestSeller;
     private DashboardActivity activity;
@@ -83,17 +82,17 @@ public class HomeDashboardFragment extends BaseFragment implements View.OnTouchL
         View view = inflater.inflate(R.layout.fragment_home_dashboard, container, false);
 
         // BannerItems Product ImageViews.
-        imgCategoryItem1 = (ImageView) view.findViewById(R.id.imgCategoryItem1);
-        imgCategoryItem2 = (ImageView) view.findViewById(R.id.imgCategoryItem2);
-        imgCategoryItem3 = (ImageView) view.findViewById(R.id.imgCategoryItem3);
-        imgCategoryItem4 = (ImageView) view.findViewById(R.id.imgCategoryItem4);
+        imgTopRated1 = (ImageView) view.findViewById(R.id.imgCategoryItem1);
+        imgTopRated2 = (ImageView) view.findViewById(R.id.imgCategoryItem2);
+        imgTopRated3 = (ImageView) view.findViewById(R.id.imgCategoryItem3);
+        imgTopRated4 = (ImageView) view.findViewById(R.id.imgCategoryItem4);
 
         mLayoutBestSeller = (LinearLayout) view.findViewById(R.id.layout_bestSeller);
 
-        imgBestSellerItem1 = (ImageView) view.findViewById(R.id.imgBestSellerItem1);
-        imgBestSellerItem2 = (ImageView) view.findViewById(R.id.imgBestSellerItem2);
-        imgBestSellerItem3 = (ImageView) view.findViewById(R.id.imgBestSellerItem3);
-        imgBestSellerItem4 = (ImageView) view.findViewById(R.id.imgBestSellerItem4);
+        imgTopSell1 = (ImageView) view.findViewById(R.id.imgBestSellerItem1);
+        imgTopSell2 = (ImageView) view.findViewById(R.id.imgBestSellerItem2);
+        imgTopSell3 = (ImageView) view.findViewById(R.id.imgBestSellerItem3);
+        imgTopSell4 = (ImageView) view.findViewById(R.id.imgBestSellerItem4);
 
         imgNewArrivalsItem1 = (ImageView) view.findViewById(R.id.imgNewArrivals1);
         imgNewArrivalsItem2 = (ImageView) view.findViewById(R.id.imgNewArrivals2);
@@ -124,7 +123,7 @@ public class HomeDashboardFragment extends BaseFragment implements View.OnTouchL
         if (mCategoryList.isEmpty()) {
             activity.showProgressing("Loading.");
             NetworkHandler networkHandler = new NetworkHandler();
-            networkHandler.httpCreate(1, getActivity(), this, new JSONObject(), Network.URL_GET_ALL_CATEGORIES, Category.class, 2);
+            networkHandler.httpCreate(1, getActivity(), this, new JSONObject(), Network.URL_GET_ALL_CATEGORIES, 2);
             networkHandler.executeGet();
         } else {
             // Already received category list data.
@@ -166,10 +165,10 @@ public class HomeDashboardFragment extends BaseFragment implements View.OnTouchL
 
         int viewHeight = (16 * Constants.RES_WIDTH) / 60;
 
-        imgCategoryItem1.getLayoutParams().height = viewHeight;
-        imgCategoryItem2.getLayoutParams().height = viewHeight;
-        imgCategoryItem3.getLayoutParams().height = viewHeight;
-        imgCategoryItem4.getLayoutParams().height = viewHeight;
+        imgTopRated1.getLayoutParams().height = viewHeight;
+        imgTopRated2.getLayoutParams().height = viewHeight;
+        imgTopRated3.getLayoutParams().height = viewHeight;
+        imgTopRated4.getLayoutParams().height = viewHeight;
 
         mLayoutBestSeller.getLayoutParams().height = viewHeight * 2;
 
@@ -183,26 +182,26 @@ public class HomeDashboardFragment extends BaseFragment implements View.OnTouchL
      * {@link NetworkCallbackListener} Callback methods implemented.
      */
     @Override
-    public void networkSuccessResponse(int requestCode, BaseModel responseModel, List<? extends BaseModel> list) {
+    public void networkSuccessResponse(int requestCode, JSONObject rawObject, JSONArray rawArray) {
 
         switch (requestCode) {
             case 1:     // Get all categories.
 
                 activity.hideProgressing();
-                ArrayList<Category> category = (ArrayList<Category>) list;
-                updateCategories(category);
+                updateCategories(rawArray);
                 break;
 
             case 2:     // get all 4 new arrival products.
 
-                ArrayList<Product> newArrivalProducts = (ArrayList<Product>) list;
-                updateNewArrivals(newArrivalProducts);
+                updateNewArrivals(rawArray);
                 break;
-            case 3:
+            case 3:     // Top review products.
 
+                updateTopReview(rawArray);
                 break;
-            case 4:
+            case 4:     // Top sell products.
 
+                updateTopSelled(rawArray);
                 break;
             default:    // Unknown request code.
 
@@ -225,10 +224,10 @@ public class HomeDashboardFragment extends BaseFragment implements View.OnTouchL
 
                 Toast.makeText(activity, "New Arrivals:\n" + message, Toast.LENGTH_SHORT).show();
                 break;
-            case 3:
+            case 3:         // Top review products
 
                 break;
-            case 4:
+            case 4:         // Top sell products.
 
                 break;
             default:
@@ -238,15 +237,15 @@ public class HomeDashboardFragment extends BaseFragment implements View.OnTouchL
     }
 
     /**
-     * @param categoryList List of all categories.
+     * @param jsonArray items of all categories in JSONArray.
      * @method updateCategories
      * @desc Method to reload all categories into recycler view from web response.
      */
-    private void updateCategories(List<Category> categoryList) {
+    private void updateCategories(JSONArray jsonArray) {
 
         // Parse the raw category list.
         CategoryParser categoryParser = new CategoryParser();
-        categoryParser.parseRawCategoryList(categoryList);
+        categoryParser.parseRawCategoryList(jsonArray);
 
         mCategoryRecyclerAdapter.notifyDataSetChanged();
     }
@@ -257,33 +256,184 @@ public class HomeDashboardFragment extends BaseFragment implements View.OnTouchL
      */
     private void getDashboardBannerProducts() {
 
-        // Call for 4 New Arrival products.
+        // New Arrival products.
         NetworkHandler networkHandlerNewArrivals = new NetworkHandler();
-        String urlNewArrivals = Network.URL_GET_ALL_PRODUCTS;// + "?per_page=8&orderby=date&order=desc";
-        networkHandlerNewArrivals.httpCreate(2, getActivity(), this, new JSONObject(), urlNewArrivals, Product.class, 2);
+        String urlNewArrivals = Network.URL_GET_ALL_PRODUCTS + "?per_page=8&orderby=date&order=desc";
+        networkHandlerNewArrivals.httpCreate(2, getActivity(), this, new JSONObject(), urlNewArrivals, 2);
         networkHandlerNewArrivals.executeGet();
+
+        // Top Reviews products.
+        NetworkHandler networkHandlerTopProducts = new NetworkHandler();
+        String urlTopProducts = Network.URL_GET_ALL_PRODUCTS + "";
+        networkHandlerTopProducts.httpCreate(3, getActivity(), this, new JSONObject(), urlTopProducts, 2);
+        networkHandlerTopProducts.executeGet();
+
+        // Top Sell products.
+        NetworkHandler networkHandlerTopSell = new NetworkHandler();
+        String urlTopSell = Network.URL_GET_ALL_PRODUCTS + "?per_page=8&orderby=date&order=desc";
+        networkHandlerTopSell.httpCreate(4, getActivity(), this, new JSONObject(), urlTopSell, 2);
+        networkHandlerTopSell.executeGet();
 
     }
 
     /**
-     * @param list {@link ArrayList<Product>} from the response.
+     * @param rawJsonArray
      * @method updateNewArrivals
      * @desc Method to publish 4 new arrived products from http response list.
      */
-    private void updateNewArrivals(ArrayList<Product> list) {
+    private void updateNewArrivals(JSONArray rawJsonArray) {
 
-        Toast.makeText(activity, "" + list.size(), Toast.LENGTH_SHORT).show();
-        GlobalData.NewArrivedProducts = list;
         ImageView[] imgHolder = {imgNewArrivalsItem1, imgNewArrivalsItem2, imgNewArrivalsItem3, imgNewArrivalsItem4};
+        int length = rawJsonArray.length();
         int i = 0;
-        for (i = 0; i < list.size(); i++) {
+        for (i = 0; i < length; i++) {
 
-            Picasso.with(getActivity()).load(list.get(i).getImages().get(0).getSrc()).into(imgHolder[i]);
-            imgHolder[i].setOnClickListener(null);
+            try {
+
+                JSONObject jsonProd = rawJsonArray.getJSONObject(i);
+//                JSONArray a = jsonProd.getJSONArray("images");
+//                JSONObject b = a.getJSONObject(0);
+//                String strImgUrl = b.getString("src");
+                String strImgUrl = jsonProd.getJSONArray("images").getJSONObject(0).getString("src");
+                Picasso.with(getActivity()).load(strImgUrl.toString()).into(imgHolder[i]);
+                imgHolder[i].setOnClickListener(this);
+
+            } catch (JSONException jsonE) {
+
+                jsonE.printStackTrace();
+            } catch (Exception e) {
+
+                e.printStackTrace();
+            }
         }
 
+        // Set unavailable items as disabled.
         while (i < 4) {
             imgHolder[i++].setOnClickListener(null);
+        }
+
+    }
+
+    /**
+     * @param rawJsonArray
+     * @method updateTopReview
+     */
+    private void updateTopReview(JSONArray rawJsonArray) {
+
+        ImageView[] imgHolder = {imgTopRated1, imgTopRated2, imgTopRated3, imgTopRated4};
+        int length = rawJsonArray.length();
+        int i = 0;
+        for (i = 0; i < length; i++) {
+
+            try {
+
+                JSONObject jsonProd = rawJsonArray.getJSONObject(i);
+//                JSONArray a = jsonProd.getJSONArray("images");
+//                JSONObject b = a.getJSONObject(0);
+//                String strImgUrl = b.getString("src");
+                String strImgUrl = jsonProd.getJSONArray("images").getJSONObject(0).getString("src");
+                Picasso.with(getActivity()).load(strImgUrl.toString()).into(imgHolder[i]);
+                imgHolder[i].setOnClickListener(this);
+
+            } catch (JSONException jsonE) {
+
+                jsonE.printStackTrace();
+            } catch (Exception e) {
+
+                e.printStackTrace();
+            }
+        }
+
+        // Set unavailable items as disabled.
+        while (i < 4) {
+            imgHolder[i++].setOnClickListener(null);
+        }
+
+    }
+
+    /**
+     * @param rawJsonArray
+     * @method updateNewArrivals
+     */
+    private void updateTopSelled(JSONArray rawJsonArray) {
+
+        ImageView[] imgHolder = {imgTopSell1, imgTopSell2, imgTopSell3, imgTopSell4};
+        int length = rawJsonArray.length();
+        int i = 0;
+        for (i = 0; i < length; i++) {
+
+            try {
+
+                JSONObject jsonProd = rawJsonArray.getJSONObject(i);
+//                JSONArray a = jsonProd.getJSONArray("images");
+//                JSONObject b = a.getJSONObject(0);
+//                String strImgUrl = b.getString("src");
+                String strImgUrl = jsonProd.getJSONArray("images").getJSONObject(0).getString("src");
+                Picasso.with(getActivity()).load(strImgUrl.toString()).into(imgHolder[i]);
+                imgHolder[i].setOnClickListener(this);
+
+            } catch (JSONException jsonE) {
+
+                jsonE.printStackTrace();
+            } catch (Exception e) {
+
+                e.printStackTrace();
+            }
+        }
+
+        // Set unavailable items as disabled.
+        while (i < 4) {
+            imgHolder[i++].setOnClickListener(null);
+        }
+
+    }
+
+    @Override
+    public void onClick(View v) {
+
+        switch (v.getId()) {
+
+            case R.id.imgNewArrivals1:
+
+                break;
+            case R.id.imgNewArrivals2:
+
+                break;
+            case R.id.imgNewArrivals3:
+
+                break;
+            case R.id.imgNewArrivals4:
+
+                break;
+
+
+            case R.id.imgCategoryItem1:
+
+                break;
+            case R.id.imgCategoryItem2:
+
+                break;
+            case R.id.imgCategoryItem3:
+
+                break;
+            case R.id.imgCategoryItem4:
+
+                break;
+
+
+            case R.id.imgBestSellerItem1:
+
+                break;
+            case R.id.imgBestSellerItem2:
+
+                break;
+            case R.id.imgBestSellerItem3:
+
+                break;
+            case R.id.imgBestSellerItem4:
+
+                break;
+
         }
     }
 }
