@@ -13,11 +13,13 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+import app.shopping.forevermyangle.model.products.Product;
+
 /**
  * @class ProductListViewAdapter
  * @desc Adapter class for showing product list on GridView.
  */
-public class ProductListViewAdapter extends ArrayAdapter<String> {
+public class ProductListViewAdapter extends ArrayAdapter<Product> {
 
     /**
      * Private class data members.
@@ -25,7 +27,7 @@ public class ProductListViewAdapter extends ArrayAdapter<String> {
     private Activity mActivity = null;
     private LayoutInflater mInflater = null;
     private int mResource;
-    private ArrayList<String> mList = null;
+    private ArrayList<Product> mList = null;
 
     /**
      * @class Holder
@@ -41,7 +43,7 @@ public class ProductListViewAdapter extends ArrayAdapter<String> {
     /**
      * {@link ArrayAdapter<>} class override methods.
      */
-    public ProductListViewAdapter(@NonNull Activity activity, @LayoutRes int resource, ArrayList<String> list) {
+    public ProductListViewAdapter(@NonNull Activity activity, @LayoutRes int resource, ArrayList<Product> list) {
         super(activity, resource, list);
 
         this.mList = list;
