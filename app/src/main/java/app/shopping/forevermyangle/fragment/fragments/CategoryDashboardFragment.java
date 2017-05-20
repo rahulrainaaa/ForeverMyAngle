@@ -1,5 +1,6 @@
 package app.shopping.forevermyangle.fragment.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -13,6 +14,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import app.shopping.forevermyangle.R;
+import app.shopping.forevermyangle.activity.SearchProductActivity;
 import app.shopping.forevermyangle.adapter.expandablelistview.CategoryExpandableListAdapter;
 import app.shopping.forevermyangle.fragment.base.BaseFragment;
 import app.shopping.forevermyangle.model.category.Category;
@@ -66,7 +68,9 @@ public class CategoryDashboardFragment extends BaseFragment {
             @Override
             public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
                 Category selectedCategory = GlobalData.category.get(groupPosition).get(childPosition);
-                Toast.makeText(getActivity(), "" + selectedCategory.getName(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), selectedCategory.getId() + "." + selectedCategory.getName(), Toast.LENGTH_SHORT).show();
+                GlobalData.srch_category_id = "&category=" + selectedCategory.getId();
+                startActivity(new Intent(getActivity(), SearchProductActivity.class));
                 return false;
             }
         });
