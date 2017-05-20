@@ -1,5 +1,6 @@
 package app.shopping.forevermyangle.fragment.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
@@ -23,6 +24,7 @@ import java.util.ArrayList;
 
 import app.shopping.forevermyangle.R;
 import app.shopping.forevermyangle.activity.DashboardActivity;
+import app.shopping.forevermyangle.activity.SearchProductActivity;
 import app.shopping.forevermyangle.adapter.adapterviewflipper.HomeImageViewFlipperAdapter;
 import app.shopping.forevermyangle.adapter.recyclerview.CategoryRecyclerAdapter;
 import app.shopping.forevermyangle.fragment.base.BaseFragment;
@@ -74,8 +76,11 @@ public class HomeDashboardFragment extends BaseFragment implements View.OnTouchL
 
         mBannerImagesUrl = new String[]{
 
-                "https://www.w3schools.com/css/img_fjords.jpg",
-                "https://www.w3schools.com/css/paris.jpg"
+                "https://forevermyangel.com/wp-content/uploads/2017/05/little-silver-earring-main-image.jpg",
+                "https://forevermyangel.com/wp-content/uploads/2017/05/little-golden-rose-earring-main-image.jpg",
+                "https://forevermyangel.com/wp-content/uploads/2017/04/cuff-earrings-gallery-image1.jpg",
+                "https://forevermyangel.com/wp-content/uploads/2017/05/crystal-rhinestone-earring-silver-main-image.jpg",
+                "https://forevermyangel.com/wp-content/uploads/2017/04/cuff-earrings-main-image.jpg"
         };
 
         mCategoryList = GlobalData.parentCategories;
@@ -115,7 +120,8 @@ public class HomeDashboardFragment extends BaseFragment implements View.OnTouchL
         mCategoryRecyclerView = (RecyclerView) view.findViewById(R.id.rv_category);
         mCategoryRecyclerView.setHasFixedSize(true);
         mCategoryRecyclerView.setLayoutManager(categoryLayoutManager);
-        mCategoryRecyclerAdapter = new CategoryRecyclerAdapter(getActivity(), mCategoryList);
+        //mCategoryRecyclerView
+        mCategoryRecyclerAdapter = new CategoryRecyclerAdapter(getActivity(), this, mCategoryList);
         mCategoryRecyclerView.setAdapter(mCategoryRecyclerAdapter);
         mCategoryRecyclerAdapter.notifyDataSetChanged();
 
@@ -163,7 +169,7 @@ public class HomeDashboardFragment extends BaseFragment implements View.OnTouchL
 
         // fix Display Item size.
 
-        int viewHeight = (16 * Constants.RES_WIDTH) / 60;
+        int viewHeight = (Constants.RES_WIDTH - 100) / 2; // (16 * Constants.RES_WIDTH) / 60;
 
         imgTopRated1.getLayoutParams().height = viewHeight;
         imgTopRated2.getLayoutParams().height = viewHeight;
@@ -258,19 +264,19 @@ public class HomeDashboardFragment extends BaseFragment implements View.OnTouchL
 
         // New Arrival products.
         NetworkHandler networkHandlerNewArrivals = new NetworkHandler();
-        String urlNewArrivals = Network.URL_GET_ALL_PRODUCTS + "?per_page=8&orderby=date&order=desc";
+        String urlNewArrivals = Network.URL_GET_ALL_PRODUCTS + "?per_page=4&category=26";
         networkHandlerNewArrivals.httpCreate(2, getActivity(), this, new JSONObject(), urlNewArrivals, 2);
         networkHandlerNewArrivals.executeGet();
 
         // Top Reviews products.
         NetworkHandler networkHandlerTopProducts = new NetworkHandler();
-        String urlTopProducts = Network.URL_GET_ALL_PRODUCTS + "";
+        String urlTopProducts = Network.URL_GET_ALL_PRODUCTS + "?per_page=4&category=18";
         networkHandlerTopProducts.httpCreate(3, getActivity(), this, new JSONObject(), urlTopProducts, 2);
         networkHandlerTopProducts.executeGet();
 
         // Top Sell products.
         NetworkHandler networkHandlerTopSell = new NetworkHandler();
-        String urlTopSell = Network.URL_GET_ALL_PRODUCTS + "?per_page=8&orderby=date&order=desc";
+        String urlTopSell = Network.URL_GET_ALL_PRODUCTS + "?per_page=4&category=25";
         networkHandlerTopSell.httpCreate(4, getActivity(), this, new JSONObject(), urlTopSell, 2);
         networkHandlerTopSell.executeGet();
 
@@ -432,6 +438,13 @@ public class HomeDashboardFragment extends BaseFragment implements View.OnTouchL
                 break;
             case R.id.imgBestSellerItem4:
 
+                break;
+
+            case R.id.cv:
+
+                Toast.makeText(activity, "category ID:" + v.getTag(), Toast.LENGTH_SHORT).show();
+                GlobalData.srch_category_id = "&category=" + ((int) v.getTag());
+                startActivity(new Intent(activity, SearchProductActivity.class));
                 break;
 
         }

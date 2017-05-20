@@ -43,4 +43,9 @@ public class GlobalData {
 
     public static ArrayList<Product> TotalProducts = new ArrayList<>();        // Holds total products displayed on page.
 
+    /**
+     * Search filtering.
+     */
+    public static String srch_category_id = "";
+
 }

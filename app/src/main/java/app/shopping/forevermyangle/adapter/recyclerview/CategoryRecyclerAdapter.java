@@ -25,7 +25,6 @@ import app.shopping.forevermyangle.view.RoundedImageView;
  */
 public class CategoryRecyclerAdapter extends RecyclerView.Adapter<CategoryRecyclerAdapter.CategoryItemHolder> {
 
-
     /**
      * @class CategoryItemHolder
      * @desc {@link RecyclerView.ViewHolder} holder static class for Recycler View items.
@@ -49,14 +48,16 @@ public class CategoryRecyclerAdapter extends RecyclerView.Adapter<CategoryRecycl
     private List<Category> categories = null;
     private Activity activity = null;
     private int lastPosition;
+    private View.OnClickListener onClickListener = null;
 
     /**
      * @constructor CategoryRecyclerAdapter
      * @desc Constructor method for this class.
      */
-    public CategoryRecyclerAdapter(Activity activity, List<Category> categories) {
+    public CategoryRecyclerAdapter(Activity activity, View.OnClickListener onClickListener, List<Category> categories) {
         this.activity = activity;
         this.categories = categories;
+        this.onClickListener = onClickListener;
     }
 
     /**
@@ -86,7 +87,8 @@ public class CategoryRecyclerAdapter extends RecyclerView.Adapter<CategoryRecycl
         } catch (Exception e) {
             e.printStackTrace();
         }
-
+        holder.cv.setTag(category.getId());
+        holder.cv.setOnClickListener(onClickListener);
         setAnimation(holder.image, position);
         setAnimation(holder.name, position);
     }

@@ -38,8 +38,17 @@ public class SearchProductActivity extends FragmentActivity implements AdapterVi
      * Product filtering data and flags.
      */
     private boolean mFlagRefresh = false;
-    private int pageNumber = 1;
-    private final int PRODUCTS_PERPAGE = 2;
+    private int mPageNumber = 1;
+    private final int sPRODUCTS_PERPAGE = 10;
+    private String mStrSrchString = "";
+    private String mStrSrchOrder = "";
+    private String mStrSrchOrderBy = "";
+    private String mStrSrchStatus = "";
+    private String mStrSrchInStock = "&in_stock=true";
+    private String mStrSrchMaxPrice = "";
+    private String mStrSrchMinPrice = "";
+    private String mStrSrchOnSale = "";
+    private String mStrSrchCategotyId = GlobalData.srch_category_id;
 
     /**
      * {@link android.support.v7.app.AppCompatActivity} Override methods.
@@ -57,6 +66,12 @@ public class SearchProductActivity extends FragmentActivity implements AdapterVi
         mProductGridList.setAdapter(mAdapter);
         mProductGridList.setOnItemClickListener(this);
 
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        GlobalData.TotalProducts.clear();
     }
 
     /**
@@ -121,7 +136,8 @@ public class SearchProductActivity extends FragmentActivity implements AdapterVi
      */
     private void getProductList() {
 
-        String url = Network.URL_GET_ALL_PRODUCTS;//+ "?per_page= " + PRODUCTS_PERPAGE + "&page=" + pageNumber + "&category=" + 19;
+        String url = Network.URL_GET_ALL_PRODUCTS + "?per_page=" + sPRODUCTS_PERPAGE + "&page=" + mPageNumber;
+        url = url + "" + mStrSrchString + mStrSrchOrder + mStrSrchOrderBy + mStrSrchStatus + mStrSrchInStock + mStrSrchMaxPrice + mStrSrchMinPrice + mStrSrchOnSale + mStrSrchCategotyId;
         mNetworkHandler.httpCreate(1, this, this, new JSONObject(), url, NetworkHandler.RESPONSE_ARRAY);
         mNetworkHandler.executeGet();
     }
@@ -135,9 +151,9 @@ public class SearchProductActivity extends FragmentActivity implements AdapterVi
 
         ProductParser productParser = new ProductParser();
         int next = productParser.parseProducts(raw);
-        pageNumber++;
+        mPageNumber++;
 
-        if (next < PRODUCTS_PERPAGE) {      // remove listener, after while no more data is pending.
+        if (next < sPRODUCTS_PERPAGE) {      // remove listener, after while no more data is pending.
             mProductGridList.setOnScrollListener(null);
         }
         mAdapter.notifyDataSetChanged();
