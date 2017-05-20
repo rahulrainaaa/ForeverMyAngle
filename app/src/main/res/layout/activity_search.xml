@@ -11,6 +11,7 @@
         android:orientation="horizontal">
 
         <android.support.v7.widget.SearchView
+            android:id="@+id/prod_srch_query"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"

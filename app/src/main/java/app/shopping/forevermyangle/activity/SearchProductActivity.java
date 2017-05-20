@@ -1,10 +1,13 @@
 package app.shopping.forevermyangle.activity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentActivity;
+import android.support.v7.widget.SearchView;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.GridView;
@@ -31,6 +34,7 @@ public class SearchProductActivity extends FragmentActivity implements AdapterVi
      * Class private data members.
      */
     private GridView mProductGridList = null;
+    private SearchView mProductSearchView = null;
     private ProductListViewAdapter mAdapter = null;
     private NetworkHandler mNetworkHandler = new NetworkHandler();
 
@@ -65,6 +69,28 @@ public class SearchProductActivity extends FragmentActivity implements AdapterVi
         mAdapter = new ProductListViewAdapter(this, R.layout.item_gridview_product, GlobalData.TotalProducts);
         mProductGridList.setAdapter(mAdapter);
         mProductGridList.setOnItemClickListener(this);
+
+        mProductSearchView = (SearchView) findViewById(R.id.prod_srch_query);
+        mProductSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(SearchProductActivity.this.getCurrentFocus().getWindowToken(), 0);
+                SearchProductActivity.this.mStrSrchString = "&search=" + query.trim();
+                SearchProductActivity.this.mPageNumber = 1;
+                GlobalData.TotalProducts.clear();
+                SearchProductActivity.this.mAdapter.notifyDataSetChanged();
+                mFlagRefresh = false;
+                mProductGridList.setOnScrollListener(SearchProductActivity.this);
+                Toast.makeText(SearchProductActivity.this, "Searching...", Toast.LENGTH_SHORT).show();
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return true;
+            }
+        });
 
     }
 

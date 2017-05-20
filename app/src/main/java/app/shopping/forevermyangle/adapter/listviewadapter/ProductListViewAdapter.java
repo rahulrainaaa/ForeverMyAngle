@@ -18,6 +18,7 @@ import java.util.ArrayList;
 
 import app.shopping.forevermyangle.R;
 import app.shopping.forevermyangle.model.products.Product;
+import app.shopping.forevermyangle.utils.Constants;
 
 /**
  * @class ProductListViewAdapter
@@ -80,6 +81,9 @@ public class ProductListViewAdapter extends ArrayAdapter<Product> {
         } else {
             holder = (Holder) view.getTag();
         }
+
+        int viewHeight = (Constants.RES_WIDTH - 100) / 2;
+        holder.imgproduct.getLayoutParams().height = viewHeight;
 
         imgproduct = holder.imgproduct;
         txtProductName = holder.txtProductName;
