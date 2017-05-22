@@ -1,16 +1,19 @@
 package app.shopping.forevermyangle.activity;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentActivity;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.SearchView;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.GridView;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import org.json.JSONArray;
@@ -28,7 +31,7 @@ import app.shopping.forevermyangle.utils.Network;
  * @class SearchProductActivity
  * @desc Activity to show the searched products.
  */
-public class SearchProductActivity extends FragmentActivity implements AdapterView.OnItemClickListener, NetworkCallbackListener, AbsListView.OnScrollListener {
+public class SearchProductActivity extends FragmentActivity implements AdapterView.OnItemClickListener, NetworkCallbackListener, AbsListView.OnScrollListener, View.OnClickListener {
 
     /**
      * Class private data members.
@@ -37,6 +40,7 @@ public class SearchProductActivity extends FragmentActivity implements AdapterVi
     private SearchView mProductSearchView = null;
     private ProductListViewAdapter mAdapter = null;
     private NetworkHandler mNetworkHandler = new NetworkHandler();
+    private LinearLayout mLayoutTabSort, mLayoutTabFilter;
 
     /**
      * Product filtering data and flags.
@@ -61,6 +65,12 @@ public class SearchProductActivity extends FragmentActivity implements AdapterVi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
+
+        mLayoutTabSort = (LinearLayout) findViewById(R.id.tab_filter);
+        mLayoutTabFilter = (LinearLayout) findViewById(R.id.tab_sort);
+
+        mLayoutTabSort.setOnClickListener(this);
+        mLayoutTabFilter.setOnClickListener(this);
 
         mProductGridList = (GridView) findViewById(R.id.product_listview);
         mProductGridList.setNumColumns(2);
@@ -186,4 +196,70 @@ public class SearchProductActivity extends FragmentActivity implements AdapterVi
         mFlagRefresh = false;
     }
 
+    /**
+     * {@link android.view.View.OnClickListener} listener callback method.
+     */
+    @Override
+    public void onClick(View v) {
+
+        switch (v.getId()) {
+
+            case R.id.tab_sort:
+
+                getSortedProducts();
+                break;
+            case R.id.tab_filter:
+
+                getFilteredProducts();
+                break;
+        }
+    }
+
+    /**
+     * @method getSortedProducts
+     * @desc Method to show the sorting option in alert dialog.
+     */
+    private void getSortedProducts() {
+
+        AlertDialog alertDialog = new AlertDialog.Builder(this).create();
+        alertDialog.setTitle("Sort");
+        alertDialog.setMessage("Alert message to be shown");
+        alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "Sort",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+        alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "Dismiss", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        alertDialog.show();
+    }
+
+    /**
+     * @method getFilteredProducts
+     * @desc Method to show filtering options in alert dialog.
+     */
+    private void getFilteredProducts() {
+
+        AlertDialog alertDialog = new AlertDialog.Builder(this).create();
+        alertDialog.setTitle("Filter");
+        alertDialog.setMessage("Alert message to be shown");
+        alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "Filter",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+        alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "Dismiss", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        alertDialog.show();
+    }
 }

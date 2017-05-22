@@ -19,8 +19,7 @@
             android:layout_height="60dp"
             android:layout_marginBottom="3dp"
             android:background="#cfcfcf"
-            android:scaleType="fitXY"
-            android:src="@drawable/temp_d" />
+            android:scaleType="fitXY" />
 
     </LinearLayout>
 

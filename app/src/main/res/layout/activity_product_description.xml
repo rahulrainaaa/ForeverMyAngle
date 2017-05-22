@@ -16,8 +16,7 @@
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="230dp"
-                android:scaleType="fitXY"
-                android:src="@drawable/temp_j" />
+                android:scaleType="fitXY" />
 
             <HorizontalScrollView
                 android:layout_width="match_parent"
@@ -29,47 +28,18 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
-                    <ImageView
-                        android:layout_width="100dp"
-                        android:layout_height="100dp"
-                        android:layout_margin="5dp"
-                        android:scaleType="fitXY"
-                        android:src="@drawable/temp_j" />
 
                     <ImageView
                         android:layout_width="100dp"
                         android:layout_height="100dp"
                         android:layout_margin="5dp"
-                        android:scaleType="fitXY"
-                        android:src="@drawable/temp_j" />
+                        android:scaleType="fitXY" />
 
                     <ImageView
                         android:layout_width="100dp"
                         android:layout_height="100dp"
                         android:layout_margin="5dp"
-                        android:scaleType="fitXY"
-                        android:src="@drawable/temp_j" />
-
-                    <ImageView
-                        android:layout_width="100dp"
-                        android:layout_height="100dp"
-                        android:layout_margin="5dp"
-                        android:scaleType="fitXY"
-                        android:src="@drawable/temp_j" />
-
-                    <ImageView
-                        android:layout_width="100dp"
-                        android:layout_height="100dp"
-                        android:layout_margin="5dp"
-                        android:scaleType="fitXY"
-                        android:src="@drawable/temp_j" />
-
-                    <ImageView
-                        android:layout_width="100dp"
-                        android:layout_height="100dp"
-                        android:layout_margin="5dp"
-                        android:scaleType="fitXY"
-                        android:src="@drawable/temp_j" />
+                        android:scaleType="fitXY" />
 
                 </LinearLayout>
 
