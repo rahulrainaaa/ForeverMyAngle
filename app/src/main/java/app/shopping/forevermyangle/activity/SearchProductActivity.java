@@ -247,7 +247,8 @@ public class SearchProductActivity extends FragmentActivity implements AdapterVi
 
         AlertDialog alertDialog = new AlertDialog.Builder(this).create();
         alertDialog.setTitle("Filter");
-        alertDialog.setMessage("Alert message to be shown");
+        View view = (View) getLayoutInflater().inflate(R.layout.custom_filter, null);
+        alertDialog.setView(view);
         alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "Filter",
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
