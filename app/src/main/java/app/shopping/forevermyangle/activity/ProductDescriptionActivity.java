@@ -25,7 +25,6 @@ public class ProductDescriptionActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         getSupportActionBar().setCustomView(view);
         setContentView(R.layout.activity_dashboard);
-        setContentView(R.layout.activity_product_description);
     }
 
     @Override

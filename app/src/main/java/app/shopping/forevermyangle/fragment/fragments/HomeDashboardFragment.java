@@ -24,6 +24,7 @@ import java.util.ArrayList;
 
 import app.shopping.forevermyangle.R;
 import app.shopping.forevermyangle.activity.DashboardActivity;
+import app.shopping.forevermyangle.activity.ProductDescriptionActivity;
 import app.shopping.forevermyangle.activity.SearchProductActivity;
 import app.shopping.forevermyangle.adapter.adapterviewflipper.HomeImageViewFlipperAdapter;
 import app.shopping.forevermyangle.adapter.recyclerview.CategoryRecyclerAdapter;
@@ -74,6 +75,7 @@ public class HomeDashboardFragment extends BaseFragment implements View.OnTouchL
 
         activity = (DashboardActivity) getActivity();
 
+        // Dashboard sliding screen.
         mBannerImagesUrl = new String[]{
 
                 "https://forevermyangel.com/wp-content/uploads/2017/05/little-silver-earring-main-image.jpg",
@@ -86,13 +88,13 @@ public class HomeDashboardFragment extends BaseFragment implements View.OnTouchL
         mCategoryList = GlobalData.parentCategories;
         View view = inflater.inflate(R.layout.fragment_home_dashboard, container, false);
 
+        mLayoutBestSeller = (LinearLayout) view.findViewById(R.id.layout_bestSeller);
+
         // BannerItems Product ImageViews.
         imgTopRated1 = (ImageView) view.findViewById(R.id.imgCategoryItem1);
         imgTopRated2 = (ImageView) view.findViewById(R.id.imgCategoryItem2);
         imgTopRated3 = (ImageView) view.findViewById(R.id.imgCategoryItem3);
         imgTopRated4 = (ImageView) view.findViewById(R.id.imgCategoryItem4);
-
-        mLayoutBestSeller = (LinearLayout) view.findViewById(R.id.layout_bestSeller);
 
         imgTopSell1 = (ImageView) view.findViewById(R.id.imgBestSellerItem1);
         imgTopSell2 = (ImageView) view.findViewById(R.id.imgBestSellerItem2);
@@ -149,7 +151,7 @@ public class HomeDashboardFragment extends BaseFragment implements View.OnTouchL
     public boolean onTouch(View view, MotionEvent event) {
 
         switch (event.getAction()) {
-            case MotionEvent.ACTION_DOWN:
+            case MotionEvent.ACTION_DOWN:       // Action to show next banner display image.
                 mFlipperBanner.showNext();
                 break;
         }
@@ -251,7 +253,7 @@ public class HomeDashboardFragment extends BaseFragment implements View.OnTouchL
      */
     private void updateCategories(JSONArray jsonArray) {
 
-        // Parse the raw category list.
+        // Parse the raw category list and populate.
         CategoryParser categoryParser = new CategoryParser();
         categoryParser.parseRawCategoryList(jsonArray);
 
@@ -264,6 +266,9 @@ public class HomeDashboardFragment extends BaseFragment implements View.OnTouchL
      */
     private void getDashboardBannerProducts() {
 
+        /**
+         * Call 3 separated web services only if data not present.
+         */
         if (GlobalData.NewArrivedProducts.length() == 0) {    // New Arrival products.
 
             NetworkHandler networkHandlerNewArrivals = new NetworkHandler();
@@ -401,51 +406,13 @@ public class HomeDashboardFragment extends BaseFragment implements View.OnTouchL
 
     }
 
+    /**
+     * {@link android.view.View.OnClickListener} listener callback method.
+     */
     @Override
     public void onClick(View v) {
 
         switch (v.getId()) {
-
-            case R.id.imgNewArrivals1:
-
-                break;
-            case R.id.imgNewArrivals2:
-
-                break;
-            case R.id.imgNewArrivals3:
-
-                break;
-            case R.id.imgNewArrivals4:
-
-                break;
-
-
-            case R.id.imgCategoryItem1:
-
-                break;
-            case R.id.imgCategoryItem2:
-
-                break;
-            case R.id.imgCategoryItem3:
-
-                break;
-            case R.id.imgCategoryItem4:
-
-                break;
-
-
-            case R.id.imgBestSellerItem1:
-
-                break;
-            case R.id.imgBestSellerItem2:
-
-                break;
-            case R.id.imgBestSellerItem3:
-
-                break;
-            case R.id.imgBestSellerItem4:
-
-                break;
 
             case R.id.cv:
 
@@ -454,6 +421,131 @@ public class HomeDashboardFragment extends BaseFragment implements View.OnTouchL
                 startActivity(new Intent(activity, SearchProductActivity.class));
                 break;
 
+            default:
+
+                try {
+                    if (openProdDescription(v))
+                        startActivity(new Intent(activity, ProductDescriptionActivity.class));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                break;
         }
     }
+
+    /**
+     * @param view
+     * @return boolean true=product available to show.
+     * @throws Exception
+     * @desc Method to load the banner product to show it in product description.
+     * @method openProdDescription
+     */
+    private boolean openProdDescription(View view) throws Exception {
+
+        // Get the length of all 3 JSONArray.
+        int newProd = GlobalData.NewArrivedProducts.length();
+        int topRate = GlobalData.TopRatedProducts.length();
+        int newSell = GlobalData.TopSellProducts.length();
+
+        /**
+         * 1. Check the event view.
+         * 2. check if the product object is present in JSONArray at that index.
+         * 3. Point that object by {@link GlobalData.SelectedProduct}.
+         * 4. return false if object is not present.
+         * 5. return true finally in default case.
+         */
+        switch (view.getId()) {
+            case R.id.imgNewArrivals1:
+
+                if (newProd < 1) {
+                    return false;
+                }
+                GlobalData.SelectedProduct = GlobalData.NewArrivedProducts.getJSONObject(1);
+                break;
+            case R.id.imgNewArrivals2:
+
+                if (newProd < 2) {
+                    return false;
+                }
+                GlobalData.SelectedProduct = GlobalData.NewArrivedProducts.getJSONObject(2);
+                break;
+            case R.id.imgNewArrivals3:
+
+                if (newProd < 3) {
+                    return false;
+                }
+                GlobalData.SelectedProduct = GlobalData.NewArrivedProducts.getJSONObject(3);
+                break;
+            case R.id.imgNewArrivals4:
+
+                if (newProd < 4) {
+                    return false;
+                }
+                GlobalData.SelectedProduct = GlobalData.NewArrivedProducts.getJSONObject(4);
+                break;
+
+
+            case R.id.imgCategoryItem1:
+
+                if (topRate < 1) {
+                    return false;
+                }
+                GlobalData.SelectedProduct = GlobalData.TopRatedProducts.getJSONObject(1);
+                break;
+            case R.id.imgCategoryItem2:
+
+                if (topRate < 2) {
+                    return false;
+                }
+                GlobalData.SelectedProduct = GlobalData.TopRatedProducts.getJSONObject(2);
+                break;
+            case R.id.imgCategoryItem3:
+
+                if (topRate < 3) {
+                    return false;
+                }
+                GlobalData.SelectedProduct = GlobalData.TopRatedProducts.getJSONObject(3);
+                break;
+            case R.id.imgCategoryItem4:
+
+                if (topRate < 4) {
+                    return false;
+                }
+                GlobalData.SelectedProduct = GlobalData.TopRatedProducts.getJSONObject(4);
+                break;
+
+
+            case R.id.imgBestSellerItem1:
+
+                if (newSell < 1) {
+                    return false;
+                }
+                GlobalData.SelectedProduct = GlobalData.TopSellProducts.getJSONObject(1);
+                break;
+            case R.id.imgBestSellerItem2:
+
+                if (newSell < 2) {
+                    return false;
+                }
+                GlobalData.SelectedProduct = GlobalData.TopSellProducts.getJSONObject(2);
+                break;
+            case R.id.imgBestSellerItem3:
+
+                if (newSell < 3) {
+                    return false;
+                }
+                GlobalData.SelectedProduct = GlobalData.TopSellProducts.getJSONObject(3);
+                break;
+            case R.id.imgBestSellerItem4:
+
+                if (newSell < 4) {
+                    return false;
+                }
+                GlobalData.SelectedProduct = GlobalData.TopSellProducts.getJSONObject(4);
+                break;
+        }
+        return true;    // True show description activity.
+
+    }
+
 }

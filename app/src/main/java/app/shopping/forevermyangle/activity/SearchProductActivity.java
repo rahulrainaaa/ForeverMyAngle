@@ -235,13 +235,14 @@ public class SearchProductActivity extends FragmentActivity implements AdapterVi
      */
     private void getSortedProducts() {
 
-        final BottomSheetDialog b = new BottomSheetDialog(this);
+        final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(this);
         View view = (View) getLayoutInflater().inflate(R.layout.custom_search, null);
-        RadioGroup r = (RadioGroup) view.findViewById(R.id.sort_radiogroup);
-        r.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+        RadioGroup radioGroup = (RadioGroup) view.findViewById(R.id.sort_radiogroup);
+        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
-                b.hide();
+
+                bottomSheetDialog.hide();
                 switch (checkedId) {
                     case R.id.option_1:
 
@@ -263,8 +264,8 @@ public class SearchProductActivity extends FragmentActivity implements AdapterVi
                 Toast.makeText(SearchProductActivity.this, "Fetching.", Toast.LENGTH_SHORT).show();
             }
         });
-        b.setContentView(view);
-        b.show();
+        bottomSheetDialog.setContentView(view);
+        bottomSheetDialog.show();
     }
 
     /**

@@ -2,6 +2,7 @@ package app.shopping.forevermyangle.utils;
 
 
 import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -43,6 +44,7 @@ public class GlobalData {
 
     public static ArrayList<Product> TotalProducts = new ArrayList<>();        // Holds total products displayed on page.
 
+    public static JSONObject SelectedProduct = null;         // Selected product from description.
     /**
      * Search filtering.
      */
