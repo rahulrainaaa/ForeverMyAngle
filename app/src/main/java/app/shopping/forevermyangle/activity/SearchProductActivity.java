@@ -101,7 +101,7 @@ public class SearchProductActivity extends FragmentActivity implements AdapterVi
                 SearchProductActivity.this.mAdapter.notifyDataSetChanged();
                 mFlagRefresh = false;
                 mProductGridList.setOnScrollListener(SearchProductActivity.this);
-                Toast.makeText(SearchProductActivity.this, "Searching...", Toast.LENGTH_SHORT).show();
+                Toast.makeText(SearchProductActivity.this, "Searching.", Toast.LENGTH_SHORT).show();
                 return true;
             }
 
@@ -260,7 +260,7 @@ public class SearchProductActivity extends FragmentActivity implements AdapterVi
                 mAdapter.notifyDataSetChanged();
                 mPageNumber = 1;
                 getProductList();
-                Toast.makeText(SearchProductActivity.this, "Fetching", Toast.LENGTH_SHORT).show();
+                Toast.makeText(SearchProductActivity.this, "Fetching.", Toast.LENGTH_SHORT).show();
             }
         });
         b.setContentView(view);
@@ -290,7 +290,7 @@ public class SearchProductActivity extends FragmentActivity implements AdapterVi
 
                 txtMinRange.setText("Min Price: " + leftPinValue);
                 txtMaxRange.setText("Max Price: " + rightPinValue);
-                Snackbar.make(view, leftPinValue + ", " + rightPinValue, Snackbar.LENGTH_SHORT).show();
+
             }
         });
 

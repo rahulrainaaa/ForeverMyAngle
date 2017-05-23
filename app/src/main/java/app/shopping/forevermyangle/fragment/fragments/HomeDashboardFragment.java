@@ -228,13 +228,15 @@ public class HomeDashboardFragment extends BaseFragment implements View.OnTouchL
                 break;
             case 2:         // Get 4 new arrival products.
 
-                Toast.makeText(activity, "New Arrivals:\n" + message, Toast.LENGTH_SHORT).show();
+                Toast.makeText(activity, "2." + message, Toast.LENGTH_SHORT).show();
                 break;
             case 3:         // Top review products
 
+                Toast.makeText(activity, "3." + message, Toast.LENGTH_SHORT).show();
                 break;
             case 4:         // Top sell products.
 
+                Toast.makeText(activity, "4." + message, Toast.LENGTH_SHORT).show();
                 break;
             default:
 
@@ -262,24 +264,35 @@ public class HomeDashboardFragment extends BaseFragment implements View.OnTouchL
      */
     private void getDashboardBannerProducts() {
 
-        // New Arrival products.
-        NetworkHandler networkHandlerNewArrivals = new NetworkHandler();
-        String urlNewArrivals = Network.URL_GET_ALL_PRODUCTS + "?per_page=4&category=26";
-        networkHandlerNewArrivals.httpCreate(2, getActivity(), this, new JSONObject(), urlNewArrivals, 2);
-        networkHandlerNewArrivals.executeGet();
+        if (GlobalData.NewArrivedProducts.length() == 0) {    // New Arrival products.
 
-        // Top Reviews products.
-        NetworkHandler networkHandlerTopProducts = new NetworkHandler();
-        String urlTopProducts = Network.URL_GET_ALL_PRODUCTS + "?per_page=4&category=18";
-        networkHandlerTopProducts.httpCreate(3, getActivity(), this, new JSONObject(), urlTopProducts, 2);
-        networkHandlerTopProducts.executeGet();
+            NetworkHandler networkHandlerNewArrivals = new NetworkHandler();
+            String urlNewArrivals = Network.URL_GET_ALL_PRODUCTS + "?per_page=4&category=26";
+            networkHandlerNewArrivals.httpCreate(2, getActivity(), this, new JSONObject(), urlNewArrivals, 2);
+            networkHandlerNewArrivals.executeGet();
+        } else {
+            updateNewArrivals(GlobalData.NewArrivedProducts);
+        }
 
-        // Top Sell products.
-        NetworkHandler networkHandlerTopSell = new NetworkHandler();
-        String urlTopSell = Network.URL_GET_ALL_PRODUCTS + "?per_page=4&category=25";
-        networkHandlerTopSell.httpCreate(4, getActivity(), this, new JSONObject(), urlTopSell, 2);
-        networkHandlerTopSell.executeGet();
+        if (GlobalData.TopRatedProducts.length() == 0) {    // Top Reviews products.
 
+            NetworkHandler networkHandlerTopProducts = new NetworkHandler();
+            String urlTopProducts = Network.URL_GET_ALL_PRODUCTS + "?per_page=4&category=18";
+            networkHandlerTopProducts.httpCreate(3, getActivity(), this, new JSONObject(), urlTopProducts, 2);
+            networkHandlerTopProducts.executeGet();
+        } else {
+            updateTopReview(GlobalData.TopRatedProducts);
+        }
+
+        if (GlobalData.TopSellProducts.length() == 0) {    // Top Sell products.
+
+            NetworkHandler networkHandlerTopSell = new NetworkHandler();
+            String urlTopSell = Network.URL_GET_ALL_PRODUCTS + "?per_page=4&category=25";
+            networkHandlerTopSell.httpCreate(4, getActivity(), this, new JSONObject(), urlTopSell, 2);
+            networkHandlerTopSell.executeGet();
+        } else {
+            updateTopSelled(GlobalData.TopSellProducts);
+        }
     }
 
     /**
@@ -289,17 +302,15 @@ public class HomeDashboardFragment extends BaseFragment implements View.OnTouchL
      */
     private void updateNewArrivals(JSONArray rawJsonArray) {
 
+        GlobalData.NewArrivedProducts = rawJsonArray;
         ImageView[] imgHolder = {imgNewArrivalsItem1, imgNewArrivalsItem2, imgNewArrivalsItem3, imgNewArrivalsItem4};
         int length = rawJsonArray.length();
-        int i = 0;
+        int i;
         for (i = 0; i < length; i++) {
 
             try {
 
                 JSONObject jsonProd = rawJsonArray.getJSONObject(i);
-//                JSONArray a = jsonProd.getJSONArray("images");
-//                JSONObject b = a.getJSONObject(0);
-//                String strImgUrl = b.getString("src");
                 String strImgUrl = jsonProd.getJSONArray("images").getJSONObject(0).getString("src");
                 Picasso.with(getActivity()).load(strImgUrl.toString()).into(imgHolder[i]);
                 imgHolder[i].setOnClickListener(this);
@@ -326,17 +337,15 @@ public class HomeDashboardFragment extends BaseFragment implements View.OnTouchL
      */
     private void updateTopReview(JSONArray rawJsonArray) {
 
+        GlobalData.TopRatedProducts = rawJsonArray;
         ImageView[] imgHolder = {imgTopRated1, imgTopRated2, imgTopRated3, imgTopRated4};
         int length = rawJsonArray.length();
-        int i = 0;
+        int i;
         for (i = 0; i < length; i++) {
 
             try {
 
                 JSONObject jsonProd = rawJsonArray.getJSONObject(i);
-//                JSONArray a = jsonProd.getJSONArray("images");
-//                JSONObject b = a.getJSONObject(0);
-//                String strImgUrl = b.getString("src");
                 String strImgUrl = jsonProd.getJSONArray("images").getJSONObject(0).getString("src");
                 Picasso.with(getActivity()).load(strImgUrl.toString()).into(imgHolder[i]);
                 imgHolder[i].setOnClickListener(this);
@@ -363,17 +372,15 @@ public class HomeDashboardFragment extends BaseFragment implements View.OnTouchL
      */
     private void updateTopSelled(JSONArray rawJsonArray) {
 
+        GlobalData.TopSellProducts = rawJsonArray;
         ImageView[] imgHolder = {imgTopSell1, imgTopSell2, imgTopSell3, imgTopSell4};
         int length = rawJsonArray.length();
-        int i = 0;
+        int i;
         for (i = 0; i < length; i++) {
 
             try {
 
                 JSONObject jsonProd = rawJsonArray.getJSONObject(i);
-//                JSONArray a = jsonProd.getJSONArray("images");
-//                JSONObject b = a.getJSONObject(0);
-//                String strImgUrl = b.getString("src");
                 String strImgUrl = jsonProd.getJSONArray("images").getJSONObject(0).getString("src");
                 Picasso.with(getActivity()).load(strImgUrl.toString()).into(imgHolder[i]);
                 imgHolder[i].setOnClickListener(this);
