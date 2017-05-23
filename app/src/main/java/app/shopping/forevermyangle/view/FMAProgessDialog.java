@@ -98,5 +98,9 @@ public class FMAProgessDialog {
         System.gc();
     }
 
-
+    @Override
+    protected void finalize() throws Throwable {
+        dismiss();
+        super.finalize();
+    }
 }

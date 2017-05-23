@@ -10,6 +10,7 @@
 
     <color name="colorText">#FFFFFF</color>
     <color name="colorTextHint">#b1b1b1</color>
+    <color name="colorTextLight">#545454</color>
 
     <color name="colorShadow">#e4e4e4</color>
 

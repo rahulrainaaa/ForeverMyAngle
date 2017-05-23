@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:paddingBottom="10dp"
+        android:paddingTop="14dp"
+        android:text="Sort by"
+        android:textColor="@android:color/black"
+        android:textSize="18dp"
+        android:textStyle="bold" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/colorShadow" />
+
+    <RadioGroup
+        android:id="@+id/sort_radiogroup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layoutDirection="rtl"
+        android:orientation="vertical"
+        android:paddingBottom="30dp"
+        android:paddingLeft="30dp"
+        android:paddingRight="30dp"
+        android:paddingTop="7dp">
+
+        <RadioButton
+            android:id="@+id/option_1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:text="Price: Low to high"
+            android:textColor="@color/colorTextLight"
+            android:textSize="14dp" />
+
+        <RadioButton
+            android:id="@+id/option_2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:text="Price: High to low"
+            android:textColor="@color/colorTextLight"
+            android:textSize="14dp" />
+
+        <RadioButton
+            android:id="@+id/option_3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:text="Sort by popularity"
+            android:textColor="@color/colorTextLight"
+            android:textSize="14dp" />
+
+        <RadioButton
+            android:id="@+id/option_4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Sort by arrival"
+            android:textColor="@color/colorTextLight"
+            android:textSize="14dp" />
+
+    </RadioGroup>
+
+</LinearLayout>
