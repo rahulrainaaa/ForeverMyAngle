@@ -125,6 +125,8 @@ public class SearchProductActivity extends FragmentActivity implements AdapterVi
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
+        // point to the selected product json object.
+        GlobalData.SelectedProduct = GlobalData.TotalProducts.get(position).json;
         startActivity(new Intent(this, ProductDescriptionActivity.class));
     }
 

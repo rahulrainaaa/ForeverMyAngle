@@ -45,7 +45,9 @@
             </intent-filter>
         </receiver>
 
-        <activity android:name=".activity.ProductDescriptionActivity"></activity>
+        <activity
+            android:name=".activity.ProductDescriptionActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>
