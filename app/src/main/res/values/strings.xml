@@ -15,4 +15,5 @@
     <string name="dashboard_menu_cart">Cart</string>
     <string name="dashboard_menu_wishlist">Wishlist</string>
     <string name="dashboard_menu_share">Share</string>
+    <string name="title_activity_product_view">ProductViewActivity</string>
 </resources>

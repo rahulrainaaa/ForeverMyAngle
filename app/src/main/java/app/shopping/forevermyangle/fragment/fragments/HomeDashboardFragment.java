@@ -24,7 +24,7 @@ import java.util.ArrayList;
 
 import app.shopping.forevermyangle.R;
 import app.shopping.forevermyangle.activity.DashboardActivity;
-import app.shopping.forevermyangle.activity.ProductDescriptionActivity;
+import app.shopping.forevermyangle.activity.ProductViewActivity;
 import app.shopping.forevermyangle.activity.SearchProductActivity;
 import app.shopping.forevermyangle.adapter.adapterviewflipper.HomeImageViewFlipperAdapter;
 import app.shopping.forevermyangle.adapter.recyclerview.CategoryRecyclerAdapter;
@@ -425,7 +425,7 @@ public class HomeDashboardFragment extends BaseFragment implements View.OnTouchL
 
                 try {
                     if (openProdDescription(v))
-                        startActivity(new Intent(activity, ProductDescriptionActivity.class));
+                        startActivity(new Intent(activity, ProductViewActivity.class));
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

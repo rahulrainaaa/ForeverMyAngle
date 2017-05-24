@@ -22,7 +22,7 @@
         <activity
             android:name=".activity.DashboardActivity"
             android:launchMode="singleInstance"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.SearchProductActivity"
             android:screenOrientation="portrait" />
@@ -46,8 +46,11 @@
         </receiver>
 
         <activity
-            android:name=".activity.ProductDescriptionActivity"
-            android:screenOrientation="portrait" />
+            android:name=".activity.ProductViewActivity"
+            android:label="@string/title_activity_product_view"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+
     </application>
 
 </manifest>

@@ -127,7 +127,7 @@ public class SearchProductActivity extends FragmentActivity implements AdapterVi
 
         // point to the selected product json object.
         GlobalData.SelectedProduct = GlobalData.TotalProducts.get(position).json;
-        startActivity(new Intent(this, ProductDescriptionActivity.class));
+        startActivity(new Intent(this, ProductViewActivity.class));
     }
 
     /**
