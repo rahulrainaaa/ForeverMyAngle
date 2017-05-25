@@ -21,7 +21,7 @@
             android:background="?attr/colorPrimary"
             app:popupTheme="@style/AppTheme.PopupOverlay" />
 
-        <include layout="@layout/app_title" />
+        <include layout="@layout/app_title_menu" />
 
     </android.support.design.widget.AppBarLayout>
 
@@ -64,38 +64,25 @@
         fab:menu_shadowColor="#8c8c8c"
         fab:menu_shadowRadius="0dp"
         fab:menu_shadowXOffset="4dp"
-        fab:menu_shadowYOffset="5dp"
+        fab:menu_shadowYOffset="7dp"
         fab:menu_showShadow="true">
 
-        <com.github.clans.fab.FloatingActionButton
-            android:id="@+id/fab_share"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@android:drawable/ic_menu_share"
-            fab:fab_label="Share"
-            fab:fab_size="mini" />
 
         <com.github.clans.fab.FloatingActionButton
             android:id="@+id/fab_wishlist"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@android:drawable/ic_menu_share"
+            android:foregroundGravity="center"
+            android:src="@android:drawable/star_on"
             fab:fab_label="Add to wishlist"
-            fab:fab_size="mini" />
-
-        <com.github.clans.fab.FloatingActionButton
-            android:id="@+id/fab_cart"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@android:drawable/ic_menu_share"
-            fab:fab_label="Add to cart"
             fab:fab_size="mini" />
 
         <com.github.clans.fab.FloatingActionButton
             android:id="@+id/fab_review"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@android:drawable/ic_menu_share"
+            android:foregroundGravity="center"
+            android:src="@android:drawable/ic_menu_sort_by_size"
             fab:fab_label="Ratings and Review"
             fab:fab_size="mini" />
 
@@ -103,7 +90,8 @@
             android:id="@+id/fab_description"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@android:drawable/ic_menu_share"
+            android:foregroundGravity="center"
+            android:src="@android:drawable/ic_menu_info_details"
             fab:fab_label="Show description"
             fab:fab_size="mini" />
 

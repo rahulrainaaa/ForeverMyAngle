@@ -2,10 +2,12 @@ package app.shopping.forevermyangle.activity;
 
 import android.os.Bundle;
 import android.support.design.widget.BottomSheetDialog;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.github.clans.fab.FloatingActionButton;
@@ -34,9 +36,11 @@ public class ProductViewActivity extends AppCompatActivity implements View.OnCli
     private FloatingActionMenu mFabMenu;
     private PagerAdapter mPagerAdapter;
     private ViewPager pager;
-    private FloatingActionButton mFabShare, mFabWishlist, mFabCart, mFabReview, mFabDescription;
+    private ImageButton imgBtnShare, imgBtnCart;
+    private FloatingActionButton mFabWishlist, mFabReview, mFabDescription;
     private String[] mProductImageUrl = null;
     private float initialX;
+    private int totalImages = 0;
 
     /**
      * {@link ProductViewActivity} override callback methods.
@@ -49,18 +53,18 @@ public class ProductViewActivity extends AppCompatActivity implements View.OnCli
         // UI mapping with layout.
         pager = (ViewPager) super.findViewById(R.id.viewpager);
         mFabMenu = (FloatingActionMenu) findViewById(R.id.fab_action_menu);
-        mFabShare = (FloatingActionButton) findViewById(R.id.fab_share);
         mFabWishlist = (FloatingActionButton) findViewById(R.id.fab_wishlist);
-        mFabCart = (FloatingActionButton) findViewById(R.id.fab_cart);
         mFabReview = (FloatingActionButton) findViewById(R.id.fab_review);
         mFabDescription = (FloatingActionButton) findViewById(R.id.fab_description);
+        imgBtnCart = (ImageButton) findViewById(R.id.img_btn_cart);
+        imgBtnShare = (ImageButton) findViewById(R.id.img_btn_share);
 
         // Add onclick events
-        mFabShare.setOnClickListener(this);
         mFabWishlist.setOnClickListener(this);
-        mFabCart.setOnClickListener(this);
         mFabReview.setOnClickListener(this);
         mFabDescription.setOnClickListener(this);
+        imgBtnCart.setOnClickListener(this);
+        imgBtnShare.setOnClickListener(this);
 
         parseImageUrl();
         initializePaging();
@@ -74,13 +78,7 @@ public class ProductViewActivity extends AppCompatActivity implements View.OnCli
 
         mFabMenu.close(true);
         switch (view.getId()) {
-            case R.id.fab_share:
-
-                break;
             case R.id.fab_wishlist:
-
-                break;
-            case R.id.fab_cart:
 
                 break;
             case R.id.fab_review:
@@ -89,6 +87,14 @@ public class ProductViewActivity extends AppCompatActivity implements View.OnCli
             case R.id.fab_description:
 
                 fabShowDescription();
+                break;
+            case R.id.img_btn_cart:
+
+
+                break;
+            case R.id.img_btn_share:
+
+
                 break;
         }
     }
@@ -99,14 +105,34 @@ public class ProductViewActivity extends AppCompatActivity implements View.OnCli
     private void initializePaging() {
 
         List<Fragment> fragments = new Vector<>();
-
-        for (int i = 0; i < mProductImageUrl.length; i++) {
+        int length = mProductImageUrl.length;
+        for (int i = 0; i < length; i++) {
             Bundle args = new Bundle();
             args.putString("url", mProductImageUrl[i].trim());
+            args.putInt("position", i + 1);
+            args.putInt("total", length);
             fragments.add(Fragment.instantiate(this, ProductImageFragment.class.getName(), args));
         }
         mPagerAdapter = new PagerAdapter(getSupportFragmentManager(), fragments);
         pager.setAdapter(this.mPagerAdapter);
+        pager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+
+//                Toast.makeText(ProductViewActivity.this, "Image: " + (position + 1) + " of " + totalImages, Toast.LENGTH_SHORT).show();
+                Snackbar.make(ProductViewActivity.this.pager, "Image: " + (position + 1) + " of " + totalImages, Snackbar.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
 
     }
 
@@ -116,11 +142,11 @@ public class ProductViewActivity extends AppCompatActivity implements View.OnCli
      * @desc Method to parse selected product images url into String array for AdapterViewFlipper.
      */
     private boolean parseImageUrl() {
-        int length = 0;
+
         try {
-            length = mProductJsonObject.getJSONArray("images").length();
-            mProductImageUrl = new String[length];
-            for (int i = 0; i < length; i++) {
+            totalImages = mProductJsonObject.getJSONArray("images").length();
+            mProductImageUrl = new String[totalImages];
+            for (int i = 0; i < totalImages; i++) {
                 mProductImageUrl[i] = mProductJsonObject.getJSONArray("images").getJSONObject(i).getString("src");
             }
         } catch (Exception e) {
@@ -138,10 +164,10 @@ public class ProductViewActivity extends AppCompatActivity implements View.OnCli
         final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(this);
         View view = (View) getLayoutInflater().inflate(R.layout.layout_description, null);
 
-        TextView txtProdName = (TextView) findViewById(R.id.txt_product_name);
-        TextView txtProdPrice = (TextView) findViewById(R.id.txt_product_price);
-        TextView txtProdRating = (TextView) findViewById(R.id.txt_prod_rating);
-        TextView txtProdDescription = (TextView) findViewById(R.id.txt_product_desc);
+        TextView txtProdName = (TextView) view.findViewById(R.id.txt_product_name);
+        TextView txtProdPrice = (TextView) view.findViewById(R.id.txt_product_price);
+        TextView txtProdRating = (TextView) view.findViewById(R.id.txt_prod_rating);
+        TextView txtProdDescription = (TextView) view.findViewById(R.id.txt_product_desc);
 
         try {
             txtProdName.setText(mProductJsonObject.getString("name"));

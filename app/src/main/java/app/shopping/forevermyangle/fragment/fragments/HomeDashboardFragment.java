@@ -460,28 +460,28 @@ public class HomeDashboardFragment extends BaseFragment implements View.OnTouchL
                 if (newProd < 1) {
                     return false;
                 }
-                GlobalData.SelectedProduct = GlobalData.NewArrivedProducts.getJSONObject(1);
+                GlobalData.SelectedProduct = GlobalData.NewArrivedProducts.getJSONObject(0);
                 break;
             case R.id.imgNewArrivals2:
 
                 if (newProd < 2) {
                     return false;
                 }
-                GlobalData.SelectedProduct = GlobalData.NewArrivedProducts.getJSONObject(2);
+                GlobalData.SelectedProduct = GlobalData.NewArrivedProducts.getJSONObject(1);
                 break;
             case R.id.imgNewArrivals3:
 
                 if (newProd < 3) {
                     return false;
                 }
-                GlobalData.SelectedProduct = GlobalData.NewArrivedProducts.getJSONObject(3);
+                GlobalData.SelectedProduct = GlobalData.NewArrivedProducts.getJSONObject(2);
                 break;
             case R.id.imgNewArrivals4:
 
                 if (newProd < 4) {
                     return false;
                 }
-                GlobalData.SelectedProduct = GlobalData.NewArrivedProducts.getJSONObject(4);
+                GlobalData.SelectedProduct = GlobalData.NewArrivedProducts.getJSONObject(3);
                 break;
 
 
@@ -490,28 +490,28 @@ public class HomeDashboardFragment extends BaseFragment implements View.OnTouchL
                 if (topRate < 1) {
                     return false;
                 }
-                GlobalData.SelectedProduct = GlobalData.TopRatedProducts.getJSONObject(1);
+                GlobalData.SelectedProduct = GlobalData.TopRatedProducts.getJSONObject(0);
                 break;
             case R.id.imgCategoryItem2:
 
                 if (topRate < 2) {
                     return false;
                 }
-                GlobalData.SelectedProduct = GlobalData.TopRatedProducts.getJSONObject(2);
+                GlobalData.SelectedProduct = GlobalData.TopRatedProducts.getJSONObject(1);
                 break;
             case R.id.imgCategoryItem3:
 
                 if (topRate < 3) {
                     return false;
                 }
-                GlobalData.SelectedProduct = GlobalData.TopRatedProducts.getJSONObject(3);
+                GlobalData.SelectedProduct = GlobalData.TopRatedProducts.getJSONObject(2);
                 break;
             case R.id.imgCategoryItem4:
 
                 if (topRate < 4) {
                     return false;
                 }
-                GlobalData.SelectedProduct = GlobalData.TopRatedProducts.getJSONObject(4);
+                GlobalData.SelectedProduct = GlobalData.TopRatedProducts.getJSONObject(3);
                 break;
 
 
@@ -520,28 +520,28 @@ public class HomeDashboardFragment extends BaseFragment implements View.OnTouchL
                 if (newSell < 1) {
                     return false;
                 }
-                GlobalData.SelectedProduct = GlobalData.TopSellProducts.getJSONObject(1);
+                GlobalData.SelectedProduct = GlobalData.TopSellProducts.getJSONObject(0);
                 break;
             case R.id.imgBestSellerItem2:
 
                 if (newSell < 2) {
                     return false;
                 }
-                GlobalData.SelectedProduct = GlobalData.TopSellProducts.getJSONObject(2);
+                GlobalData.SelectedProduct = GlobalData.TopSellProducts.getJSONObject(1);
                 break;
             case R.id.imgBestSellerItem3:
 
                 if (newSell < 3) {
                     return false;
                 }
-                GlobalData.SelectedProduct = GlobalData.TopSellProducts.getJSONObject(3);
+                GlobalData.SelectedProduct = GlobalData.TopSellProducts.getJSONObject(2);
                 break;
             case R.id.imgBestSellerItem4:
 
                 if (newSell < 4) {
                     return false;
                 }
-                GlobalData.SelectedProduct = GlobalData.TopSellProducts.getJSONObject(4);
+                GlobalData.SelectedProduct = GlobalData.TopSellProducts.getJSONObject(3);
                 break;
         }
         return true;    // True show description activity.

@@ -15,6 +15,8 @@ import app.shopping.forevermyangle.R;
 
 public class ProductImageFragment extends Fragment {
 
+    ImageView view;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
@@ -27,6 +29,8 @@ public class ProductImageFragment extends Fragment {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        view = imgView;
         return imgView;
     }
+
 }
