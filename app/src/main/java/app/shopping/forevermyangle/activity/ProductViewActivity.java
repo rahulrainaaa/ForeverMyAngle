@@ -1,10 +1,12 @@
 package app.shopping.forevermyangle.activity;
 
 import android.os.Bundle;
+import android.support.design.widget.BottomSheetDialog;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.TextView;
 
 import com.github.clans.fab.FloatingActionButton;
 import com.github.clans.fab.FloatingActionMenu;
@@ -60,24 +62,8 @@ public class ProductViewActivity extends AppCompatActivity implements View.OnCli
         mFabReview.setOnClickListener(this);
         mFabDescription.setOnClickListener(this);
 
-        mProductImageUrl = new String[]{
-
-                "https://forevermyangel.com/wp-content/uploads/2017/05/little-silver-earring-main-image.jpg",
-                "https://forevermyangel.com/wp-content/uploads/2017/05/little-golden-rose-earring-main-image.jpg",
-                "https://forevermyangel.com/wp-content/uploads/2017/04/cuff-earrings-gallery-image1.jpg",
-                "https://forevermyangel.com/wp-content/uploads/2017/05/crystal-rhinestone-earring-silver-main-image.jpg",
-        };
-
-
-        // parse the data
-//        if (parseImageUrl()) {
-//            mFlipperAdapter = new ProductImageViewFlipperAdapter(this, R.layout.image_product, mProductImageUrl);
-//            mProductImgFlipper.setAdapter(mFlipperAdapter);
-//        } else {
-//            Toast.makeText(this, "No image for the product.", Toast.LENGTH_SHORT).show();
-//        }
-
-        initialisePaging();
+        parseImageUrl();
+        initializePaging();
     }
 
     /**
@@ -102,15 +88,15 @@ public class ProductViewActivity extends AppCompatActivity implements View.OnCli
                 break;
             case R.id.fab_description:
 
+                fabShowDescription();
                 break;
         }
     }
 
-
     /**
-     * Initialise the fragments to be paged
+     * Initialise the fragments to be paged.
      */
-    private void initialisePaging() {
+    private void initializePaging() {
 
         List<Fragment> fragments = new Vector<>();
 
@@ -143,4 +129,30 @@ public class ProductViewActivity extends AppCompatActivity implements View.OnCli
         }
         return true;
     }
+
+    /**
+     * @method fabShowDescription
+     * @desc Method to handle login on show description FAB button click.
+     */
+    private void fabShowDescription() {
+        final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(this);
+        View view = (View) getLayoutInflater().inflate(R.layout.layout_description, null);
+
+        TextView txtProdName = (TextView) findViewById(R.id.txt_product_name);
+        TextView txtProdPrice = (TextView) findViewById(R.id.txt_product_price);
+        TextView txtProdRating = (TextView) findViewById(R.id.txt_prod_rating);
+        TextView txtProdDescription = (TextView) findViewById(R.id.txt_product_desc);
+
+        try {
+            txtProdName.setText(mProductJsonObject.getString("name"));
+            txtProdPrice.setText("Rs." + mProductJsonObject.getString("price"));
+            txtProdRating.setText(mProductJsonObject.getString("average_rating"));
+            txtProdDescription.setText(mProductJsonObject.getString("short_description"));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        bottomSheetDialog.setContentView(view);
+        bottomSheetDialog.show();
+    }
+
 }

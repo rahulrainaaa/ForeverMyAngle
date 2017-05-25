@@ -13,7 +13,6 @@ import com.squareup.picasso.Picasso;
 
 import app.shopping.forevermyangle.R;
 
-
 public class ProductImageFragment extends Fragment {
 
     @Nullable
