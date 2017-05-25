@@ -1,12 +1,15 @@
 package app.shopping.forevermyangle.activity;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.BottomSheetDialog;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -41,6 +44,7 @@ public class ProductViewActivity extends AppCompatActivity implements View.OnCli
     private String[] mProductImageUrl = null;
     private float initialX;
     private int totalImages = 0;
+    private Animation mAnimationFab = null;
 
     /**
      * {@link ProductViewActivity} override callback methods.
@@ -58,6 +62,8 @@ public class ProductViewActivity extends AppCompatActivity implements View.OnCli
         mFabDescription = (FloatingActionButton) findViewById(R.id.fab_description);
         imgBtnCart = (ImageButton) findViewById(R.id.img_btn_cart);
         imgBtnShare = (ImageButton) findViewById(R.id.img_btn_share);
+        mAnimationFab = (Animation) AnimationUtils.loadAnimation(this, R.anim.fab_animation);
+        mFabMenu.startAnimation(mAnimationFab);
 
         // Add onclick events
         mFabWishlist.setOnClickListener(this);
@@ -92,6 +98,7 @@ public class ProductViewActivity extends AppCompatActivity implements View.OnCli
 
 
                 break;
+
             case R.id.img_btn_share:
 
 
@@ -124,8 +131,16 @@ public class ProductViewActivity extends AppCompatActivity implements View.OnCli
             @Override
             public void onPageSelected(int position) {
 
-//                Toast.makeText(ProductViewActivity.this, "Image: " + (position + 1) + " of " + totalImages, Toast.LENGTH_SHORT).show();
+                mFabMenu.setTranslationY(-100.0f);
                 Snackbar.make(ProductViewActivity.this.pager, "Image: " + (position + 1) + " of " + totalImages, Snackbar.LENGTH_SHORT).show();
+
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+
+                        mFabMenu.setTranslationY(0.0f);
+                    }
+                }, 1850);
             }
 
             @Override
