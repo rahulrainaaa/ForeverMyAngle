@@ -2,10 +2,11 @@ package app.shopping.forevermyangle.activity;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import org.json.JSONObject;
 
@@ -17,7 +18,7 @@ import app.shopping.forevermyangle.R;
 import app.shopping.forevermyangle.adapter.listviewadapter.WishlistListViewAdpter;
 import app.shopping.forevermyangle.model.products.WishlistProduct;
 
-public class WishlistActivity extends AppCompatActivity implements View.OnClickListener, View.OnLongClickListener {
+public class WishlistActivity extends AppCompatActivity implements AdapterView.OnItemLongClickListener, AdapterView.OnItemClickListener {
 
     private ListView listView;
     private ArrayList<WishlistProduct> list = new ArrayList();
@@ -57,20 +58,35 @@ public class WishlistActivity extends AppCompatActivity implements View.OnClickL
 
         adapter = new WishlistListViewAdpter(this, R.layout.item_list_wishlist, list);
         listView.setAdapter(adapter);
-//        listView.setOnClickListener(this);
-//        listView.setOnLongClickListener(this);
+        listView.setOnItemClickListener(this);
+        listView.setOnItemLongClickListener(this);
+
+    }
+
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
     }
 
     @Override
-    public void onClick(View v) {
+    public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
 
-        Toast.makeText(this, "click", Toast.LENGTH_SHORT).show();
-    }
+        final int prodId = list.get(position).prodid;
+        final int pos = position;
+        Snackbar.make(view, "Are you sure ?", Snackbar.LENGTH_SHORT).setAction("Delete", new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
-    @Override
-    public boolean onLongClick(View v) {
+                SharedPreferences.Editor se = getSharedPreferences("wishlist", 0).edit();
+                se.remove("" + prodId);
+                se.commit();
+                list.remove(pos);
+                adapter.notifyDataSetChanged();
+            }
+        }).show();
 
-        Toast.makeText(this, "on Long Click", Toast.LENGTH_SHORT).show();
         return true;
     }
+
 }

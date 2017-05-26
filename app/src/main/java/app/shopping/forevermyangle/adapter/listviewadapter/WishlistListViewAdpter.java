@@ -64,7 +64,8 @@ public class WishlistListViewAdpter extends ArrayAdapter {
         holder.txtProductName.setText(wishlistProduct.prodName);
         holder.txtProductPrice.setText("AED" + wishlistProduct.prodPrice);
         try {
-            Picasso.with(activity).load(wishlistProduct.prodImage.trim()).into(holder.imageView);
+            Picasso.with(activity).load(wishlistProduct.prodImage
+                    .trim()).into(holder.imageView);
         } catch (Exception e) {
             e.printStackTrace();
         }
