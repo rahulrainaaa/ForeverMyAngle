@@ -50,7 +50,7 @@
             android:label="@string/title_activity_product_view"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
-
+        <activity android:name=".activity.WishlistActivity"></activity>
     </application>
 
 </manifest>

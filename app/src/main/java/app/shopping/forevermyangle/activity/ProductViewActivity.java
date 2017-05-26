@@ -1,5 +1,6 @@
 package app.shopping.forevermyangle.activity;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
@@ -16,11 +17,9 @@ import android.widget.Toast;
 
 import com.github.clans.fab.FloatingActionButton;
 import com.github.clans.fab.FloatingActionMenu;
-import com.google.gson.Gson;
 
 import org.json.JSONObject;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Vector;
 
@@ -105,7 +104,7 @@ public class ProductViewActivity extends AppCompatActivity implements View.OnCli
 
             case R.id.img_btn_share:
 
-
+                startActivity(new Intent(this, WishlistActivity.class));
                 break;
         }
     }
@@ -210,18 +209,9 @@ public class ProductViewActivity extends AppCompatActivity implements View.OnCli
     private void fabAddToWishlist() {
 
         try {
-            Gson gson = new Gson();
-            SharedPreferences s = getSharedPreferences("wishlist", 0);
             SharedPreferences.Editor se = getSharedPreferences("wishlist", 0).edit();
-            HashMap<Integer, JSONObject> map = gson.fromJson(s.getString("data", ""), HashMap.class);
-
-            if (map == null) {
-                map = new HashMap<Integer, JSONObject>();
-            }
-            int i = mProductJsonObject.getInt("id");
-            map.put(i, mProductJsonObject);
-            String str = gson.toJson(map);
-            se.putString("data", str.trim());
+            int pid = mProductJsonObject.getInt("id");
+            se.putString("" + pid, mProductJsonObject.toString());
             se.commit();
 
         } catch (Exception e) {
