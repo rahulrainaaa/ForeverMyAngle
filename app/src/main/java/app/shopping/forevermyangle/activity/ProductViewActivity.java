@@ -47,6 +47,7 @@ public class ProductViewActivity extends AppCompatActivity implements View.OnCli
     private String[] mProductImageUrl = null;
     private float initialX;
     private int totalImages = 0;
+    private int timer = 0;
     private CoordinatorLayout coordinatorLayout = null;
 
     /**
@@ -136,12 +137,15 @@ public class ProductViewActivity extends AppCompatActivity implements View.OnCli
 
                 mFabMenu.setTranslationY(-100.0f);
                 Snackbar.make(ProductViewActivity.this.coordinatorLayout, "Image: " + (position + 1) + " of " + totalImages, Snackbar.LENGTH_SHORT).show();
-
+                timer++;
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
 
-                        mFabMenu.setTranslationY(0.0f);
+                        timer--;
+                        if (timer < 1) {
+                            mFabMenu.setTranslationY(0.0f);
+                        }
                     }
                 }, 1850);
             }
