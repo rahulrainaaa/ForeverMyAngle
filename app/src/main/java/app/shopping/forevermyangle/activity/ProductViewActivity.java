@@ -1,5 +1,6 @@
 package app.shopping.forevermyangle.activity;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.BottomSheetDialog;
@@ -11,12 +12,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.github.clans.fab.FloatingActionButton;
 import com.github.clans.fab.FloatingActionMenu;
+import com.google.gson.Gson;
 
 import org.json.JSONObject;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Vector;
 
@@ -84,6 +88,7 @@ public class ProductViewActivity extends AppCompatActivity implements View.OnCli
         switch (view.getId()) {
             case R.id.fab_wishlist:
 
+                fabAddToWishlist();
                 break;
             case R.id.fab_review:
 
@@ -194,4 +199,31 @@ public class ProductViewActivity extends AppCompatActivity implements View.OnCli
         bottomSheetDialog.show();
     }
 
+    /**
+     * @method fabAddToWishlist
+     * @desc Method to add product to Wishlist.
+     */
+    private void fabAddToWishlist() {
+
+        try {
+            Gson gson = new Gson();
+            SharedPreferences s = getSharedPreferences("wishlist", 0);
+            SharedPreferences.Editor se = getSharedPreferences("wishlist", 0).edit();
+            HashMap<Integer, JSONObject> map = gson.fromJson(s.getString("data", ""), HashMap.class);
+
+            if (map == null) {
+                map = new HashMap<Integer, JSONObject>();
+            }
+            int i = mProductJsonObject.getInt("id");
+            map.put(i, mProductJsonObject);
+            String str = gson.toJson(map);
+            se.putString("data", str.trim());
+            se.commit();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            Toast.makeText(this, "" + e.getMessage(), Toast.LENGTH_SHORT).show();
+        }
+
+    }
 }
