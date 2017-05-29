@@ -34,6 +34,7 @@ public class SplashActivity extends FragmentActivity implements Runnable {
     @Override
     public void run() {
         startActivity(new Intent(this, DashboardActivity.class));
+        startActivity(new Intent(this, LoginActivity.class));
         finish();
     }
 }

@@ -19,6 +19,7 @@ import app.shopping.forevermyangle.network.callback.NetworkCallbackListener;
 import app.shopping.forevermyangle.network.handler.NetworkHandler;
 import app.shopping.forevermyangle.utils.Constants;
 import app.shopping.forevermyangle.utils.GlobalData;
+import app.shopping.forevermyangle.utils.Network;
 import app.shopping.forevermyangle.view.FMAProgessDialog;
 
 /**
@@ -115,12 +116,13 @@ public class LoginActivity extends FragmentActivity implements View.OnClickListe
                 jsonRequest.put("username", mStrUsername.trim());
                 jsonRequest.put("password", mStrPassword.trim());
             } catch (Exception exception) {
-
+                exception.printStackTrace();
+                Toast.makeText(this, "" + exception.getMessage(), Toast.LENGTH_SHORT).show();
             }
-//            mNetworkHandler = new NetworkHandler();
-//            mNetworkHandler.httpCreate(1, this, this, jsonRequest, Network.URL_FMA_USER_LOGIN, Login.class);
-//            mFMAProgessDialog.show();
-//            mNetworkHandler.executePost();
+            mNetworkHandler = new NetworkHandler();
+            mNetworkHandler.httpCreate(1, this, this, jsonRequest, Network.URL_FMA_USER_LOGIN, NetworkHandler.RESPONSE_JSON);
+            mFMAProgessDialog.show();
+            mNetworkHandler.executePost();
         } else {
             // Validation failed for the Username-Password login fields.
         }

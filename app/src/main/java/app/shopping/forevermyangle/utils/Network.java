@@ -9,7 +9,7 @@ public class Network {
     /**
      * URL to get all categories.
      */
-    //public static final String URL_GET_ALL_CATEGORIES = "http://forevermyangel.com/fma-api.php?action=getallcategories";
+    //public static final String URL_GET_ALL_CATEGORIES = "https://forevermyangel.com/fma-api.php?action=getallcategories";
     public static final String URL_GET_ALL_CATEGORIES = "https://forevermyangel.com/wp-json/wc/v2/products/categories?per_page=100";
 
     /**
@@ -20,5 +20,5 @@ public class Network {
     /**
      * URL for  FMA user login.
      */
-    public static final String URL_FMA_USER_LOGIN = "http://forevermyangel.com/wp-json/jwt-auth/v1/token";
+    public static final String URL_FMA_USER_LOGIN = "https://forevermyangel.com/wp-json/jwt-auth/v1/token";
 }

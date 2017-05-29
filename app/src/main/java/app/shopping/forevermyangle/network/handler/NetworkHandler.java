@@ -159,7 +159,6 @@ public class NetworkHandler implements Response.ErrorListener {
             responseMessage = error.getCause().getMessage();    // Network issue.
         }
 
-
         if (this.mNetworkCallbackListener != null) {
             mNetworkCallbackListener.networkFailResponse(this.mRequestCode, responseMessage);
         }
