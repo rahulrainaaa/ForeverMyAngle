@@ -104,7 +104,17 @@ public class ProductViewActivity extends AppCompatActivity implements View.OnCli
 
             case R.id.img_btn_share:
 
-                startActivity(new Intent(this, WishlistActivity.class));
+                try {
+                    Intent i = new Intent(Intent.ACTION_SEND);
+                    i.setType("text/plain");
+                    i.putExtra(Intent.EXTRA_SUBJECT, "Forever My Angel");
+                    String sAux = "Let me recommend you this product: ";
+                    sAux = sAux + mProductJsonObject.getString("permalink");
+                    i.putExtra(Intent.EXTRA_TEXT, sAux);
+                    startActivity(Intent.createChooser(i, "Share via"));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
                 break;
         }
     }

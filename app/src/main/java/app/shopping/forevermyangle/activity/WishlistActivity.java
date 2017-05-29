@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ListView;
 
 import org.json.JSONObject;
@@ -18,7 +17,7 @@ import app.shopping.forevermyangle.R;
 import app.shopping.forevermyangle.adapter.listviewadapter.WishlistListViewAdpter;
 import app.shopping.forevermyangle.model.products.WishlistProduct;
 
-public class WishlistActivity extends AppCompatActivity implements AdapterView.OnItemLongClickListener, AdapterView.OnItemClickListener {
+public class WishlistActivity extends AppCompatActivity implements View.OnClickListener {
 
     private ListView listView;
     private ArrayList<WishlistProduct> list = new ArrayList();
@@ -58,22 +57,33 @@ public class WishlistActivity extends AppCompatActivity implements AdapterView.O
 
         adapter = new WishlistListViewAdpter(this, R.layout.item_list_wishlist, list);
         listView.setAdapter(adapter);
-        listView.setOnItemClickListener(this);
-        listView.setOnItemLongClickListener(this);
-
-    }
-
-
-    @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
     }
 
     @Override
-    public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+    public void onClick(View view) {
 
+        switch (view.getId()) {
+
+            case R.id.move_to_cart:
+
+                moveToCart(view);
+                break;
+            case R.id.remove:
+
+                removeFromCart(view);
+                break;
+            case R.id.img_product:
+
+                showDescription(view);
+                break;
+        }
+    }
+
+    private void removeFromCart(View view) {
+
+        final int position = (int) view.getTag();
         final int prodId = list.get(position).prodid;
-        final int pos = position;
         Snackbar.make(view, "Are you sure ?", Snackbar.LENGTH_SHORT).setAction("Delete", new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -81,12 +91,24 @@ public class WishlistActivity extends AppCompatActivity implements AdapterView.O
                 SharedPreferences.Editor se = getSharedPreferences("wishlist", 0).edit();
                 se.remove("" + prodId);
                 se.commit();
-                list.remove(pos);
+                list.remove(position);
                 adapter.notifyDataSetChanged();
             }
         }).show();
-
-        return true;
     }
 
+    private void moveToCart(View view) {
+
+        final int position = (int) view.getTag();
+        final int prodId = list.get(position).prodid;
+        Snackbar.make(listView, "position=" + position + "\nProdID=" + prodId, Snackbar.LENGTH_SHORT).show();
+
+    }
+
+    private void showDescription(View view) {
+
+        final int position = (int) view.getTag();
+        final int prodId = list.get(position).prodid;
+        Snackbar.make(listView, "position=" + position + "\nProdID=" + prodId, Snackbar.LENGTH_SHORT).show();
+    }
 }

@@ -98,6 +98,7 @@ public class DashboardActivity extends FMAActivity implements BottomNavigationVi
                 break;
             case R.id.option_menu_wishlist:
 
+                startActivity(new Intent(this, WishlistActivity.class));
                 break;
         }
         return true;
