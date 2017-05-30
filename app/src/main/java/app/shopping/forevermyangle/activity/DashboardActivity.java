@@ -21,6 +21,7 @@ import app.shopping.forevermyangle.fragment.base.BaseFragment;
 import app.shopping.forevermyangle.fragment.fragments.CategoryDashboardFragment;
 import app.shopping.forevermyangle.fragment.fragments.ConnectionFailFragment;
 import app.shopping.forevermyangle.fragment.fragments.HomeDashboardFragment;
+import app.shopping.forevermyangle.fragment.fragments.UserProfileFragment;
 import app.shopping.forevermyangle.receiver.callback.ConnectionReceiverCallback;
 import app.shopping.forevermyangle.utils.Constants;
 import app.shopping.forevermyangle.utils.GlobalData;
@@ -153,7 +154,7 @@ public class DashboardActivity extends FMAActivity implements BottomNavigationVi
                 return new ConnectionFailFragment();
 
             case 4:     // Fragment 4 to load.
-                return new CategoryDashboardFragment();
+                return new UserProfileFragment();
 
             default:    // Unexpected value for fragment load: Warning.
                 Toast.makeText(this, "Warning: Unexpected value for mFlagFragment=" + mFlagFragment, Toast.LENGTH_SHORT).show();
