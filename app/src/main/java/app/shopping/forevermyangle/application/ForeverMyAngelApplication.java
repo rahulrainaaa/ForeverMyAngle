@@ -2,8 +2,11 @@ package app.shopping.forevermyangle.application;
 
 import android.app.Application;
 import android.content.SharedPreferences;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
+
+import org.json.JSONObject;
 
 import app.shopping.forevermyangle.model.login.Login;
 import app.shopping.forevermyangle.utils.Constants;
@@ -23,13 +26,26 @@ public class ForeverMyAngelApplication extends Application {
         super.onCreate();
 
         // Fetch the login information from shared preferences (if present).
-        SharedPreferences sharedPreferences = getSharedPreferences(Constants.CACHE_NAME, 0);
-        String strJsonLogin = sharedPreferences.getString(Constants.CACHE_LOGIN, "");
+        SharedPreferences sharedPreferences = getSharedPreferences(Constants.CACHE_USER, 0);
+        String strJsonLogin = sharedPreferences.getString(Constants.CACHE_KEY_LOGIN, "");
+        String strJsonUserDetail = sharedPreferences.getString(Constants.CACHE_KEY_USER_DETAIL, "{}");
+
         if (strJsonLogin.trim().isEmpty()) {
             GlobalData.login = null;
         } else {
             Gson gson = new Gson();
             GlobalData.login = gson.fromJson(strJsonLogin, Login.class);
+        }
+
+        try {
+            if (!strJsonUserDetail.trim().isEmpty()) {
+
+                GlobalData.jsonUserDetail = new JSONObject(strJsonUserDetail.trim());
+            }
+        } catch (Exception e) {
+
+            e.printStackTrace();
+            Toast.makeText(this, "" + e.getMessage(), Toast.LENGTH_SHORT).show();
         }
     }
 }

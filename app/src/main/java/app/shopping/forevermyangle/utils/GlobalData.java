@@ -26,7 +26,7 @@ public class GlobalData {
     public static ArrayList<Category> parentCategories = new ArrayList<Category>();
 
     /**
-     * Login Session related data.
+     * Login Session: offline global data object.
      */
     public static Login login = null;
 
@@ -34,6 +34,11 @@ public class GlobalData {
      * Network Found Receiver callback interface.
      */
     public static ConnectionReceiverCallback connectionCallback = null;
+
+    /**
+     * User detail.
+     */
+    public static JSONObject jsonUserDetail = null;
 
     /**
      * Dashboard Banner 12 products for 3 fragment types.

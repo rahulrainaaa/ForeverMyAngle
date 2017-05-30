@@ -15,6 +15,8 @@ public class Constants {
     /**
      * Cache Handling values.
      */
-    public static String CACHE_NAME = "FMACache";
-    public static String CACHE_LOGIN = "LOGIN_DATA";
+    public static final String CACHE_USER = "FMA_USER";             // Cache file to hold login.
+    public static final String CACHE_KEY_LOGIN = "FMA_LOGIN_DATA";      // Hold login data object.
+    public static final String CACHE_KEY_USER_DETAIL = "FMA_LOGIN_DETAIL";      // Hold login data object.
+    public static final String CACHE_WISHLIST = "FMA_WISHLIST";         // cache file to hold wishlist.
 }

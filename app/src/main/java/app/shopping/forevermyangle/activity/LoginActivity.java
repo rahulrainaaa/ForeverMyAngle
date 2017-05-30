@@ -1,6 +1,6 @@
 package app.shopping.forevermyangle.activity;
 
-import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
@@ -13,9 +13,9 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import app.shopping.forevermyangle.R;
-import app.shopping.forevermyangle.model.base.BaseModel;
 import app.shopping.forevermyangle.model.login.Login;
 import app.shopping.forevermyangle.network.callback.NetworkCallbackListener;
+import app.shopping.forevermyangle.network.handler.HttpsTask;
 import app.shopping.forevermyangle.network.handler.NetworkHandler;
 import app.shopping.forevermyangle.utils.Constants;
 import app.shopping.forevermyangle.utils.GlobalData;
@@ -119,10 +119,10 @@ public class LoginActivity extends FragmentActivity implements View.OnClickListe
                 exception.printStackTrace();
                 Toast.makeText(this, "" + exception.getMessage(), Toast.LENGTH_SHORT).show();
             }
-            mNetworkHandler = new NetworkHandler();
-            mNetworkHandler.httpCreate(1, this, this, jsonRequest, Network.URL_FMA_USER_LOGIN, NetworkHandler.RESPONSE_JSON);
+            HttpsTask httpsTask = new HttpsTask(1, this, this, "POST", Network.URL_FMA_USER_LOGIN, jsonRequest, HttpsTask.RESPONSE_TYPE_OBJECT);
+            httpsTask.execute("");
             mFMAProgessDialog.show();
-            mNetworkHandler.executePost();
+
         } else {
             // Validation failed for the Username-Password login fields.
         }
@@ -133,25 +133,23 @@ public class LoginActivity extends FragmentActivity implements View.OnClickListe
      */
     @Override
     public void networkSuccessResponse(int requestCode, JSONObject rawObject, JSONArray rawArray) {
-        if (requestCode == 1) {     // Success Login Response.
-            mFMAProgessDialog.hide();
 
-            BaseModel responseModel = new Login();      //Save the login data.
-            // Save the login model in sharedPreferences.
-            Login login = (Login) responseModel;
-            GlobalData.login = login;
-            Gson gson = new Gson();
-            String jsonLoginData = gson.toJson(login);
-            getSharedPreferences(Constants.CACHE_NAME, 0).edit().putString(Constants.CACHE_LOGIN, jsonLoginData).commit();
+        switch (requestCode) {
+            case 1:
 
-            // Start the new activity.
-            startActivity(new Intent(this, DashboardActivity.class));
-            finish();
+                loginSuccessfully(rawObject);
+                break;
+            case 2:
+
+                detailsFetched(rawArray);
+                break;
+
         }
     }
 
     @Override
     public void networkFailResponse(int requestCode, String message) {
+
         mFMAProgessDialog.hide();
         switch (requestCode) {      // Login Response.
             case 1:
@@ -163,6 +161,47 @@ public class LoginActivity extends FragmentActivity implements View.OnClickListe
                     Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
                 }
                 break;
+            case 2:
+
+                Toast.makeText(this, "Unable to fetch user data.", Toast.LENGTH_SHORT).show();
+                break;
         }
     }
+
+    private void loginSuccessfully(JSONObject jsonResponse) {
+
+        Gson gson = new Gson();
+
+        // Save the login model in sharedPreferences.
+        Login login = (Login) gson.fromJson(jsonResponse.toString(), Login.class);
+        GlobalData.login = login;
+        String jsonLoginData = gson.toJson(login);
+        getSharedPreferences(Constants.CACHE_USER, 0).edit().putString(Constants.CACHE_KEY_LOGIN, jsonLoginData).commit();
+
+        String url = Network.URL_FMA_USER_DETAIL + "?email=" + login.getUserEmail();
+        NetworkHandler handler = new NetworkHandler();
+        handler.httpCreate(2, this, this, new JSONObject(), url, NetworkHandler.RESPONSE_ARRAY);
+        handler.executeGet();
+    }
+
+    private void detailsFetched(JSONArray jsonArray) {
+
+        mFMAProgessDialog.hide();
+        if (jsonArray.length() < 1) {
+            return;
+        }
+        try {
+            GlobalData.jsonUserDetail = jsonArray.getJSONObject(0);
+            SharedPreferences.Editor se = getSharedPreferences(Constants.CACHE_USER, 0).edit();
+            se.putString(Constants.CACHE_KEY_USER_DETAIL, GlobalData.jsonUserDetail.toString());
+            se.commit();
+            Toast.makeText(this, "Login Successfully.", Toast.LENGTH_SHORT).show();
+            finish();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
 }

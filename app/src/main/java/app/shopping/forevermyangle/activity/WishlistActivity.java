@@ -16,6 +16,7 @@ import java.util.Map;
 import app.shopping.forevermyangle.R;
 import app.shopping.forevermyangle.adapter.listviewadapter.WishlistListViewAdpter;
 import app.shopping.forevermyangle.model.products.WishlistProduct;
+import app.shopping.forevermyangle.utils.Constants;
 
 public class WishlistActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -88,7 +89,7 @@ public class WishlistActivity extends AppCompatActivity implements View.OnClickL
             @Override
             public void onClick(View v) {
 
-                SharedPreferences.Editor se = getSharedPreferences("wishlist", 0).edit();
+                SharedPreferences.Editor se = getSharedPreferences(Constants.CACHE_WISHLIST, 0).edit();
                 se.remove("" + prodId);
                 se.commit();
                 list.remove(position);

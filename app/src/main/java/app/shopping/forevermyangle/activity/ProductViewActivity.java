@@ -26,6 +26,7 @@ import java.util.Vector;
 import app.shopping.forevermyangle.R;
 import app.shopping.forevermyangle.adapter.pageradapter.PagerAdapter;
 import app.shopping.forevermyangle.fragment.fragments.ProductImageFragment;
+import app.shopping.forevermyangle.utils.Constants;
 import app.shopping.forevermyangle.utils.GlobalData;
 
 /**
@@ -219,7 +220,7 @@ public class ProductViewActivity extends AppCompatActivity implements View.OnCli
     private void fabAddToWishlist() {
 
         try {
-            SharedPreferences.Editor se = getSharedPreferences("wishlist", 0).edit();
+            SharedPreferences.Editor se = getSharedPreferences(Constants.CACHE_WISHLIST, 0).edit();
             int pid = mProductJsonObject.getInt("id");
             se.putString("" + pid, mProductJsonObject.toString());
             se.commit();

@@ -21,4 +21,9 @@ public class Network {
      * URL for  FMA user login.
      */
     public static final String URL_FMA_USER_LOGIN = "https://forevermyangel.com/wp-json/jwt-auth/v1/token";
+
+    /**
+     * URL for  FMA user get detail from email.
+     */
+    public static final String URL_FMA_USER_DETAIL = "https://forevermyangel.com/wp-json/wc/v2/customers";
 }
