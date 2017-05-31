@@ -12,10 +12,10 @@
                 android:color="@color/colorText" />
 
             <gradient
-                android:centerColor="#f4f4f4"
-                android:endColor="#dfdfdf"
+                android:centerColor="#fdfdfd"
+                android:endColor="#f4f4f4"
                 android:gradientRadius="200dp"
-                android:startColor="#dfdfdf"
+                android:startColor="#f4f4f4"
                 android:type="linear" />
 
 
