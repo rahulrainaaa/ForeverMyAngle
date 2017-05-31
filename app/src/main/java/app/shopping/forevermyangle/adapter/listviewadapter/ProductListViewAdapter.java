@@ -95,7 +95,7 @@ public class ProductListViewAdapter extends ArrayAdapter<Product> {
         try {
             Picasso.with(mActivity).load(product.image.trim()).into(imgproduct);
             txtProductName.setText(product.name);
-            txtProductPrice.setText("Rs." + product.price);
+            txtProductPrice.setText("AED " + product.price);
             txtproductRate.setText(product.average_rating);
         } catch (Exception e) {
             Snackbar.make(view, position + "" + e.getMessage(), Snackbar.LENGTH_INDEFINITE).show();

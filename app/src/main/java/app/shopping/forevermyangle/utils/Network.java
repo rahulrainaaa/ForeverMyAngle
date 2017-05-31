@@ -26,4 +26,14 @@ public class Network {
      * URL for  FMA user get detail from email.
      */
     public static final String URL_FMA_USER_DETAIL = "https://forevermyangel.com/wp-json/wc/v2/customers";
+
+    /**
+     * Custom URL for adding to cart.
+     */
+    public static final String URL_ADD_TO_CART = "https://forevermyangel.com/fma-api.php?action=addtocart";
+
+    /**
+     * Custom URL for get all products detials from cart.
+     */
+    public static final String URL_GET_CART = "https://forevermyangel.com/fma-api.php?action=addtocart";
 }

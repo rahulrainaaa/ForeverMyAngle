@@ -26,6 +26,7 @@ import java.util.Vector;
 import app.shopping.forevermyangle.R;
 import app.shopping.forevermyangle.adapter.pageradapter.PagerAdapter;
 import app.shopping.forevermyangle.fragment.fragments.ProductImageFragment;
+import app.shopping.forevermyangle.network.handler.NetworkHandler;
 import app.shopping.forevermyangle.utils.Constants;
 import app.shopping.forevermyangle.utils.GlobalData;
 
@@ -43,9 +44,8 @@ public class ProductViewActivity extends AppCompatActivity implements View.OnCli
     private PagerAdapter mPagerAdapter;
     private ViewPager pager;
     private ImageButton imgBtnShare, imgBtnCart;
-    private FloatingActionButton mFabWishlist, mFabReview, mFabDescription;
+    private FloatingActionButton mFabWishlist, mFabReview, mFabDescription, mFabAddToCart;
     private String[] mProductImageUrl = null;
-    private float initialX;
     private int totalImages = 0;
     private int timer = 0;
     private CoordinatorLayout coordinatorLayout = null;
@@ -64,6 +64,7 @@ public class ProductViewActivity extends AppCompatActivity implements View.OnCli
         mFabMenu = (FloatingActionMenu) findViewById(R.id.fab_action_menu);
         mFabWishlist = (FloatingActionButton) findViewById(R.id.fab_wishlist);
         mFabReview = (FloatingActionButton) findViewById(R.id.fab_review);
+        mFabAddToCart = (FloatingActionButton) findViewById(R.id.fab_addtocart);
         mFabDescription = (FloatingActionButton) findViewById(R.id.fab_description);
         imgBtnCart = (ImageButton) findViewById(R.id.img_btn_cart);
         imgBtnShare = (ImageButton) findViewById(R.id.img_btn_share);
@@ -72,6 +73,7 @@ public class ProductViewActivity extends AppCompatActivity implements View.OnCli
         mFabWishlist.setOnClickListener(this);
         mFabReview.setOnClickListener(this);
         mFabDescription.setOnClickListener(this);
+        mFabAddToCart.setOnClickListener(this);
         imgBtnCart.setOnClickListener(this);
         imgBtnShare.setOnClickListener(this);
 
@@ -87,6 +89,11 @@ public class ProductViewActivity extends AppCompatActivity implements View.OnCli
 
         mFabMenu.close(true);
         switch (view.getId()) {
+
+            case R.id.fab_addtocart:
+
+                fabAddToCart();
+                break;
             case R.id.fab_wishlist:
 
                 fabAddToWishlist();
@@ -100,9 +107,7 @@ public class ProductViewActivity extends AppCompatActivity implements View.OnCli
                 break;
             case R.id.img_btn_cart:
 
-
                 break;
-
             case R.id.img_btn_share:
 
                 try {
@@ -203,7 +208,7 @@ public class ProductViewActivity extends AppCompatActivity implements View.OnCli
 
         try {
             txtProdName.setText(mProductJsonObject.getString("name"));
-            txtProdPrice.setText("Rs." + mProductJsonObject.getString("price"));
+            txtProdPrice.setText("AED " + mProductJsonObject.getString("price"));
             txtProdRating.setText(mProductJsonObject.getString("average_rating"));
             txtProdDescription.setText(mProductJsonObject.getString("short_description"));
         } catch (Exception e) {
@@ -229,6 +234,23 @@ public class ProductViewActivity extends AppCompatActivity implements View.OnCli
             e.printStackTrace();
             Toast.makeText(this, "" + e.getMessage(), Toast.LENGTH_SHORT).show();
         }
+    }
 
+    private void fabAddToCart() {
+
+        String userID = "";
+        String productID = "";
+        String ProductQty = "";
+        try {
+            JSONObject jsonRequest = new JSONObject();
+            jsonRequest.put("userid", userID);
+            jsonRequest.put("productid", productID);
+            jsonRequest.put("productqty", ProductQty);
+
+            NetworkHandler networkHandler = new NetworkHandler();
+            networkHandler.httpCreate(1, this, null, jsonRequest, "", NetworkHandler.RESPONSE_JSON);
+        } catch (Exception e) {
+
+        }
     }
 }

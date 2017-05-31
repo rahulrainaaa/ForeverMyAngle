@@ -73,7 +73,7 @@ public class WishlistListViewAdpter extends ArrayAdapter {
         holder.btnRemove.setTag(position);
         holder.imageView.setTag(position);
         holder.txtProductName.setText(wishlistProduct.prodName);
-        holder.txtProductPrice.setText("AED" + wishlistProduct.prodPrice);
+        holder.txtProductPrice.setText("AED " + wishlistProduct.prodPrice);
         try {
             Picasso.with(activity).load(wishlistProduct.prodImage
                     .trim()).into(holder.imageView);

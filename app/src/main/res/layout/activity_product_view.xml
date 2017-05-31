@@ -70,6 +70,15 @@
 
 
         <com.github.clans.fab.FloatingActionButton
+            android:id="@+id/fab_addtocart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:foregroundGravity="center"
+            android:src="@android:drawable/star_on"
+            fab:fab_label="Add to cart"
+            fab:fab_size="mini" />
+
+        <com.github.clans.fab.FloatingActionButton
             android:id="@+id/fab_wishlist"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

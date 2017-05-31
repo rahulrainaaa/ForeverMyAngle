@@ -30,7 +30,7 @@ public class WishlistActivity extends AppCompatActivity implements View.OnClickL
         setContentView(R.layout.activity_wishlist);
         listView = (ListView) findViewById(R.id.listView);
 
-        SharedPreferences s = getSharedPreferences("wishlist", 0);
+        SharedPreferences s = getSharedPreferences(Constants.CACHE_WISHLIST, 0);
         Map<String, ?> map = s.getAll();
 
         try {
