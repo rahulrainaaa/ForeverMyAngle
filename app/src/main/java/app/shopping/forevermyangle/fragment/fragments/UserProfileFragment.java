@@ -16,6 +16,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import app.shopping.forevermyangle.R;
+import app.shopping.forevermyangle.activity.AddressActivity;
 import app.shopping.forevermyangle.activity.DashboardActivity;
 import app.shopping.forevermyangle.activity.LoginActivity;
 import app.shopping.forevermyangle.fragment.base.BaseFragment;
@@ -135,6 +136,7 @@ public class UserProfileFragment extends BaseFragment implements View.OnClickLis
                 break;
             case R.id.btn_address:
 
+                startActivity(new Intent(getActivity(), AddressActivity.class));
                 break;
             case R.id.btn_track_order:
 
