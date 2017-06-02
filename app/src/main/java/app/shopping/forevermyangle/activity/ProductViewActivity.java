@@ -18,6 +18,7 @@ import android.widget.Toast;
 import com.github.clans.fab.FloatingActionButton;
 import com.github.clans.fab.FloatingActionMenu;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.List;
@@ -26,15 +27,17 @@ import java.util.Vector;
 import app.shopping.forevermyangle.R;
 import app.shopping.forevermyangle.adapter.pageradapter.PagerAdapter;
 import app.shopping.forevermyangle.fragment.fragments.ProductImageFragment;
+import app.shopping.forevermyangle.network.callback.NetworkCallbackListener;
 import app.shopping.forevermyangle.network.handler.NetworkHandler;
 import app.shopping.forevermyangle.utils.Constants;
 import app.shopping.forevermyangle.utils.GlobalData;
+import app.shopping.forevermyangle.utils.Network;
 
 /**
  * @class ProductViewActivity
  * @desc Activity class to show the single product on complete screen.
  */
-public class ProductViewActivity extends AppCompatActivity implements View.OnClickListener {
+public class ProductViewActivity extends AppCompatActivity implements View.OnClickListener, NetworkCallbackListener {
 
     /**
      * Class private data members.
@@ -238,19 +241,64 @@ public class ProductViewActivity extends AppCompatActivity implements View.OnCli
 
     private void fabAddToCart() {
 
-        String userID = "";
-        String productID = "";
-        String ProductQty = "";
         try {
+            int userID = GlobalData.jsonUserDetail.getInt("id");
+            int productID = GlobalData.SelectedProduct.getInt("id");
+            String ProductQty = "1";
+
             JSONObject jsonRequest = new JSONObject();
-            jsonRequest.put("userid", userID);
-            jsonRequest.put("productid", productID);
+            jsonRequest.put("userid", "" + userID);
+            jsonRequest.put("productid", "" + productID);
             jsonRequest.put("productqty", ProductQty);
 
             NetworkHandler networkHandler = new NetworkHandler();
-            networkHandler.httpCreate(1, this, null, jsonRequest, "", NetworkHandler.RESPONSE_JSON);
+            networkHandler.httpCreate(1, this, this, jsonRequest, Network.URL_ADD_TO_CART, NetworkHandler.RESPONSE_JSON);
+            networkHandler.executePost();
         } catch (Exception e) {
+            e.printStackTrace();
+            Toast.makeText(this, "" + e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+        }
+    }
 
+    /**
+     * {@link NetworkCallbackListener} interface callback methods.
+     */
+    @Override
+    public void networkSuccessResponse(int requestCode, JSONObject rawObject, JSONArray rawArray) {
+        int a = 0;
+        switch (requestCode) {
+
+            case 1:
+
+                try {
+
+                    int apiCode = rawObject.getInt("code");
+                    String apiMsg = rawObject.getString("message");
+                    if (apiCode == 200) {
+
+                        Toast.makeText(this, apiCode + "::" + apiMsg, Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(this, apiCode + "::" + apiMsg, Toast.LENGTH_SHORT).show();
+                    }
+                } catch (Exception e) {
+
+                    e.printStackTrace();
+                    Toast.makeText(this, "" + e.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+                break;
+        }
+
+    }
+
+    @Override
+    public void networkFailResponse(int requestCode, String message) {
+
+        switch (requestCode) {
+
+            case 1:
+
+                Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+                break;
         }
     }
 }
