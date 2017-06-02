@@ -232,6 +232,7 @@ public class ProductViewActivity extends AppCompatActivity implements View.OnCli
             int pid = mProductJsonObject.getInt("id");
             se.putString("" + pid, mProductJsonObject.toString());
             se.commit();
+            Toast.makeText(this, "Added to wishlist", Toast.LENGTH_SHORT).show();
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -265,7 +266,7 @@ public class ProductViewActivity extends AppCompatActivity implements View.OnCli
      */
     @Override
     public void networkSuccessResponse(int requestCode, JSONObject rawObject, JSONArray rawArray) {
-        int a = 0;
+
         switch (requestCode) {
 
             case 1:
@@ -276,7 +277,7 @@ public class ProductViewActivity extends AppCompatActivity implements View.OnCli
                     String apiMsg = rawObject.getString("message");
                     if (apiCode == 200) {
 
-                        Toast.makeText(this, apiCode + "::" + apiMsg, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(this, "Added to cart.", Toast.LENGTH_SHORT).show();
                     } else {
                         Toast.makeText(this, apiCode + "::" + apiMsg, Toast.LENGTH_SHORT).show();
                     }
