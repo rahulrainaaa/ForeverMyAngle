@@ -269,7 +269,7 @@ public class ProductViewActivity extends AppCompatActivity implements View.OnCli
 
         switch (requestCode) {
 
-            case 1:
+            case 1:         // Added to cart.
 
                 try {
 
@@ -288,7 +288,6 @@ public class ProductViewActivity extends AppCompatActivity implements View.OnCli
                 }
                 break;
         }
-
     }
 
     @Override
