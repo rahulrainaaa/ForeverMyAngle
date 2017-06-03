@@ -18,7 +18,7 @@ import android.widget.Toast;
 
 import app.shopping.forevermyangle.R;
 import app.shopping.forevermyangle.fragment.base.BaseFragment;
-import app.shopping.forevermyangle.fragment.fragments.CartFragment;
+import app.shopping.forevermyangle.fragment.fragments.CartDashboardFragment;
 import app.shopping.forevermyangle.fragment.fragments.CategoryDashboardFragment;
 import app.shopping.forevermyangle.fragment.fragments.ConnectionFailFragment;
 import app.shopping.forevermyangle.fragment.fragments.HomeDashboardFragment;
@@ -152,7 +152,7 @@ public class DashboardActivity extends FMAActivity implements BottomNavigationVi
                 return new CategoryDashboardFragment();
 
             case 3:     // Fragment 3 to load.
-                return new CartFragment();
+                return new CartDashboardFragment();
 
             case 4:     // Fragment 4 to load.
                 return new UserProfileFragment();
