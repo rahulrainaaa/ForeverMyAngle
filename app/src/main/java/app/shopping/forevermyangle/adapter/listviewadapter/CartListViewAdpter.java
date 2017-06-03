@@ -22,6 +22,9 @@ import app.shopping.forevermyangle.R;
 
 public class CartListViewAdpter extends ArrayAdapter {
 
+    /**
+     * Class private data members.
+     */
     private ArrayList<String> list = null;
     private Activity activity = null;
     private int resourceId;

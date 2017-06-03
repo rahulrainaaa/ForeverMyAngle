@@ -278,6 +278,13 @@ public class ProductViewActivity extends AppCompatActivity implements View.OnCli
                     if (apiCode == 200) {
 
                         Toast.makeText(this, "Added to cart.", Toast.LENGTH_SHORT).show();
+
+                        // remove from wishlist if present.
+                        int productID = GlobalData.SelectedProduct.getInt("id");
+                        SharedPreferences.Editor se = getSharedPreferences(Constants.CACHE_WISHLIST, 0).edit();
+                        se.remove("" + productID);
+                        se.commit();
+
                     } else {
                         Toast.makeText(this, apiCode + "::" + apiMsg, Toast.LENGTH_SHORT).show();
                     }

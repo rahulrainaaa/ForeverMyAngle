@@ -16,6 +16,9 @@ import app.shopping.forevermyangle.fragment.base.BaseFragment;
 
 public class CartDashboardFragment extends BaseFragment {
 
+    /**
+     * Class private data members.
+     */
     private ListView mListView = null;
     private CartListViewAdpter mAdapter = null;
     private ArrayList<String> list = new ArrayList<>();
