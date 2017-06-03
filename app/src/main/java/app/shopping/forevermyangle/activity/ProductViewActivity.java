@@ -267,6 +267,7 @@ public class ProductViewActivity extends AppCompatActivity implements View.OnCli
     @Override
     public void networkSuccessResponse(int requestCode, JSONObject rawObject, JSONArray rawArray) {
 
+
         switch (requestCode) {
 
             case 1:         // Added to cart.

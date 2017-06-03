@@ -1,5 +1,6 @@
 package app.shopping.forevermyangle.activity;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
@@ -173,7 +174,7 @@ public class WishlistActivity extends AppCompatActivity implements View.OnClickL
                         SharedPreferences.Editor se = getSharedPreferences(Constants.CACHE_WISHLIST, 0).edit();
                         se.remove("" + productID);
                         se.commit();
-                        list.clear();
+
                         fetchDataFromCache();
                         adapter.notifyDataSetChanged();
 
@@ -192,10 +193,13 @@ public class WishlistActivity extends AppCompatActivity implements View.OnClickL
     @Override
     public void networkFailResponse(int requestCode, String message) {
 
+        fmaProgessDialog.hide();
         switch (requestCode) {
 
             case 1:
 
+                fetchDataFromCache();
+                adapter.notifyDataSetChanged();
                 Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
                 break;
         }
@@ -209,6 +213,19 @@ public class WishlistActivity extends AppCompatActivity implements View.OnClickL
 
         final int position = (int) view.getTag();
         final int prodId = list.get(position).prodid;
+
+        SharedPreferences s = getSharedPreferences(Constants.CACHE_WISHLIST, 0);
+        String value = s.getString("" + prodId, "{}");
+
+        try {
+            JSONObject json = new JSONObject(value.trim());
+            GlobalData.SelectedProduct = json;
+            startActivity(new Intent(this, ProductViewActivity.class));
+        } catch (Exception e) {
+            e.printStackTrace();
+            Toast.makeText(this, "Exception" + e.getMessage(), Toast.LENGTH_SHORT).show();
+        }
+
         Snackbar.make(listView, "position=" + position + "\nProdID=" + prodId, Snackbar.LENGTH_SHORT).show();
     }
 }
