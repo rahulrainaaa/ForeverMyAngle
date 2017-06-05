@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.shawnlin.numberpicker.NumberPicker;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -24,11 +25,12 @@ import app.shopping.forevermyangle.activity.LoginActivity;
 import app.shopping.forevermyangle.adapter.listviewadapter.CartListViewAdpter;
 import app.shopping.forevermyangle.fragment.base.BaseFragment;
 import app.shopping.forevermyangle.model.products.CartProduct;
+import app.shopping.forevermyangle.network.callback.NetworkCallbackListener;
 import app.shopping.forevermyangle.network.handler.NetworkHandler;
 import app.shopping.forevermyangle.utils.GlobalData;
 import app.shopping.forevermyangle.utils.Network;
 
-public class CartDashboardFragment extends BaseFragment implements View.OnClickListener {
+public class CartDashboardFragment extends BaseFragment implements View.OnClickListener, NetworkCallbackListener {
 
     /**
      * Class private data members.
@@ -122,12 +124,12 @@ public class CartDashboardFragment extends BaseFragment implements View.OnClickL
                             jsonRequest.put("productqty", ProductQty);
 
                             NetworkHandler networkHandler = new NetworkHandler();
-                            networkHandler.httpCreate(1, this, this, jsonRequest, Network.URL_ADD_TO_CART, NetworkHandler.RESPONSE_JSON);
+                            networkHandler.httpCreate(1, getActivity(), CartDashboardFragment.this, jsonRequest, Network.URL_ADD_TO_CART, NetworkHandler.RESPONSE_JSON);
                             networkHandler.executePost();
                         } catch (JSONException jsonE) {
                             jsonE.getMessage();
                             Toast.makeText(getActivity(), "Need login.", Toast.LENGTH_SHORT).show();
-                            startActivity(new Intent(this, LoginActivity.class));
+                            startActivity(new Intent(getActivity(), LoginActivity.class));
                         } catch (Exception e) {
                             e.printStackTrace();
                             Toast.makeText(getActivity(), "" + e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
@@ -138,4 +140,26 @@ public class CartDashboardFragment extends BaseFragment implements View.OnClickL
         alert.show();
     }
 
+    @Override
+    public void networkSuccessResponse(int requestCode, JSONObject rawObject, JSONArray rawArray) {
+
+        switch (requestCode) {
+
+            case 1:
+
+                break;
+        }
+    }
+
+    @Override
+    public void networkFailResponse(int requestCode, String message) {
+
+        switch (requestCode) {
+
+            case 1:
+
+                break;
+        }
+
+    }
 }
