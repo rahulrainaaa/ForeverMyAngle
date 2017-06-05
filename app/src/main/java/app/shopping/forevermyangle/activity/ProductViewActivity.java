@@ -19,6 +19,7 @@ import com.github.clans.fab.FloatingActionButton;
 import com.github.clans.fab.FloatingActionMenu;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.List;
@@ -255,6 +256,10 @@ public class ProductViewActivity extends AppCompatActivity implements View.OnCli
             NetworkHandler networkHandler = new NetworkHandler();
             networkHandler.httpCreate(1, this, this, jsonRequest, Network.URL_ADD_TO_CART, NetworkHandler.RESPONSE_JSON);
             networkHandler.executePost();
+        } catch (JSONException jsonE) {
+            jsonE.getMessage();
+            Toast.makeText(this, "Need login.", Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(this, LoginActivity.class));
         } catch (Exception e) {
             e.printStackTrace();
             Toast.makeText(this, "" + e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
