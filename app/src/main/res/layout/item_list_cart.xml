@@ -70,7 +70,7 @@
             android:weightSum="10">
 
             <Button
-                android:id="@+id/move_to_cart"
+                android:id="@+id/btn_move_to_wish"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="5"
@@ -85,7 +85,7 @@
                 android:background="@color/colorShadow" />
 
             <Button
-                android:id="@+id/remove"
+                android:id="@+id/btn_remove"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="5"
