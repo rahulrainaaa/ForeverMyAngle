@@ -126,11 +126,11 @@ public class CartDashboardFragment extends BaseFragment implements View.OnClickL
                             networkHandler.executePost();
                         } catch (JSONException jsonE) {
                             jsonE.getMessage();
-                            Toast.makeText(this, "Need login.", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getActivity(), "Need login.", Toast.LENGTH_SHORT).show();
                             startActivity(new Intent(this, LoginActivity.class));
                         } catch (Exception e) {
                             e.printStackTrace();
-                            Toast.makeText(this, "" + e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getActivity(), "" + e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
