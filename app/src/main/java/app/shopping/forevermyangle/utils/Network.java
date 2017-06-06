@@ -35,5 +35,5 @@ public class Network {
     /**
      * Custom URL for get all products detials from cart.
      */
-    public static final String URL_GET_CART = "https://forevermyangel.com/fma-api.php?action=addtocart";
+    public static final String URL_GET_CART = "https://forevermyangel.com/fma-api.php?action=viewcart";
 }

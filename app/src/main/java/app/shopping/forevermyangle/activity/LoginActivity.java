@@ -133,7 +133,7 @@ public class LoginActivity extends FragmentActivity implements View.OnClickListe
      */
     @Override
     public void networkSuccessResponse(int requestCode, JSONObject rawObject, JSONArray rawArray) {
-
+        mFMAProgessDialog.hide();
         switch (requestCode) {
             case 1:
 

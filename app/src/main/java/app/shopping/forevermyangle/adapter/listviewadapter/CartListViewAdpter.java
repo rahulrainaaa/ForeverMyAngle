@@ -12,6 +12,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.ArrayList;
 
 import app.shopping.forevermyangle.R;
@@ -80,6 +82,15 @@ public class CartListViewAdpter extends ArrayAdapter {
             view.setTag(holder);
         } else {
             holder = (Holder) view.getTag();
+        }
+
+        try {
+            Picasso.with(activity).load(cartProduct.image.trim()).into(holder.imgProduct);
+            holder.txtProductName.setText(cartProduct.name);
+            holder.txtProductPrice.setText("AED " + cartProduct.total);
+            holder.btnQty.setText("Qty: " + cartProduct.qty);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
         holder.imgProduct.setTag(position);

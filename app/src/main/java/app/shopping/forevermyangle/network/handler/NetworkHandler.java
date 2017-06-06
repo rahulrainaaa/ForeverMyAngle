@@ -3,6 +3,7 @@ package app.shopping.forevermyangle.network.handler;
 
 import android.app.Activity;
 
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -103,9 +104,17 @@ public class NetworkHandler implements Response.ErrorListener {
 
         if (mResponseType == 1) {           // JSONObject response.
             FmaJsonObjectRequest fmaJsonObjectRequest = new FmaJsonObjectRequest(method, mUrl, mJsonRequest.toString(), new JsonObjectResponse(), this);
+            fmaJsonObjectRequest.setRetryPolicy(new DefaultRetryPolicy(
+                    30000,
+                    DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                    DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
             requestQueue.add(fmaJsonObjectRequest);
         } else if (mResponseType == 2) {    // JSONArray response.
             FmaJsonArrayRequest fmaJsonArrayRequest = new FmaJsonArrayRequest(method, mUrl, mJsonRequest.toString(), new JsonArrayResponse(), this);
+            fmaJsonArrayRequest.setRetryPolicy(new DefaultRetryPolicy(
+                    30000,
+                    DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                    DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
             requestQueue.add(fmaJsonArrayRequest);
         }
     }
