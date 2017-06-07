@@ -33,7 +33,12 @@ public class Network {
     public static final String URL_ADD_TO_CART = "https://forevermyangel.com/fma-api.php?action=addtocart";
 
     /**
-     * Custom URL for get all products detials from cart.
+     * Custom URL for get all products details from cart.
      */
     public static final String URL_GET_CART = "https://forevermyangel.com/fma-api.php?action=viewcart";
+
+    /**
+     * Custom URL to remove a product from cart.
+     */
+    public static final String URL_REM_FROM_CART = "https://forevermyangel.com/fma-api.php?action=removecart";
 }

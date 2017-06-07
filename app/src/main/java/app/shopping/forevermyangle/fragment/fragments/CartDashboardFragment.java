@@ -1,10 +1,10 @@
 package app.shopping.forevermyangle.fragment.fragments;
 
-
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -112,8 +112,27 @@ public class CartDashboardFragment extends BaseFragment implements View.OnClickL
 
     }
 
-    private void removeFromCart(int position) {
+    private void removeFromCart(final int position) {
+        Snackbar.make(mListView, "Are you sure ?", Snackbar.LENGTH_SHORT).setAction("Remove", new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
+                CartProduct cartProduct = list.get(position);
+                try {
+                    int userID = GlobalData.jsonUserDetail.getInt("id");
+                    JSONObject jsonRequest = new JSONObject();
+                    jsonRequest.put("productid", "" + cartProduct.id);
+                    jsonRequest.put("userid", "" + userID);
+                    NetworkHandler networkHandler = new NetworkHandler();
+                    fmaProgessDialog.show();
+                    networkHandler.httpCreate(3, getActivity(), CartDashboardFragment.this, jsonRequest, Network.URL_REM_FROM_CART, NetworkHandler.RESPONSE_JSON);
+                    networkHandler.executePost();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    Toast.makeText(getActivity(), "Exception:" + e.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            }
+        }).show();
     }
 
     private void updateQuantity(final int position) {
@@ -160,12 +179,16 @@ public class CartDashboardFragment extends BaseFragment implements View.OnClickL
 
         fmaProgessDialog.hide();
         switch (requestCode) {
-            case 1:
+            case 1:         // Get from cart.
 
                 showCartData(rawObject);
                 break;
-            case 2:
+            case 2:         // Add to cart.
 
+                getCart("");
+                break;
+
+            case 3:         // Remove from cart.
                 getCart("");
                 break;
         }
@@ -181,6 +204,10 @@ public class CartDashboardFragment extends BaseFragment implements View.OnClickL
                 ((DashboardActivity) getActivity()).signalMessage(1);
                 break;
             case 2:
+
+                ((DashboardActivity) getActivity()).signalMessage(1);
+                break;
+            case 3:
 
                 ((DashboardActivity) getActivity()).signalMessage(1);
                 break;
@@ -209,7 +236,9 @@ public class CartDashboardFragment extends BaseFragment implements View.OnClickL
             list.clear();
             int statusCode = raw.getInt("code");
             String statusMsg = raw.getString("message");
-            if (statusCode != 200) {
+            if (statusCode == 204) {
+                Toast.makeText(getActivity(), "Empty Cart", Toast.LENGTH_SHORT).show();
+            } else if (statusCode != 200) {
                 Toast.makeText(getActivity(), "" + statusMsg, Toast.LENGTH_SHORT).show();
                 return;
             }
