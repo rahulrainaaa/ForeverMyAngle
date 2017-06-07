@@ -24,6 +24,7 @@ public class FMAProgessDialog {
     private AlertDialog alert = null;
     private Activity mActivity = null;
     private ProgressBar mProgress = null;
+    private boolean isVisible = false;
     private TextView mTextView = null;
 
     /**
@@ -49,6 +50,15 @@ public class FMAProgessDialog {
     }
 
     /**
+     * @return boolean isVisible
+     * @method isVisible
+     * @desc Method to return if FMAProgressDialog is visible or not.
+     */
+    public boolean isVisible() {
+        return isVisible;
+    }
+
+    /**
      * @param message
      * @method setMessage
      * @desc Method to set the message for processing dialog. (null for no message).
@@ -68,6 +78,7 @@ public class FMAProgessDialog {
         if (alert == null) {
             return;
         }
+        isVisible = true;
         alert.show();
     }
 
@@ -79,6 +90,7 @@ public class FMAProgessDialog {
         if (alert == null) {
             return;
         }
+        isVisible = false;
         alert.hide();
     }
 
@@ -93,7 +105,7 @@ public class FMAProgessDialog {
         mTextView = null;
         mProgress = null;
         mActivity = null;
-
+        isVisible = false;
         // Init Garbage connection.`
         System.gc();
     }

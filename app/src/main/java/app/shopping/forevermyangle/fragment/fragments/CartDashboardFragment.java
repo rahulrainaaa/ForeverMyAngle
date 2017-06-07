@@ -60,8 +60,12 @@ public class CartDashboardFragment extends BaseFragment implements View.OnClickL
         mAdapter = new CartListViewAdpter(getActivity(), this, R.layout.item_list_cart, list);
         mListView.setAdapter(mAdapter);
         fmaProgessDialog = new FMAProgessDialog(getActivity());
-        fmaProgessDialog.show();
-        getCart("");
+
+        if (!fmaProgessDialog.isVisible()) {
+            fmaProgessDialog.show();
+            getCart("");
+        }
+
         return view;
     }
 
@@ -234,10 +238,12 @@ public class CartDashboardFragment extends BaseFragment implements View.OnClickL
 
         try {
             list.clear();
+            mAdapter.notifyDataSetChanged();
             int statusCode = raw.getInt("code");
             String statusMsg = raw.getString("message");
             if (statusCode == 204) {
                 Toast.makeText(getActivity(), "Empty Cart", Toast.LENGTH_SHORT).show();
+                return;
             } else if (statusCode != 200) {
                 Toast.makeText(getActivity(), "" + statusMsg, Toast.LENGTH_SHORT).show();
                 return;
