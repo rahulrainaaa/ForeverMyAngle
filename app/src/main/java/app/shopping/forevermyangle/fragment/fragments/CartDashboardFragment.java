@@ -45,6 +45,7 @@ public class CartDashboardFragment extends BaseFragment implements View.OnClickL
     private int mTotal, mSubTotal;
     private TextView mTxtTotalPrice = null;
     private FMAProgessDialog fmaProgessDialog = null;
+    private JSONObject mRawJsonResponse = null;
 
     /**
      * {@link BaseFragment} Class override method(s).
@@ -62,7 +63,6 @@ public class CartDashboardFragment extends BaseFragment implements View.OnClickL
         fmaProgessDialog = new FMAProgessDialog(getActivity());
 
         if (!fmaProgessDialog.isVisible()) {
-            fmaProgessDialog.show();
             getCart("");
         }
 
@@ -110,6 +110,32 @@ public class CartDashboardFragment extends BaseFragment implements View.OnClickL
 
     private void moveToWishlist(int position) {
 
+        try {
+            list.clear();
+            mAdapter.notifyDataSetChanged();
+            int statusCode = mRawJsonResponse.getInt("code");
+            String statusMsg = mRawJsonResponse.getString("message");
+            if (statusCode == 204) {
+                Toast.makeText(getActivity(), "Empty Cart", Toast.LENGTH_SHORT).show();
+                return;
+            } else if (statusCode != 200) {
+                Toast.makeText(getActivity(), "" + statusMsg, Toast.LENGTH_SHORT).show();
+                return;
+            }
+            int userID = GlobalData.jsonUserDetail.getInt("id");
+            JSONObject jsonData = mRawJsonResponse.getJSONObject("data");
+            int prodID = jsonData.getJSONObject("" + list.get(position).key.trim()).getInt("id");
+            JSONObject jsonRequest = new JSONObject();
+            jsonRequest.put("productid", "" + prodID);
+            jsonRequest.put("userid", "" + userID);
+            NetworkHandler networkHandler = new NetworkHandler();
+            networkHandler.httpCreate(4, getActivity(), this, new JSONObject(), "", NetworkHandler.RESPONSE_JSON);
+            networkHandler.executePost();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            Toast.makeText(getActivity(), "Exception" + e.getMessage(), Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void showDescription(int position) {
@@ -193,6 +219,12 @@ public class CartDashboardFragment extends BaseFragment implements View.OnClickL
                 break;
 
             case 3:         // Remove from cart.
+
+                getCart("");
+                break;
+
+            case 4:         // move to wishlist.
+
                 getCart("");
                 break;
         }
@@ -215,6 +247,11 @@ public class CartDashboardFragment extends BaseFragment implements View.OnClickL
 
                 ((DashboardActivity) getActivity()).signalMessage(1);
                 break;
+
+            case 4:
+
+                ((DashboardActivity) getActivity()).signalMessage(1);
+                break;
         }
 
     }
@@ -225,9 +262,14 @@ public class CartDashboardFragment extends BaseFragment implements View.OnClickL
             JSONObject jsonRequest = new JSONObject();
             jsonRequest.put("userid", "" + userID);
             jsonRequest.put("couponId", "" + couponId);
+            fmaProgessDialog.show();
             NetworkHandler networkHandler = new NetworkHandler();
             networkHandler.httpCreate(1, getActivity(), this, jsonRequest, Network.URL_GET_CART, NetworkHandler.RESPONSE_JSON);
             networkHandler.executePost();
+        } catch (JSONException jsonE) {
+            jsonE.printStackTrace();
+            startActivity(new Intent(getActivity(), LoginActivity.class));
+            Toast.makeText(getActivity(), "Need login", Toast.LENGTH_SHORT).show();
         } catch (Exception e) {
             e.printStackTrace();
             Toast.makeText(getActivity(), "Exception:" + e.getMessage(), Toast.LENGTH_SHORT).show();
@@ -236,6 +278,7 @@ public class CartDashboardFragment extends BaseFragment implements View.OnClickL
 
     private void showCartData(JSONObject raw) {
 
+        this.mRawJsonResponse = raw;
         try {
             list.clear();
             mAdapter.notifyDataSetChanged();
@@ -263,6 +306,7 @@ public class CartDashboardFragment extends BaseFragment implements View.OnClickL
                 }
                 JSONObject item = jsonData.getJSONObject(key.trim());
                 cartProduct = new CartProduct();
+                cartProduct.key = key.trim();
                 cartProduct.id = item.getInt("product_id");
                 cartProduct.name = item.getString("title");
                 cartProduct.qty = item.getString("quantity");

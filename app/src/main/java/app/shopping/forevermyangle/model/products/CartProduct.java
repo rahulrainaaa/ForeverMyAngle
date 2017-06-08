@@ -9,6 +9,7 @@ public class CartProduct extends BaseModel {
     public String name = null;
     public String qty = null;
     public String image = null;
+    public String key = null;
 
     public int total = 0;
     public int sub_total = 0;
