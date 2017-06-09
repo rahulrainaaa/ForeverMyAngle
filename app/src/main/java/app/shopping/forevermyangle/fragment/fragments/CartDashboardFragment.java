@@ -34,6 +34,10 @@ import app.shopping.forevermyangle.utils.GlobalData;
 import app.shopping.forevermyangle.utils.Network;
 import app.shopping.forevermyangle.view.FMAProgessDialog;
 
+/**
+ * @class CartDashboardFragment
+ * @desc {@link BaseFragment} fragment class for showing & handling cart items.
+ */
 public class CartDashboardFragment extends BaseFragment implements View.OnClickListener, NetworkCallbackListener {
 
     /**
@@ -76,6 +80,9 @@ public class CartDashboardFragment extends BaseFragment implements View.OnClickL
         super.onDetach();
     }
 
+    /**
+     * {@link android.view.View.OnClickListener} listener callback method.
+     */
     @Override
     public void onClick(View view) {
 
@@ -108,6 +115,11 @@ public class CartDashboardFragment extends BaseFragment implements View.OnClickL
         }
     }
 
+    /**
+     * @param position item index from the list array.
+     * @method moveToWishlist
+     * @desc Method to move item from cart to wishlist. (Remove from cart and then add to wishlist).
+     */
     private void moveToWishlist(int position) {
 
         try {
@@ -138,10 +150,20 @@ public class CartDashboardFragment extends BaseFragment implements View.OnClickL
         }
     }
 
+    /**
+     * @param position
+     * @method showDescription
+     * @desc Method to show the description of selected item at index in list array.
+     */
     private void showDescription(int position) {
 
     }
 
+    /**
+     * @param position
+     * @method removeFromCart
+     * @desc Method to remove selected item from cart, presented at the position.
+     */
     private void removeFromCart(final int position) {
         Snackbar.make(mListView, "Are you sure ?", Snackbar.LENGTH_SHORT).setAction("Remove", new View.OnClickListener() {
             @Override
@@ -165,6 +187,11 @@ public class CartDashboardFragment extends BaseFragment implements View.OnClickL
         }).show();
     }
 
+    /**
+     * @param position
+     * @method updateQuantity
+     * @desc Method to update Quantity of selected item in cart.
+     */
     private void updateQuantity(final int position) {
 
         final NumberPicker numberPicker = (NumberPicker) getActivity().getLayoutInflater().inflate(R.layout.layout_number_picker, null);
@@ -204,6 +231,9 @@ public class CartDashboardFragment extends BaseFragment implements View.OnClickL
         alert.show();
     }
 
+    /**
+     * {@link NetworkCallbackListener} interface callback methods.
+     */
     @Override
     public void networkSuccessResponse(int requestCode, JSONObject rawObject, JSONArray rawArray) {
 
@@ -256,6 +286,11 @@ public class CartDashboardFragment extends BaseFragment implements View.OnClickL
 
     }
 
+    /**
+     * @param couponId
+     * @method getCart
+     * @desc Method to fetch cart items from data as raw {@link JSONObject}.
+     */
     private void getCart(String couponId) {
         try {
             int userID = GlobalData.jsonUserDetail.getInt("id");
@@ -276,6 +311,11 @@ public class CartDashboardFragment extends BaseFragment implements View.OnClickL
         }
     }
 
+    /**
+     * @param raw
+     * @method showCartData
+     * @desc Method to parse and populate cart data into listView using custom adapter.
+     */
     private void showCartData(JSONObject raw) {
 
         this.mRawJsonResponse = raw;
