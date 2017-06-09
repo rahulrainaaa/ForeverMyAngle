@@ -24,6 +24,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 import app.shopping.forevermyangle.R;
+import app.shopping.forevermyangle.activity.CheckoutActivity;
 import app.shopping.forevermyangle.activity.DashboardActivity;
 import app.shopping.forevermyangle.activity.LoginActivity;
 import app.shopping.forevermyangle.adapter.listviewadapter.CartListViewAdpter;
@@ -62,10 +63,12 @@ public class CartDashboardFragment extends BaseFragment implements View.OnClickL
 
         View view = inflater.inflate(R.layout.fragment_cart, container, false);
 
+        view.findViewById(R.id.btn_proceed).setOnClickListener(this);
         mTxtTotalPrice = (TextView) view.findViewById(R.id.txt_total_price);
         mListView = (ListView) view.findViewById(R.id.list_view);
         mAdapter = new CartListViewAdpter(getActivity(), this, R.layout.item_list_cart, list);
         mListView.setAdapter(mAdapter);
+
         fmaProgessDialog = new FMAProgessDialog(getActivity());
 
         if (!fmaProgessDialog.isVisible()) {
@@ -90,6 +93,10 @@ public class CartDashboardFragment extends BaseFragment implements View.OnClickL
 
         switch (view.getId()) {
 
+            case R.id.btn_proceed:
+
+                proceed();
+                break;
             case R.id.img_product:
 
                 showDescription((int) view.getTag());
@@ -117,6 +124,21 @@ public class CartDashboardFragment extends BaseFragment implements View.OnClickL
         }
     }
 
+    private void proceed() {
+
+        GlobalData.TotalPrice = mTotal;
+        if (list != null) {
+            if (list.size() > 0) {
+                startActivity(new Intent(getActivity(), CheckoutActivity.class));
+            } else {
+                Toast.makeText(getActivity(), "No product in cart.", Toast.LENGTH_SHORT).show();
+            }
+        } else {
+            Toast.makeText(getActivity(), "No product in cart.", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+
     /**
      * @param position item index from the list array.
      * @method moveToWishlist
@@ -125,8 +147,6 @@ public class CartDashboardFragment extends BaseFragment implements View.OnClickL
     private void moveToWishlist(int position) {
 
         try {
-            list.clear();
-            mAdapter.notifyDataSetChanged();
             int statusCode = mRawJsonResponse.getInt("code");
             String statusMsg = mRawJsonResponse.getString("message");
             if (statusCode == 204) {
@@ -136,19 +156,26 @@ public class CartDashboardFragment extends BaseFragment implements View.OnClickL
                 Toast.makeText(getActivity(), "" + statusMsg, Toast.LENGTH_SHORT).show();
                 return;
             }
+
             int userID = GlobalData.jsonUserDetail.getInt("id");
             String key = "" + list.get(position).key.trim();
             JSONObject jsonData = mRawJsonResponse.getJSONObject("data").getJSONObject(key);
             SharedPreferences.Editor se = getActivity().getSharedPreferences(Constants.CACHE_WISHLIST, 0).edit();
             se.putString("" + key, jsonData.toString());
             se.commit();
-            int prodID = jsonData.getInt("id");
+
+            int prodID = list.get(position).id;
             JSONObject jsonRequest = new JSONObject();
             jsonRequest.put("productid", "" + prodID);
             jsonRequest.put("userid", "" + userID);
+
+            list.clear();
+            mAdapter.notifyDataSetChanged();
+
             NetworkHandler networkHandler = new NetworkHandler();
             networkHandler.httpCreate(4, getActivity(), this, new JSONObject(), Network.URL_REM_FROM_CART, NetworkHandler.RESPONSE_JSON);
             networkHandler.executePost();
+
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -206,7 +233,7 @@ public class CartDashboardFragment extends BaseFragment implements View.OnClickL
         builder.setTitle("Quantity");
         builder.setView(numberPicker)
                 .setCancelable(true)
-                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                .setPositiveButton("Update Qty", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
 
                         try {
@@ -253,7 +280,18 @@ public class CartDashboardFragment extends BaseFragment implements View.OnClickL
                 break;
             case 2:         // Add to cart.
 
-                getCart("");
+                try {
+                    int code = rawObject.getInt("code");
+                    String message = rawObject.getString("message");
+                    if (code == 200) {
+                        getCart("");
+                    }
+                } catch (Exception e) {
+
+                    e.printStackTrace();
+                    Toast.makeText(getActivity(), "Unable to process.", Toast.LENGTH_SHORT).show();
+                }
+
                 break;
 
             case 3:         // Remove from cart.
@@ -272,6 +310,7 @@ public class CartDashboardFragment extends BaseFragment implements View.OnClickL
     public void networkFailResponse(int requestCode, String message) {
 
         fmaProgessDialog.hide();
+
         switch (requestCode) {
             case 1:
 

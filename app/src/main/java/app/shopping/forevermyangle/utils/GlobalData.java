@@ -55,4 +55,9 @@ public class GlobalData {
      */
     public static String srch_category_id = "";
 
+    /**
+     * Total items price for checkout.
+     */
+    public static int TotalPrice = 0;
+
 }

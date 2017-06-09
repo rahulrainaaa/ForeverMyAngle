@@ -14,22 +14,18 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
         <activity
             android:name=".activity.LoginActivity"
             android:launchMode="singleInstance"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize|stateHidden" />
-
         <activity
             android:name=".activity.DashboardActivity"
             android:launchMode="singleInstance"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".activity.SearchProductActivity"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".activity.SplashActivity"
             android:screenOrientation="portrait">
@@ -54,17 +50,19 @@
             android:label="@string/title_activity_product_view"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
-
         <activity
             android:name=".activity.WishlistActivity"
             android:label="@string/title_wishlist"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".activity.AddressActivity"
             android:label="@string/title_activity_address"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activity.CheckoutActivity"
+            android:label="@string/title_activity_checkout"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

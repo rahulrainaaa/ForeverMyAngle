@@ -45,6 +45,7 @@
             android:textSize="17sp" />
 
         <Button
+            android:id="@+id/btn_proceed"
             android:layout_width="0dp"
             android:layout_height="35dp"
             android:layout_marginBottom="5dp"
