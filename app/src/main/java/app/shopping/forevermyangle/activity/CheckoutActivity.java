@@ -96,6 +96,13 @@ public class CheckoutActivity extends AppCompatActivity implements View.OnClickL
         }
     }
 
+    @Override
+    protected void onDestroy() {
+
+        fmaProgessDialog.dismiss();
+        super.onDestroy();
+    }
+
     /**
      * {@link android.view.View.OnClickListener} listener callback method.
      */
@@ -145,6 +152,7 @@ public class CheckoutActivity extends AppCompatActivity implements View.OnClickL
 
             jsonRequest.put("shipping_lines", jsonArrayShippingLines);
 
+            fmaProgessDialog.show();
             HttpsTask httpsTask = new HttpsTask(1, this, this, "POST", Network.URL_PLACE_ORDER, jsonRequest, HttpsTask.RESPONSE_TYPE_OBJECT);
             httpsTask.execute("");
 
@@ -160,6 +168,7 @@ public class CheckoutActivity extends AppCompatActivity implements View.OnClickL
     @Override
     public void networkSuccessResponse(int requestCode, JSONObject rawObject, JSONArray rawArray) {
 
+        fmaProgessDialog.hide();
         switch (requestCode) {
             case 1:
 
@@ -170,10 +179,11 @@ public class CheckoutActivity extends AppCompatActivity implements View.OnClickL
     @Override
     public void networkFailResponse(int requestCode, String message) {
 
-
+        fmaProgessDialog.hide();
         switch (requestCode) {
             case 1:
 
+                Toast.makeText(this, "" + requestCode, Toast.LENGTH_SHORT).show();
                 break;
         }
 

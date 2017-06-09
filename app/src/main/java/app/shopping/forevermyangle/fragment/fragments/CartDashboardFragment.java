@@ -124,6 +124,10 @@ public class CartDashboardFragment extends BaseFragment implements View.OnClickL
         }
     }
 
+    /**
+     * @method proceed
+     * @desc Method called on proceed click.
+     */
     private void proceed() {
 
         GlobalData.cartProducts = list;
