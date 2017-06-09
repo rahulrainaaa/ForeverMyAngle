@@ -2,6 +2,7 @@ package app.shopping.forevermyangle.fragment.fragments;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
@@ -30,6 +31,7 @@ import app.shopping.forevermyangle.fragment.base.BaseFragment;
 import app.shopping.forevermyangle.model.products.CartProduct;
 import app.shopping.forevermyangle.network.callback.NetworkCallbackListener;
 import app.shopping.forevermyangle.network.handler.NetworkHandler;
+import app.shopping.forevermyangle.utils.Constants;
 import app.shopping.forevermyangle.utils.GlobalData;
 import app.shopping.forevermyangle.utils.Network;
 import app.shopping.forevermyangle.view.FMAProgessDialog;
@@ -135,13 +137,17 @@ public class CartDashboardFragment extends BaseFragment implements View.OnClickL
                 return;
             }
             int userID = GlobalData.jsonUserDetail.getInt("id");
-            JSONObject jsonData = mRawJsonResponse.getJSONObject("data");
-            int prodID = jsonData.getJSONObject("" + list.get(position).key.trim()).getInt("id");
+            String key = "" + list.get(position).key.trim();
+            JSONObject jsonData = mRawJsonResponse.getJSONObject("data").getJSONObject(key);
+            SharedPreferences.Editor se = getActivity().getSharedPreferences(Constants.CACHE_WISHLIST, 0).edit();
+            se.putString("" + key, jsonData.toString());
+            se.commit();
+            int prodID = jsonData.getInt("id");
             JSONObject jsonRequest = new JSONObject();
             jsonRequest.put("productid", "" + prodID);
             jsonRequest.put("userid", "" + userID);
             NetworkHandler networkHandler = new NetworkHandler();
-            networkHandler.httpCreate(4, getActivity(), this, new JSONObject(), "", NetworkHandler.RESPONSE_JSON);
+            networkHandler.httpCreate(4, getActivity(), this, new JSONObject(), Network.URL_REM_FROM_CART, NetworkHandler.RESPONSE_JSON);
             networkHandler.executePost();
 
         } catch (Exception e) {
@@ -199,7 +205,7 @@ public class CartDashboardFragment extends BaseFragment implements View.OnClickL
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle("Quantity");
         builder.setView(numberPicker)
-                .setCancelable(false)
+                .setCancelable(true)
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
 
@@ -238,7 +244,9 @@ public class CartDashboardFragment extends BaseFragment implements View.OnClickL
     public void networkSuccessResponse(int requestCode, JSONObject rawObject, JSONArray rawArray) {
 
         fmaProgessDialog.hide();
+
         switch (requestCode) {
+
             case 1:         // Get from cart.
 
                 showCartData(rawObject);
