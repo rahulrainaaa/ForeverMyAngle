@@ -10,6 +10,7 @@ import java.util.List;
 
 import app.shopping.forevermyangle.model.category.Category;
 import app.shopping.forevermyangle.model.login.Login;
+import app.shopping.forevermyangle.model.products.CartProduct;
 import app.shopping.forevermyangle.model.products.Product;
 import app.shopping.forevermyangle.receiver.callback.ConnectionReceiverCallback;
 
@@ -54,6 +55,11 @@ public class GlobalData {
      * Search filtering.
      */
     public static String srch_category_id = "";
+
+    /**
+     * Cart Product ArrayList.
+     */
+    public static ArrayList<CartProduct> cartProducts = null;
 
     /**
      * Total items price for checkout.

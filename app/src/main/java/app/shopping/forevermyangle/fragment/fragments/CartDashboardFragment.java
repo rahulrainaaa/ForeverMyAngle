@@ -126,6 +126,7 @@ public class CartDashboardFragment extends BaseFragment implements View.OnClickL
 
     private void proceed() {
 
+        GlobalData.cartProducts = list;
         GlobalData.TotalPrice = mTotal;
         if (list != null) {
             if (list.size() > 0) {

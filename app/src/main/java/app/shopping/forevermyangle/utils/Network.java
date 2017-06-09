@@ -41,4 +41,9 @@ public class Network {
      * Custom URL to remove a product from cart.
      */
     public static final String URL_REM_FROM_CART = "https://forevermyangel.com/fma-api.php?action=removecart";
+
+    /**
+     * URL to place a new order (POST).
+     */
+    public static final String URL_PLACE_ORDER = "https://forevermyangel.com/wp-json/wc/v2/orders";
 }

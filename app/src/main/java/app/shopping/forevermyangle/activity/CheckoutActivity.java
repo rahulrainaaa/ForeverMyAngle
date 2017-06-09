@@ -11,17 +11,22 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import app.shopping.forevermyangle.R;
+import app.shopping.forevermyangle.network.callback.NetworkCallbackListener;
+import app.shopping.forevermyangle.network.handler.HttpsTask;
 import app.shopping.forevermyangle.utils.GlobalData;
+import app.shopping.forevermyangle.utils.Network;
+import app.shopping.forevermyangle.view.FMAProgessDialog;
 
-public class CheckoutActivity extends AppCompatActivity implements View.OnClickListener {
+public class CheckoutActivity extends AppCompatActivity implements View.OnClickListener, NetworkCallbackListener {
 
     /**
      * Class private data members.
      */
-    TextView sName, sCompany, sAddress, sCity, sState, sPostal, sCountry;
-    TextView bName, bCompany, bAddress, bCity, bState, bPostal, bCountry, bEmail, bPhone;
-    TextView price, shipping, total;
-    Button btnCheckOut = null;
+    private TextView sName, sCompany, sAddress, sCity, sState, sPostal, sCountry;
+    private TextView bName, bCompany, bAddress, bCity, bState, bPostal, bCountry, bEmail, bPhone;
+    private TextView price, shipping, total;
+    private Button btnCheckOut = null;
+    private FMAProgessDialog fmaProgessDialog = null;
 
     /**
      * {@link AppCompatActivity} override methods.
@@ -30,6 +35,7 @@ public class CheckoutActivity extends AppCompatActivity implements View.OnClickL
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_checkout);
+        fmaProgessDialog = new FMAProgessDialog(this);
 
         sName = (TextView) findViewById(R.id.s_name);
         sCompany = (TextView) findViewById(R.id.s_company);
@@ -119,12 +125,57 @@ public class CheckoutActivity extends AppCompatActivity implements View.OnClickL
             jsonRequest.put("set_paid", false);
             jsonRequest.put("billing", GlobalData.jsonUserDetail.getJSONObject("billing"));
             jsonRequest.put("shipping", GlobalData.jsonUserDetail.getJSONObject("shipping"));
-            jsonRequest.put("line_items", new JSONArray());
-            jsonRequest.put("shipping_lines", new JSONArray());
+
+            JSONArray jsonArrayLineItems = new JSONArray();
+            for (int i = 0; i < GlobalData.cartProducts.size(); i++) {
+
+                JSONObject jsonItem = new JSONObject();
+                jsonItem.put("product_id", GlobalData.cartProducts.get(i).id);
+                jsonItem.put("quantity", Integer.parseInt(GlobalData.cartProducts.get(i).qty));
+                jsonArrayLineItems.put(jsonItem);
+            }
+            jsonRequest.put("line_items", jsonArrayLineItems);
+
+            JSONArray jsonArrayShippingLines = new JSONArray();
+            JSONObject jsonShippingLines = new JSONObject();
+            jsonShippingLines.put("method_id", "flat_rate");
+            jsonShippingLines.put("method_title", "Flat Rate");
+            jsonShippingLines.put("total", 0);
+            jsonArrayShippingLines.put(jsonShippingLines);
+
+            jsonRequest.put("shipping_lines", jsonArrayShippingLines);
+
+            HttpsTask httpsTask = new HttpsTask(1, this, this, "POST", Network.URL_PLACE_ORDER, jsonRequest, HttpsTask.RESPONSE_TYPE_OBJECT);
+            httpsTask.execute("");
 
         } catch (Exception e) {
             e.printStackTrace();
             Toast.makeText(this, "Exception:" + e.getMessage(), Toast.LENGTH_SHORT).show();
         }
+    }
+
+    /**
+     * {@link NetworkCallbackListener} network callback listener methods.
+     */
+    @Override
+    public void networkSuccessResponse(int requestCode, JSONObject rawObject, JSONArray rawArray) {
+
+        switch (requestCode) {
+            case 1:
+
+                break;
+        }
+    }
+
+    @Override
+    public void networkFailResponse(int requestCode, String message) {
+
+
+        switch (requestCode) {
+            case 1:
+
+                break;
+        }
+
     }
 }
