@@ -46,4 +46,14 @@ public class Network {
      * URL to place a new order (POST).
      */
     public static final String URL_PLACE_ORDER = "https://forevermyangel.com/wp-json/wc/v2/orders";
+
+    /**
+     * URL to get couponID from the entered coupon code.
+     */
+    public static final String URL_GET_COUPON_ID = "https://forevermyangel.com/wp-json/wc/v2/coupons";
+
+    /**
+     * Custom URL to clear the cart of particular userID.
+     */
+    public static final String URL_CLEAR_CART = "https://forevermyangel.com/fma-api.php?action=clearcart";
 }

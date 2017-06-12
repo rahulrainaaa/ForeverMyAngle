@@ -29,7 +29,7 @@
         android:paddingBottom="-3dp"
         android:weightSum="20">
 
-        <TextView
+        <Button
             android:id="@+id/txt_total_price"
             android:layout_width="0dp"
             android:layout_height="match_parent"

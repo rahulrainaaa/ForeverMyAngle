@@ -13,6 +13,7 @@ import org.json.JSONObject;
 import app.shopping.forevermyangle.R;
 import app.shopping.forevermyangle.network.callback.NetworkCallbackListener;
 import app.shopping.forevermyangle.network.handler.HttpsTask;
+import app.shopping.forevermyangle.network.handler.NetworkHandler;
 import app.shopping.forevermyangle.utils.GlobalData;
 import app.shopping.forevermyangle.utils.Network;
 import app.shopping.forevermyangle.view.FMAProgessDialog;
@@ -127,8 +128,8 @@ public class CheckoutActivity extends AppCompatActivity implements View.OnClickL
         try {
 
             JSONObject jsonRequest = new JSONObject();
-            jsonRequest.put("payment_method", "");
-            jsonRequest.put("payment_method_title", "");
+            jsonRequest.put("payment_method", "cod");
+            jsonRequest.put("payment_method_title", "Cash on delivery");
             jsonRequest.put("set_paid", false);
             jsonRequest.put("billing", GlobalData.jsonUserDetail.getJSONObject("billing"));
             jsonRequest.put("shipping", GlobalData.jsonUserDetail.getJSONObject("shipping"));
@@ -171,7 +172,25 @@ public class CheckoutActivity extends AppCompatActivity implements View.OnClickL
         fmaProgessDialog.hide();
         switch (requestCode) {
             case 1:
+                try {
+                    JSONObject jsonRequest = new JSONObject();
+                    int userID = GlobalData.jsonUserDetail.getInt("id");
+                    jsonRequest.put("userid", "" + userID);
+                    NetworkHandler networkHandler = new NetworkHandler();
+                    networkHandler.httpCreate(2, this, this, jsonRequest, Network.URL_CLEAR_CART, NetworkHandler.RESPONSE_JSON);
+                    networkHandler.executePost();
+                    Toast.makeText(this, "Order Placed...\nWait a moment.", Toast.LENGTH_SHORT).show();
+                    fmaProgessDialog.show();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                }
 
+                break;
+            case 2:
+
+                Toast.makeText(this, "Done.", Toast.LENGTH_SHORT).show();
+                finish();
                 break;
         }
     }
@@ -183,7 +202,11 @@ public class CheckoutActivity extends AppCompatActivity implements View.OnClickL
         switch (requestCode) {
             case 1:
 
-                Toast.makeText(this, "" + requestCode, Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Request Failed with code: " + requestCode, Toast.LENGTH_SHORT).show();
+                break;
+            case 2:
+
+                Toast.makeText(this, "Order Placed. But not removed from cart.\nPlease remove it manually.", Toast.LENGTH_LONG).show();
                 break;
         }
 

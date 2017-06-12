@@ -10,8 +10,9 @@ import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.shawnlin.numberpicker.NumberPicker;
@@ -50,7 +51,7 @@ public class CartDashboardFragment extends BaseFragment implements View.OnClickL
     private CartListViewAdpter mAdapter = null;
     private ArrayList<CartProduct> list = new ArrayList<>();
     private int mTotal, mSubTotal;
-    private TextView mTxtTotalPrice = null;
+    private Button mBtnTotalPrice = null;
     private FMAProgessDialog fmaProgessDialog = null;
     private JSONObject mRawJsonResponse = null;
 
@@ -64,7 +65,9 @@ public class CartDashboardFragment extends BaseFragment implements View.OnClickL
         View view = inflater.inflate(R.layout.fragment_cart, container, false);
 
         view.findViewById(R.id.btn_proceed).setOnClickListener(this);
-        mTxtTotalPrice = (TextView) view.findViewById(R.id.txt_total_price);
+        mBtnTotalPrice = (Button) view.findViewById(R.id.txt_total_price);
+        //mBtnTotalPrice.setOnClickListener(this);
+
         mListView = (ListView) view.findViewById(R.id.list_view);
         mAdapter = new CartListViewAdpter(getActivity(), this, R.layout.item_list_cart, list);
         mListView.setAdapter(mAdapter);
@@ -72,7 +75,7 @@ public class CartDashboardFragment extends BaseFragment implements View.OnClickL
         fmaProgessDialog = new FMAProgessDialog(getActivity());
 
         if (!fmaProgessDialog.isVisible()) {
-            getCart("");
+            getCart(null);
         }
 
         return view;
@@ -93,31 +96,35 @@ public class CartDashboardFragment extends BaseFragment implements View.OnClickL
 
         switch (view.getId()) {
 
-            case R.id.btn_proceed:
+            case R.id.txt_total_price:      // Input and apply coupon.
+
+                inputCoupon();
+                break;
+            case R.id.btn_proceed:          // Proceed for checkout.
 
                 proceed();
                 break;
-            case R.id.img_product:
+            case R.id.img_product:          // Show description.
 
                 showDescription((int) view.getTag());
                 break;
-            case R.id.txt_product_name:
+            case R.id.txt_product_name:     // Show description.
 
                 showDescription((int) view.getTag());
                 break;
-            case R.id.txt_product_price:
+            case R.id.txt_product_price:     // Show description.
 
                 showDescription((int) view.getTag());
                 break;
-            case R.id.btn_move_to_wish:
+            case R.id.btn_move_to_wish:     // Move to wishlist.
 
                 moveToWishlist((int) view.getTag());
                 break;
-            case R.id.txt_product_qty:
+            case R.id.txt_product_qty:      // Select and update quantity from picker.
 
                 updateQuantity((int) view.getTag());
                 break;
-            case R.id.btn_remove:
+            case R.id.btn_remove:           // Remove item from cart.
 
                 removeFromCart((int) view.getTag());
                 break;
@@ -143,6 +150,74 @@ public class CartDashboardFragment extends BaseFragment implements View.OnClickL
         }
     }
 
+    /**
+     * @param raw JSON response from API.
+     * @method applyCoupon
+     * @desc Method to apply couponID to the cart and get final price out of it.
+     */
+    private void applyCoupon(JSONArray raw) {
+
+        try {
+            if (raw.length() < 1) {
+                Toast.makeText(getActivity(), "Invalid Coupon.", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            JSONObject jsonCoupon = raw.getJSONObject(0);
+            int couponID = jsonCoupon.getInt("id");
+            getCart(couponID);
+        } catch (JSONException jsonE) {
+            Toast.makeText(getActivity(), "Exception: " + jsonE.getMessage(), Toast.LENGTH_SHORT).show();
+        }
+
+    }
+
+    /**
+     * @param couponCode
+     * @method getCouponID
+     * @desc Method to get if from coupon code.
+     */
+    private void getCouponID(String couponCode) {
+
+        fmaProgessDialog.show();
+        String url = Network.URL_GET_COUPON_ID + "?code=" + couponCode;
+        NetworkHandler networkHandler = new NetworkHandler();
+        networkHandler.httpCreate(5, getActivity(), this, new JSONObject(), url, NetworkHandler.RESPONSE_ARRAY);
+        networkHandler.executeGet();
+    }
+
+    /**
+     * @method inputCoupon
+     * @desc Method to input the coupon code from user and call method and proceed to apply.
+     */
+    private void inputCoupon() {
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setTitle("Enter Coupon Code");
+
+        final EditText input = new EditText(getActivity());
+        builder.setView(input);
+
+        builder.setPositiveButton("Apply", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                String couponCode = input.getText().toString().trim();
+                if (couponCode.isEmpty()) {
+                    Toast.makeText(getActivity(), "Empty string cannot be applied as coupon.", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                getCouponID(couponCode.trim());
+            }
+        });
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+
+        builder.show();
+
+    }
 
     /**
      * @param position item index from the list array.
@@ -289,24 +364,25 @@ public class CartDashboardFragment extends BaseFragment implements View.OnClickL
                     int code = rawObject.getInt("code");
                     String message = rawObject.getString("message");
                     if (code == 200) {
-                        getCart("");
+                        getCart(null);
                     }
                 } catch (Exception e) {
 
                     e.printStackTrace();
                     Toast.makeText(getActivity(), "Unable to process.", Toast.LENGTH_SHORT).show();
                 }
-
                 break;
-
             case 3:         // Remove from cart.
 
-                getCart("");
+                getCart(null);
                 break;
-
             case 4:         // move to wishlist.
 
-                getCart("");
+                getCart(null);
+                break;
+            case 5:
+
+                applyCoupon(rawArray);
                 break;
         }
     }
@@ -329,26 +405,32 @@ public class CartDashboardFragment extends BaseFragment implements View.OnClickL
 
                 ((DashboardActivity) getActivity()).signalMessage(1);
                 break;
-
             case 4:
 
                 ((DashboardActivity) getActivity()).signalMessage(1);
                 break;
-        }
+            case 5:
 
+                ((DashboardActivity) getActivity()).signalMessage(1);
+                break;
+        }
     }
 
     /**
-     * @param couponId
+     * @param couponId; null if no coupon to apply.
      * @method getCart
      * @desc Method to fetch cart items from data as raw {@link JSONObject}.
      */
-    private void getCart(String couponId) {
+    private void getCart(Integer couponId) {
         try {
             int userID = GlobalData.jsonUserDetail.getInt("id");
             JSONObject jsonRequest = new JSONObject();
             jsonRequest.put("userid", "" + userID);
-            jsonRequest.put("couponId", "" + couponId);
+            if (couponId != null) {
+                jsonRequest.put("couponId", String.valueOf(couponId));
+            } else {
+                jsonRequest.put("couponId", "");
+            }
             fmaProgessDialog.show();
             NetworkHandler networkHandler = new NetworkHandler();
             networkHandler.httpCreate(1, getActivity(), this, jsonRequest, Network.URL_GET_CART, NetworkHandler.RESPONSE_JSON);
@@ -412,7 +494,7 @@ public class CartDashboardFragment extends BaseFragment implements View.OnClickL
                 list.add(cartProduct);
             }
             mAdapter.notifyDataSetChanged();
-            mTxtTotalPrice.setText("Total: AED " + mTotal);
+            mBtnTotalPrice.setText("Total: AED " + mTotal);
         } catch (Exception e) {
             e.printStackTrace();
             Toast.makeText(getActivity(), "Exception" + e.getMessage(), Toast.LENGTH_SHORT).show();

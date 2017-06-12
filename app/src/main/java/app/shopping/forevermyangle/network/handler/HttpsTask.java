@@ -71,7 +71,7 @@ public class HttpsTask extends AsyncTask<String, String, String> {
             mStatusCode = urlConnection.getResponseCode();
             mStatusMsg = urlConnection.getResponseMessage();
 
-            if (mStatusCode == 200) {
+            if (mStatusCode == 200 || mStatusCode == 201) {
 
                 InputStream it = new BufferedInputStream(urlConnection.getInputStream());
                 InputStreamReader read = new InputStreamReader(it);
