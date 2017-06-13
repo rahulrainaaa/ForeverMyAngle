@@ -20,7 +20,7 @@
         android:text="FOREVER MY ANGEL"
         android:textColor="@color/colorText"
         android:textSize="12sp"
-        android:textStyle="italic|bold"
+        android:textStyle="bold"
         android:typeface="serif" />
 
     <EditText
@@ -72,6 +72,16 @@
         android:text="LOGIN"
         android:textColor="@color/colorText"
         android:textSize="17sp" />
+
+    <com.facebook.login.widget.LoginButton
+        android:id="@+id/login_facebook"
+        android:layout_width="match_parent"
+        android:layout_height="38dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
+        android:layout_marginTop="10dp" />
 
     <LinearLayout
         android:layout_width="match_parent"

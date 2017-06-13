@@ -1,5 +1,6 @@
 package app.shopping.forevermyangle.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -171,8 +172,9 @@ public class CheckoutActivity extends AppCompatActivity implements View.OnClickL
 
         fmaProgessDialog.hide();
         switch (requestCode) {
-            case 1:
+            case 1:     // order placed
                 try {
+                    // Need to clear cart after placing order from cart.
                     JSONObject jsonRequest = new JSONObject();
                     int userID = GlobalData.jsonUserDetail.getInt("id");
                     jsonRequest.put("userid", "" + userID);
@@ -187,9 +189,10 @@ public class CheckoutActivity extends AppCompatActivity implements View.OnClickL
                 }
 
                 break;
-            case 2:
+            case 2:     // items removed from cart after ordering.
 
                 Toast.makeText(this, "Done.", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(this, OrderPlacedActivity.class));
                 finish();
                 break;
         }

@@ -1,5 +1,6 @@
 package app.shopping.forevermyangle.activity;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
@@ -7,6 +8,14 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.FacebookSdk;
+import com.facebook.GraphRequest;
+import com.facebook.GraphResponse;
+import com.facebook.login.LoginResult;
+import com.facebook.login.widget.LoginButton;
 import com.google.gson.Gson;
 
 import org.json.JSONArray;
@@ -26,10 +35,12 @@ import app.shopping.forevermyangle.view.FMAProgessDialog;
  * @class LoginActivity
  * @desc Activity for handling Login Activity.
  */
-public class LoginActivity extends FragmentActivity implements View.OnClickListener, NetworkCallbackListener {
+public class LoginActivity extends FragmentActivity implements View.OnClickListener, NetworkCallbackListener, GraphRequest.GraphJSONObjectCallback {
 
     private FMAProgessDialog mFMAProgessDialog = null;
     private NetworkHandler mNetworkHandler = null;
+    private LoginButton facebookLogin = null;
+    private CallbackManager callbackManager;
     private TextView mTxtUsername = null;
     private TextView mTxtPassword = null;
     private String mStrUsername = null;
@@ -41,12 +52,39 @@ public class LoginActivity extends FragmentActivity implements View.OnClickListe
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        FacebookSdk.sdkInitialize(getApplicationContext());
         setContentView(R.layout.activity_login);
+        callbackManager = CallbackManager.Factory.create();
+        facebookLogin = (LoginButton) findViewById(R.id.login_facebook);
         mTxtUsername = (TextView) findViewById(R.id.txt_username);
         mTxtPassword = (TextView) findViewById(R.id.txt_password);
         findViewById(R.id.login_btn).setOnClickListener(this);
         mFMAProgessDialog = new FMAProgessDialog(this);
 
+        facebookLogin.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+            @Override
+            public void onSuccess(LoginResult loginResult) {
+
+                mTxtUsername.setText("User ID:  " + loginResult.getAccessToken().getUserId() + "\n\n" +
+                        "Auth Token: " + loginResult.getAccessToken().getToken());
+                GraphRequest request = GraphRequest.newMeRequest(loginResult.getAccessToken(), LoginActivity.this);
+                Bundle parameters = new Bundle();
+                parameters.putString("fields", "id, first_name, last_name, email,gender, birthday, location"); // Parámetros que pedimos a facebook
+                request.setParameters(parameters);
+                request.executeAsync();
+
+            }
+
+            @Override
+            public void onCancel() {
+                mTxtUsername.setText("Login attempt cancelled.");
+            }
+
+            @Override
+            public void onError(FacebookException e) {
+                mTxtUsername.setText("Login attempt failed.");
+            }
+        });
     }
 
     @Override
@@ -78,6 +116,7 @@ public class LoginActivity extends FragmentActivity implements View.OnClickListe
      * @method checkValidation
      * @desc Method to check the username and password field input data validation. true = valid, false = invalid
      */
+
     private boolean checkValidation() {
 
         boolean validationFlag = true;
@@ -204,4 +243,24 @@ public class LoginActivity extends FragmentActivity implements View.OnClickListe
 
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        callbackManager.onActivityResult(requestCode, resultCode, data);
+    }
+
+
+    @Override
+    public void onCompleted(JSONObject object, GraphResponse response) {
+        try {
+            String url = Network.URL_FMA_USER_DETAIL + "?email=" + object.getString("email");
+            NetworkHandler handler = new NetworkHandler();
+            mFMAProgessDialog.show();
+            handler.httpCreate(2, this, this, new JSONObject(), url, NetworkHandler.RESPONSE_ARRAY);
+            handler.executeGet();
+        } catch (Exception e) {
+            e.printStackTrace();
+            Toast.makeText(this, "Exception: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+        }
+
+    }
 }

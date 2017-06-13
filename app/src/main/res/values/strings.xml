@@ -1,7 +1,8 @@
 <resources>
     <!--Application-->
     <string name="app_name">Forever My Angle</string>
-
+    <string name="facebook_app_id">2314379795453753</string>
+    <string name="fb_login_protocol_scheme">fb2314379795453753</string>
     <!--Activity Title-->
     <string name="title_activity_dashboard">Forever My Angel</string>
     <string name="title_home">Home</string>

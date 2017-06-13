@@ -14,6 +14,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id" />
+
         <activity
             android:name=".activity.LoginActivity"
             android:launchMode="singleInstance"
@@ -28,6 +33,7 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".activity.SplashActivity"
+            android:launchMode="singleInstance"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -53,16 +59,24 @@
         <activity
             android:name=".activity.WishlistActivity"
             android:label="@string/title_wishlist"
+            android:launchMode="singleInstance"
             android:screenOrientation="portrait" />
         <activity
             android:name=".activity.AddressActivity"
             android:label="@string/title_activity_address"
+            android:launchMode="singleInstance"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activity.CheckoutActivity"
             android:label="@string/title_activity_checkout"
+            android:launchMode="singleInstance"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.OrderPlacedActivity"
+            android:launchMode="singleInstance"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize|stateHidden" />
     </application>
 
 </manifest>
