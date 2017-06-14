@@ -24,14 +24,14 @@ import app.shopping.forevermyangle.network.handler.NetworkHandler;
 import app.shopping.forevermyangle.utils.Constants;
 import app.shopping.forevermyangle.utils.GlobalData;
 import app.shopping.forevermyangle.utils.Network;
-import app.shopping.forevermyangle.view.FMAProgessDialog;
+import app.shopping.forevermyangle.view.FMAProgressDialog;
 
 public class WishlistActivity extends AppCompatActivity implements View.OnClickListener, NetworkCallbackListener {
 
     private ListView listView;
     private ArrayList<WishlistProduct> list = new ArrayList();
     private WishlistListViewAdpter adapter = null;
-    private FMAProgessDialog fmaProgessDialog = null;
+    private FMAProgressDialog fmaProgressDialog = null;
     private int position = -1;
 
     @Override
@@ -39,7 +39,7 @@ public class WishlistActivity extends AppCompatActivity implements View.OnClickL
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_wishlist);
         listView = (ListView) findViewById(R.id.listView);
-        fmaProgessDialog = new FMAProgessDialog(this);
+        fmaProgressDialog = new FMAProgressDialog(this);
         fetchDataFromCache();
 
         adapter = new WishlistListViewAdpter(this, R.layout.item_list_wishlist, list);
@@ -128,7 +128,7 @@ public class WishlistActivity extends AppCompatActivity implements View.OnClickL
      */
     private void moveToCart(View view) {
 
-        fmaProgessDialog.show();
+        fmaProgressDialog.show();
         try {
             int userID = GlobalData.jsonUserDetail.getInt("id");
             position = (int) view.getTag();
@@ -157,7 +157,7 @@ public class WishlistActivity extends AppCompatActivity implements View.OnClickL
     @Override
     public void networkSuccessResponse(int requestCode, JSONObject rawObject, JSONArray rawArray) {
 
-        fmaProgessDialog.hide();
+        fmaProgressDialog.hide();
         switch (requestCode) {
 
             case 1:         // Moved to cart.
@@ -193,7 +193,7 @@ public class WishlistActivity extends AppCompatActivity implements View.OnClickL
     @Override
     public void networkFailResponse(int requestCode, String message) {
 
-        fmaProgessDialog.hide();
+        fmaProgressDialog.hide();
         switch (requestCode) {
 
             case 1:

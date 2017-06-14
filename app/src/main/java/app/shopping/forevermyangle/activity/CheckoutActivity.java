@@ -17,7 +17,7 @@ import app.shopping.forevermyangle.network.handler.HttpsTask;
 import app.shopping.forevermyangle.network.handler.NetworkHandler;
 import app.shopping.forevermyangle.utils.GlobalData;
 import app.shopping.forevermyangle.utils.Network;
-import app.shopping.forevermyangle.view.FMAProgessDialog;
+import app.shopping.forevermyangle.view.FMAProgressDialog;
 
 public class CheckoutActivity extends AppCompatActivity implements View.OnClickListener, NetworkCallbackListener {
 
@@ -28,7 +28,7 @@ public class CheckoutActivity extends AppCompatActivity implements View.OnClickL
     private TextView bName, bCompany, bAddress, bCity, bState, bPostal, bCountry, bEmail, bPhone;
     private TextView price, shipping, total;
     private Button btnCheckOut = null;
-    private FMAProgessDialog fmaProgessDialog = null;
+    private FMAProgressDialog fmaProgressDialog = null;
 
     /**
      * {@link AppCompatActivity} override methods.
@@ -37,7 +37,7 @@ public class CheckoutActivity extends AppCompatActivity implements View.OnClickL
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_checkout);
-        fmaProgessDialog = new FMAProgessDialog(this);
+        fmaProgressDialog = new FMAProgressDialog(this);
 
         sName = (TextView) findViewById(R.id.s_name);
         sCompany = (TextView) findViewById(R.id.s_company);
@@ -101,7 +101,7 @@ public class CheckoutActivity extends AppCompatActivity implements View.OnClickL
     @Override
     protected void onDestroy() {
 
-        fmaProgessDialog.dismiss();
+        fmaProgressDialog.dismiss();
         super.onDestroy();
     }
 
@@ -154,7 +154,7 @@ public class CheckoutActivity extends AppCompatActivity implements View.OnClickL
 
             jsonRequest.put("shipping_lines", jsonArrayShippingLines);
 
-            fmaProgessDialog.show();
+            fmaProgressDialog.show();
             HttpsTask httpsTask = new HttpsTask(1, this, this, "POST", Network.URL_PLACE_ORDER, jsonRequest, HttpsTask.RESPONSE_TYPE_OBJECT);
             httpsTask.execute("");
 
@@ -170,7 +170,7 @@ public class CheckoutActivity extends AppCompatActivity implements View.OnClickL
     @Override
     public void networkSuccessResponse(int requestCode, JSONObject rawObject, JSONArray rawArray) {
 
-        fmaProgessDialog.hide();
+        fmaProgressDialog.hide();
         switch (requestCode) {
             case 1:     // order placed
                 try {
@@ -182,7 +182,7 @@ public class CheckoutActivity extends AppCompatActivity implements View.OnClickL
                     networkHandler.httpCreate(2, this, this, jsonRequest, Network.URL_CLEAR_CART, NetworkHandler.RESPONSE_JSON);
                     networkHandler.executePost();
                     Toast.makeText(this, "Order Placed...\nWait a moment.", Toast.LENGTH_SHORT).show();
-                    fmaProgessDialog.show();
+                    fmaProgressDialog.show();
                 } catch (Exception e) {
                     e.printStackTrace();
                     Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
@@ -201,7 +201,7 @@ public class CheckoutActivity extends AppCompatActivity implements View.OnClickL
     @Override
     public void networkFailResponse(int requestCode, String message) {
 
-        fmaProgessDialog.hide();
+        fmaProgressDialog.hide();
         switch (requestCode) {
             case 1:
 

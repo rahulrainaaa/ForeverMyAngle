@@ -29,7 +29,7 @@ import app.shopping.forevermyangle.network.handler.NetworkHandler;
 import app.shopping.forevermyangle.utils.Constants;
 import app.shopping.forevermyangle.utils.GlobalData;
 import app.shopping.forevermyangle.utils.Network;
-import app.shopping.forevermyangle.view.FMAProgessDialog;
+import app.shopping.forevermyangle.view.FMAProgressDialog;
 
 /**
  * @class LoginActivity
@@ -37,7 +37,7 @@ import app.shopping.forevermyangle.view.FMAProgessDialog;
  */
 public class LoginActivity extends FragmentActivity implements View.OnClickListener, NetworkCallbackListener, GraphRequest.GraphJSONObjectCallback {
 
-    private FMAProgessDialog mFMAProgessDialog = null;
+    private FMAProgressDialog mFMAProgressDialog = null;
     private NetworkHandler mNetworkHandler = null;
     private LoginButton facebookLogin = null;
     private CallbackManager callbackManager;
@@ -59,7 +59,7 @@ public class LoginActivity extends FragmentActivity implements View.OnClickListe
         mTxtUsername = (TextView) findViewById(R.id.txt_username);
         mTxtPassword = (TextView) findViewById(R.id.txt_password);
         findViewById(R.id.login_btn).setOnClickListener(this);
-        mFMAProgessDialog = new FMAProgessDialog(this);
+        mFMAProgressDialog = new FMAProgressDialog(this);
 
         facebookLogin.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
@@ -69,7 +69,7 @@ public class LoginActivity extends FragmentActivity implements View.OnClickListe
                         "Auth Token: " + loginResult.getAccessToken().getToken());
                 GraphRequest request = GraphRequest.newMeRequest(loginResult.getAccessToken(), LoginActivity.this);
                 Bundle parameters = new Bundle();
-                parameters.putString("fields", "id, first_name, last_name, email,gender, birthday, location"); // Parámetros que pedimos a facebook
+                parameters.putString("fields", "id, first_name, last_name, email, gender, birthday, location");
                 request.setParameters(parameters);
                 request.executeAsync();
 
@@ -89,8 +89,8 @@ public class LoginActivity extends FragmentActivity implements View.OnClickListe
 
     @Override
     protected void onDestroy() {
-        mFMAProgessDialog.dismiss();
-        mFMAProgessDialog = null;
+        mFMAProgressDialog.dismiss();
+        mFMAProgressDialog = null;
         super.onDestroy();
     }
 
@@ -160,7 +160,7 @@ public class LoginActivity extends FragmentActivity implements View.OnClickListe
             }
             HttpsTask httpsTask = new HttpsTask(1, this, this, "POST", Network.URL_FMA_USER_LOGIN, jsonRequest, HttpsTask.RESPONSE_TYPE_OBJECT);
             httpsTask.execute("");
-            mFMAProgessDialog.show();
+            mFMAProgressDialog.show();
 
         } else {
             // Validation failed for the Username-Password login fields.
@@ -172,7 +172,7 @@ public class LoginActivity extends FragmentActivity implements View.OnClickListe
      */
     @Override
     public void networkSuccessResponse(int requestCode, JSONObject rawObject, JSONArray rawArray) {
-        mFMAProgessDialog.hide();
+        mFMAProgressDialog.hide();
         switch (requestCode) {
             case 1:
 
@@ -189,7 +189,7 @@ public class LoginActivity extends FragmentActivity implements View.OnClickListe
     @Override
     public void networkFailResponse(int requestCode, String message) {
 
-        mFMAProgessDialog.hide();
+        mFMAProgressDialog.hide();
         switch (requestCode) {      // Login Response.
             case 1:
 
@@ -225,7 +225,7 @@ public class LoginActivity extends FragmentActivity implements View.OnClickListe
 
     private void detailsFetched(JSONArray jsonArray) {
 
-        mFMAProgessDialog.hide();
+        mFMAProgressDialog.hide();
         if (jsonArray.length() < 1) {
             return;
         }
@@ -254,7 +254,7 @@ public class LoginActivity extends FragmentActivity implements View.OnClickListe
         try {
             String url = Network.URL_FMA_USER_DETAIL + "?email=" + object.getString("email");
             NetworkHandler handler = new NetworkHandler();
-            mFMAProgessDialog.show();
+            mFMAProgressDialog.show();
             handler.httpCreate(2, this, this, new JSONObject(), url, NetworkHandler.RESPONSE_ARRAY);
             handler.executeGet();
         } catch (Exception e) {

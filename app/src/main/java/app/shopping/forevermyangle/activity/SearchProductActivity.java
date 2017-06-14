@@ -32,7 +32,7 @@ import app.shopping.forevermyangle.network.handler.NetworkHandler;
 import app.shopping.forevermyangle.parser.products.ProductParser;
 import app.shopping.forevermyangle.utils.GlobalData;
 import app.shopping.forevermyangle.utils.Network;
-import app.shopping.forevermyangle.view.FMAProgessDialog;
+import app.shopping.forevermyangle.view.FMAProgressDialog;
 
 /**
  * @class SearchProductActivity
@@ -48,7 +48,7 @@ public class SearchProductActivity extends FragmentActivity implements AdapterVi
     private ProductListViewAdapter mAdapter = null;
     private NetworkHandler mNetworkHandler = new NetworkHandler();
     private LinearLayout mLayoutTabSort, mLayoutTabFilter;
-    private FMAProgessDialog fmaProgessDialog = null;
+    private FMAProgressDialog fmaProgressDialog = null;
 
     /**
      * Product filtering data and flags.
@@ -73,7 +73,7 @@ public class SearchProductActivity extends FragmentActivity implements AdapterVi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
-        fmaProgessDialog = new FMAProgessDialog(this);
+        fmaProgressDialog = new FMAProgressDialog(this);
 
         mLayoutTabSort = (LinearLayout) findViewById(R.id.tab_filter);
         mLayoutTabFilter = (LinearLayout) findViewById(R.id.tab_sort);
@@ -136,7 +136,7 @@ public class SearchProductActivity extends FragmentActivity implements AdapterVi
     @Override
     public void networkSuccessResponse(int requestCode, JSONObject rawObject, JSONArray rawArray) {
 
-        fmaProgessDialog.hide();
+        fmaProgressDialog.hide();
         switch (requestCode) {
 
             case 1:             // Product list response.
@@ -150,7 +150,7 @@ public class SearchProductActivity extends FragmentActivity implements AdapterVi
     @Override
     public void networkFailResponse(int requestCode, String message) {
 
-        fmaProgessDialog.hide();
+        fmaProgressDialog.hide();
         switch (requestCode) {
             case 1:
 
@@ -186,7 +186,7 @@ public class SearchProductActivity extends FragmentActivity implements AdapterVi
     private void getProductList() {
 
         if (mPageNumber == 1) {         // Show progress dialog in case of first page loading only.
-            fmaProgessDialog.show();
+            fmaProgressDialog.show();
         }
         String url = Network.URL_GET_ALL_PRODUCTS + "?per_page=" + sPRODUCTS_PERPAGE + "&page=" + mPageNumber;
         url = url + "" + mStrSrchString + mStrSrchOrder + mStrSrchOrderBy + mStrSrchStatus + mStrSrchInStock + mStrSrchMaxPrice + mStrSrchMinPrice + mStrSrchOnSale + mStrSrchCategotyId;

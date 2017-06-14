@@ -11,7 +11,7 @@ public abstract class FMAActivity extends AppCompatActivity {
     /**
      * Private class data members.
      */
-    private FMAProgessDialog mFMAProgessDialog = null;
+    private FMAProgressDialog mFMAProgressDialog = null;
 
     /**
      * @param message Message to show on the processing dialog.
@@ -19,14 +19,14 @@ public abstract class FMAActivity extends AppCompatActivity {
      * @desc Method to init and show the processing progress as dialog and disable the UI interaction.
      */
     public void showProgressing(String message) {
-        if (mFMAProgessDialog == null) {
-            mFMAProgessDialog = new FMAProgessDialog(this);
+        if (mFMAProgressDialog == null) {
+            mFMAProgressDialog = new FMAProgressDialog(this);
         }
         if (message != null) {
-            mFMAProgessDialog.setMessage("");
+            mFMAProgressDialog.setMessage("");
         }
 
-        mFMAProgessDialog.show();
+        mFMAProgressDialog.show();
     }
 
     /**
@@ -34,10 +34,10 @@ public abstract class FMAActivity extends AppCompatActivity {
      * @desc Method to hide the progressing process dialog.
      */
     public void hideProgressing() {
-        if (mFMAProgessDialog == null) {
+        if (mFMAProgressDialog == null) {
             return;
         }
-        mFMAProgessDialog.hide();
+        mFMAProgressDialog.hide();
     }
 
     /**
@@ -45,7 +45,7 @@ public abstract class FMAActivity extends AppCompatActivity {
      */
     @Override
     protected void onDestroy() {
-        mFMAProgessDialog = null;
+        mFMAProgressDialog = null;
         super.onDestroy();
     }
 

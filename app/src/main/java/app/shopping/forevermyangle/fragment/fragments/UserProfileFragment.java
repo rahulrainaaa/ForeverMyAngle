@@ -172,6 +172,8 @@ public class UserProfileFragment extends BaseFragment implements View.OnClickLis
                 SharedPreferences.Editor se = getActivity().getSharedPreferences(Constants.CACHE_USER, 0).edit();
                 se.remove(Constants.CACHE_KEY_USER_DETAIL);
                 se.remove(Constants.CACHE_KEY_LOGIN);
+                se.commit();
+
                 ((DashboardActivity) getActivity()).signalMessage(2);
             }
         }).show();

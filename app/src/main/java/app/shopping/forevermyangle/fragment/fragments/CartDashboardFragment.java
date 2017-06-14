@@ -36,7 +36,7 @@ import app.shopping.forevermyangle.network.handler.NetworkHandler;
 import app.shopping.forevermyangle.utils.Constants;
 import app.shopping.forevermyangle.utils.GlobalData;
 import app.shopping.forevermyangle.utils.Network;
-import app.shopping.forevermyangle.view.FMAProgessDialog;
+import app.shopping.forevermyangle.view.FMAProgressDialog;
 
 /**
  * @class CartDashboardFragment
@@ -52,7 +52,7 @@ public class CartDashboardFragment extends BaseFragment implements View.OnClickL
     private ArrayList<CartProduct> list = new ArrayList<>();
     private int mTotal, mSubTotal;
     private Button mBtnTotalPrice = null;
-    private FMAProgessDialog fmaProgessDialog = null;
+    private FMAProgressDialog fmaProgressDialog = null;
     private JSONObject mRawJsonResponse = null;
 
     /**
@@ -72,9 +72,9 @@ public class CartDashboardFragment extends BaseFragment implements View.OnClickL
         mAdapter = new CartListViewAdpter(getActivity(), this, R.layout.item_list_cart, list);
         mListView.setAdapter(mAdapter);
 
-        fmaProgessDialog = new FMAProgessDialog(getActivity());
+        fmaProgressDialog = new FMAProgressDialog(getActivity());
 
-        if (!fmaProgessDialog.isVisible()) {
+        if (!fmaProgressDialog.isVisible()) {
             getCart(null);
         }
 
@@ -84,7 +84,7 @@ public class CartDashboardFragment extends BaseFragment implements View.OnClickL
     @Override
     public void onDetach() {
 
-        fmaProgessDialog.dismiss();
+        fmaProgressDialog.dismiss();
         super.onDetach();
     }
 
@@ -178,7 +178,7 @@ public class CartDashboardFragment extends BaseFragment implements View.OnClickL
      */
     private void getCouponID(String couponCode) {
 
-        fmaProgessDialog.show();
+        fmaProgressDialog.show();
         String url = Network.URL_GET_COUPON_ID + "?code=" + couponCode;
         NetworkHandler networkHandler = new NetworkHandler();
         networkHandler.httpCreate(5, getActivity(), this, new JSONObject(), url, NetworkHandler.RESPONSE_ARRAY);
@@ -289,7 +289,7 @@ public class CartDashboardFragment extends BaseFragment implements View.OnClickL
                     jsonRequest.put("productid", "" + cartProduct.id);
                     jsonRequest.put("userid", "" + userID);
                     NetworkHandler networkHandler = new NetworkHandler();
-                    fmaProgessDialog.show();
+                    fmaProgressDialog.show();
                     networkHandler.httpCreate(3, getActivity(), CartDashboardFragment.this, jsonRequest, Network.URL_REM_FROM_CART, NetworkHandler.RESPONSE_JSON);
                     networkHandler.executePost();
                 } catch (Exception e) {
@@ -327,7 +327,7 @@ public class CartDashboardFragment extends BaseFragment implements View.OnClickL
                             jsonRequest.put("productqty", "" + ProductQty);
 
                             NetworkHandler networkHandler = new NetworkHandler();
-                            fmaProgessDialog.show();
+                            fmaProgressDialog.show();
                             networkHandler.httpCreate(2, getActivity(), CartDashboardFragment.this, jsonRequest, Network.URL_ADD_TO_CART, NetworkHandler.RESPONSE_JSON);
                             networkHandler.executePost();
                         } catch (JSONException jsonE) {
@@ -350,7 +350,7 @@ public class CartDashboardFragment extends BaseFragment implements View.OnClickL
     @Override
     public void networkSuccessResponse(int requestCode, JSONObject rawObject, JSONArray rawArray) {
 
-        fmaProgessDialog.hide();
+        fmaProgressDialog.hide();
 
         switch (requestCode) {
 
@@ -390,7 +390,7 @@ public class CartDashboardFragment extends BaseFragment implements View.OnClickL
     @Override
     public void networkFailResponse(int requestCode, String message) {
 
-        fmaProgessDialog.hide();
+        fmaProgressDialog.hide();
 
         switch (requestCode) {
             case 1:
@@ -431,7 +431,7 @@ public class CartDashboardFragment extends BaseFragment implements View.OnClickL
             } else {
                 jsonRequest.put("couponId", "");
             }
-            fmaProgessDialog.show();
+            fmaProgressDialog.show();
             NetworkHandler networkHandler = new NetworkHandler();
             networkHandler.httpCreate(1, getActivity(), this, jsonRequest, Network.URL_GET_CART, NetworkHandler.RESPONSE_JSON);
             networkHandler.executePost();
