@@ -16,6 +16,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import com.facebook.FacebookSdk;
+
 import app.shopping.forevermyangle.R;
 import app.shopping.forevermyangle.fragment.base.BaseFragment;
 import app.shopping.forevermyangle.fragment.fragments.CartDashboardFragment;
@@ -47,6 +49,8 @@ public class DashboardActivity extends FMAActivity implements BottomNavigationVi
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        FacebookSdk.sdkInitialize(getApplicationContext());
         super.onCreate(savedInstanceState);
 
         // Resolution dependency processing.

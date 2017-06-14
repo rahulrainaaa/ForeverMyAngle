@@ -12,6 +12,8 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.facebook.login.LoginManager;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -173,6 +175,8 @@ public class UserProfileFragment extends BaseFragment implements View.OnClickLis
                 se.remove(Constants.CACHE_KEY_USER_DETAIL);
                 se.remove(Constants.CACHE_KEY_LOGIN);
                 se.commit();
+
+                LoginManager.getInstance().logOut();
 
                 ((DashboardActivity) getActivity()).signalMessage(2);
             }

@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -54,6 +55,7 @@ public class CartDashboardFragment extends BaseFragment implements View.OnClickL
     private Button mBtnTotalPrice = null;
     private FMAProgressDialog fmaProgressDialog = null;
     private JSONObject mRawJsonResponse = null;
+    private LinearLayout mBottomPanel = null;
 
     /**
      * {@link BaseFragment} Class override method(s).
@@ -66,8 +68,9 @@ public class CartDashboardFragment extends BaseFragment implements View.OnClickL
 
         view.findViewById(R.id.btn_proceed).setOnClickListener(this);
         mBtnTotalPrice = (Button) view.findViewById(R.id.txt_total_price);
-        //mBtnTotalPrice.setOnClickListener(this);
+        mBtnTotalPrice.setOnClickListener(this);
 
+        mBottomPanel = (LinearLayout) view.findViewById(R.id.bottom_panel);
         mListView = (ListView) view.findViewById(R.id.list_view);
         mAdapter = new CartListViewAdpter(getActivity(), this, R.layout.item_list_cart, list);
         mListView.setAdapter(mAdapter);
@@ -79,6 +82,19 @@ public class CartDashboardFragment extends BaseFragment implements View.OnClickL
         }
 
         return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        if (GlobalData.login == null) {
+            // No login ... hide buttons.
+            mBottomPanel.setVisibility(View.GONE);
+        } else {
+            // App login... show buttons to proceed.
+            mBottomPanel.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override
@@ -437,7 +453,25 @@ public class CartDashboardFragment extends BaseFragment implements View.OnClickL
             networkHandler.executePost();
         } catch (JSONException jsonE) {
             jsonE.printStackTrace();
-            startActivity(new Intent(getActivity(), LoginActivity.class));
+
+            AlertDialog alertDialog = new AlertDialog.Builder(getActivity()).create();
+            alertDialog.setTitle("Alert");
+            alertDialog.setMessage("Need login to show cart.");
+            alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "Login",
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            startActivity(new Intent(getActivity(), LoginActivity.class));
+                        }
+                    });
+            alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "Not now",
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    });
+            alertDialog.show();
+
+
             Toast.makeText(getActivity(), "Need login", Toast.LENGTH_SHORT).show();
         } catch (Exception e) {
             e.printStackTrace();

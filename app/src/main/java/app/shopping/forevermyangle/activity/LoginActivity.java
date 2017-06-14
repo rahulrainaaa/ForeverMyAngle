@@ -1,7 +1,6 @@
 package app.shopping.forevermyangle.activity;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
@@ -67,8 +66,6 @@ public class LoginActivity extends FragmentActivity implements View.OnClickListe
             @Override
             public void onSuccess(LoginResult loginResult) {
 
-                mTxtUsername.setText("User ID:  " + loginResult.getAccessToken().getUserId() + "\n\n" +
-                        "Auth Token: " + loginResult.getAccessToken().getToken());
                 GraphRequest request = GraphRequest.newMeRequest(loginResult.getAccessToken(), LoginActivity.this);
                 Bundle parameters = new Bundle();
                 parameters.putString("fields", "id, first_name, last_name, email, gender, birthday, location");
@@ -232,17 +229,32 @@ public class LoginActivity extends FragmentActivity implements View.OnClickListe
             return;
         }
         try {
+
+            // Saving user detail
             GlobalData.jsonUserDetail = jsonArray.getJSONObject(0);
-            SharedPreferences.Editor se = getSharedPreferences(Constants.CACHE_USER, 0).edit();
-            se.putString(Constants.CACHE_KEY_USER_DETAIL, GlobalData.jsonUserDetail.toString());
-            se.commit();
-            Toast.makeText(this, "Login Successfully.", Toast.LENGTH_SHORT).show();
-            finish();
+            getSharedPreferences(Constants.CACHE_USER, 0).edit().putString(Constants.CACHE_KEY_USER_DETAIL, GlobalData.jsonUserDetail.toString()).commit();
+
+            if (jsonArray.getJSONObject(0).getString("role").contains("subscriber")) {
+
+                // Saving user data
+                Gson gson = new Gson();
+                Login login = new Login();
+                GlobalData.login = login;
+                login.setToken("");
+                login.setUserDisplayName(jsonArray.getJSONObject(0).getString("first_name") + " " + jsonArray.getJSONObject(0).getString("last_name"));
+                login.setUserEmail(jsonArray.getJSONObject(0).getString("email"));
+                login.setUserNicename(jsonArray.getJSONObject(0).getString("username"));
+                String jsonLoginData = gson.toJson(login);
+                getSharedPreferences(Constants.CACHE_USER, 0).edit().putString(Constants.CACHE_KEY_LOGIN, jsonLoginData).commit();
+
+                Toast.makeText(this, "Login Successfully.", Toast.LENGTH_SHORT).show();
+                finish();
+            }
 
         } catch (Exception e) {
             e.printStackTrace();
+            Toast.makeText(this, "Exception: " + e.getMessage(), Toast.LENGTH_SHORT).show();
         }
-
     }
 
     @Override
@@ -254,7 +266,7 @@ public class LoginActivity extends FragmentActivity implements View.OnClickListe
     @Override
     public void onCompleted(JSONObject object, GraphResponse response) {
         try {
-            String url = Network.URL_FMA_USER_DETAIL + "?email=" + object.getString("email");
+            String url = Network.URL_FMA_USER_DETAIL + "?email=" + object.getString("email") + "&role=subscriber";
             NetworkHandler handler = new NetworkHandler();
             mFMAProgressDialog.show();
             handler.httpCreate(2, this, this, new JSONObject(), url, NetworkHandler.RESPONSE_ARRAY);

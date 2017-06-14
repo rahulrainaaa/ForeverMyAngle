@@ -131,7 +131,7 @@ public class CheckoutActivity extends AppCompatActivity implements View.OnClickL
             JSONObject jsonRequest = new JSONObject();
             jsonRequest.put("payment_method", "cod");
             jsonRequest.put("payment_method_title", "Cash on delivery");
-            jsonRequest.put("set_paid", false);
+            jsonRequest.put("set_paid", true);
             jsonRequest.put("billing", GlobalData.jsonUserDetail.getJSONObject("billing"));
             jsonRequest.put("shipping", GlobalData.jsonUserDetail.getJSONObject("shipping"));
 

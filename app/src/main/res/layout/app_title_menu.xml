@@ -26,7 +26,7 @@
             android:text="FOREVER MY ANGEL"
             android:textColor="@color/colorText"
             android:textSize="12sp"
-            android:textStyle="italic|bold"
+            android:textStyle="bold"
             android:typeface="serif" />
     </LinearLayout>
 

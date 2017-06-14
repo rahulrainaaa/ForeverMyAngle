@@ -10,6 +10,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -26,14 +27,24 @@ import app.shopping.forevermyangle.utils.GlobalData;
 import app.shopping.forevermyangle.utils.Network;
 import app.shopping.forevermyangle.view.FMAProgressDialog;
 
+/**
+ * @class WishlistActivity
+ * @desc Activity class to handler the list of Wishlist items.
+ */
 public class WishlistActivity extends AppCompatActivity implements View.OnClickListener, NetworkCallbackListener {
 
+    /**
+     * Class private data members.
+     */
     private ListView listView;
     private ArrayList<WishlistProduct> list = new ArrayList();
     private WishlistListViewAdpter adapter = null;
     private FMAProgressDialog fmaProgressDialog = null;
     private int position = -1;
 
+    /**
+     * {@link AppCompatActivity} override callback methods.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -78,8 +89,16 @@ public class WishlistActivity extends AppCompatActivity implements View.OnClickL
         } catch (Exception e) {
             e.printStackTrace();
         }
+        if (list.size() < 1) {
+
+            finish();
+            Toast.makeText(this, "No product in wishlist.", Toast.LENGTH_SHORT).show();
+        }
     }
 
+    /**
+     * {@link android.view.View.OnClickListener} listener callback methods.
+     */
     @Override
     public void onClick(View view) {
 
@@ -91,7 +110,7 @@ public class WishlistActivity extends AppCompatActivity implements View.OnClickL
                 break;
             case R.id.remove:
 
-                removeFromCart(view);
+                removeFromWishlist(view);
                 break;
             case R.id.img_product:
 
@@ -102,10 +121,10 @@ public class WishlistActivity extends AppCompatActivity implements View.OnClickL
 
     /**
      * @param view
-     * @method remove
-     * @desc Method to remove from cart.
+     * @method removeFromWishlist
+     * @desc Method to remove from Wishlist.
      */
-    private void removeFromCart(View view) {
+    private void removeFromWishlist(View view) {
 
         final int position = (int) view.getTag();
         final int prodId = list.get(position).prodid;
@@ -128,7 +147,6 @@ public class WishlistActivity extends AppCompatActivity implements View.OnClickL
      */
     private void moveToCart(View view) {
 
-        fmaProgressDialog.show();
         try {
             int userID = GlobalData.jsonUserDetail.getInt("id");
             position = (int) view.getTag();
@@ -140,10 +158,16 @@ public class WishlistActivity extends AppCompatActivity implements View.OnClickL
             jsonRequest.put("productid", "" + productID);
             jsonRequest.put("productqty", ProductQty);
 
+            fmaProgressDialog.show();
             NetworkHandler networkHandler = new NetworkHandler();
             networkHandler.httpCreate(1, this, this, jsonRequest, Network.URL_ADD_TO_CART, NetworkHandler.RESPONSE_JSON);
             networkHandler.executePost();
 
+        } catch (JSONException jsonE) {
+
+            jsonE.printStackTrace();
+            Toast.makeText(this, "Need Login.", Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(this, LoginActivity.class));
         } catch (Exception e) {
             e.printStackTrace();
             Toast.makeText(this, "" + e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
