@@ -56,6 +56,8 @@ public class LoginActivity extends FragmentActivity implements View.OnClickListe
         setContentView(R.layout.activity_login);
         callbackManager = CallbackManager.Factory.create();
         facebookLogin = (LoginButton) findViewById(R.id.login_facebook);
+        facebookLogin.setReadPermissions("email");
+
         mTxtUsername = (TextView) findViewById(R.id.txt_username);
         mTxtPassword = (TextView) findViewById(R.id.txt_password);
         findViewById(R.id.login_btn).setOnClickListener(this);
