@@ -247,9 +247,10 @@ public class LoginActivity extends FragmentActivity implements View.OnClickListe
                 String jsonLoginData = gson.toJson(login);
                 getSharedPreferences(Constants.CACHE_USER, 0).edit().putString(Constants.CACHE_KEY_LOGIN, jsonLoginData).commit();
 
-                Toast.makeText(this, "Login Successfully.", Toast.LENGTH_SHORT).show();
-                finish();
             }
+
+            Toast.makeText(this, "Login Successfully.", Toast.LENGTH_SHORT).show();
+            finish();
 
         } catch (Exception e) {
             e.printStackTrace();
