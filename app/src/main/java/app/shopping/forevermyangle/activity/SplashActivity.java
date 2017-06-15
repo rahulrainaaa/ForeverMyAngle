@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
+import android.view.animation.AnimationUtils;
+import android.widget.ImageView;
 
 import app.shopping.forevermyangle.R;
 
@@ -13,6 +15,8 @@ import app.shopping.forevermyangle.R;
  * @desc Full Screen Activity Splash screen.
  */
 public class SplashActivity extends FragmentActivity implements Runnable {
+
+    private ImageView imgIcon = null;
 
     /**
      * {@link FragmentActivity} class override method(s).
@@ -23,6 +27,8 @@ public class SplashActivity extends FragmentActivity implements Runnable {
         setContentView(R.layout.activity_splash);
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
 
+        imgIcon = (ImageView) findViewById(R.id.fma_icon);
+        imgIcon.startAnimation(AnimationUtils.loadAnimation(this, R.anim.anim_splash));
         Handler handler = new Handler();
         handler.postDelayed(this, 2000);
 
