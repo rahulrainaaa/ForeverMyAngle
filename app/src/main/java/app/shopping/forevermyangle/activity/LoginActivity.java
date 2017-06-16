@@ -36,6 +36,9 @@ import app.shopping.forevermyangle.view.FMAProgressDialog;
  */
 public class LoginActivity extends FragmentActivity implements View.OnClickListener, NetworkCallbackListener, GraphRequest.GraphJSONObjectCallback {
 
+    /**
+     * Class private data members.
+     */
     private FMAProgressDialog mFMAProgressDialog = null;
     private NetworkHandler mNetworkHandler = null;
     private LoginButton facebookLogin = null;

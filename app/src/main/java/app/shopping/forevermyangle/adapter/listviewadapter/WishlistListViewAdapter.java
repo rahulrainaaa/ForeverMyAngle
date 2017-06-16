@@ -19,14 +19,14 @@ import app.shopping.forevermyangle.R;
 import app.shopping.forevermyangle.activity.WishlistActivity;
 import app.shopping.forevermyangle.model.products.WishlistProduct;
 
-public class WishlistListViewAdpter extends ArrayAdapter {
+public class WishlistListViewAdapter extends ArrayAdapter {
 
     private ArrayList<WishlistProduct> list = null;
     private WishlistActivity activity = null;
     private int resourceId;
     private LayoutInflater inflater = null;
 
-    public WishlistListViewAdpter(WishlistActivity activity, int resourceId, ArrayList<WishlistProduct> list) {
+    public WishlistListViewAdapter(WishlistActivity activity, int resourceId, ArrayList<WishlistProduct> list) {
 
         super(activity, resourceId, list);
 

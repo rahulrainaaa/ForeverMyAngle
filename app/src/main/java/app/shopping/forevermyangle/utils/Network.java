@@ -56,4 +56,9 @@ public class Network {
      * Custom URL to clear the cart of particular userID.
      */
     public static final String URL_CLEAR_CART = "https://forevermyangel.com/fma-api.php?action=clearcart";
+
+    /**
+     * URL to get orders.
+     */
+    public static final String URL_GET_ORDERS = "https://forevermyangel.com/wp-json/wc/v2/orders";
 }

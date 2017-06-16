@@ -73,10 +73,15 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".activity.OrderPlacedActivity"
+            android:label="@string/title_activity_order_placed"
             android:launchMode="singleInstance"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize|stateHidden" />
-        <activity android:name=".activity.OrderHistoryActivity"></activity>
+        <activity
+            android:name=".activity.OrderHistoryActivity"
+            android:label="@string/title_activity_order_history"
+            android:launchMode="singleInstance"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

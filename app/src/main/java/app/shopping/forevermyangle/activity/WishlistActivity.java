@@ -18,7 +18,7 @@ import java.util.Iterator;
 import java.util.Map;
 
 import app.shopping.forevermyangle.R;
-import app.shopping.forevermyangle.adapter.listviewadapter.WishlistListViewAdpter;
+import app.shopping.forevermyangle.adapter.listviewadapter.WishlistListViewAdapter;
 import app.shopping.forevermyangle.model.products.WishlistProduct;
 import app.shopping.forevermyangle.network.callback.NetworkCallbackListener;
 import app.shopping.forevermyangle.network.handler.NetworkHandler;
@@ -38,7 +38,7 @@ public class WishlistActivity extends AppCompatActivity implements View.OnClickL
      */
     private ListView listView;
     private ArrayList<WishlistProduct> list = new ArrayList();
-    private WishlistListViewAdpter adapter = null;
+    private WishlistListViewAdapter adapter = null;
     private FMAProgressDialog fmaProgressDialog = null;
     private int position = -1;
 
@@ -53,7 +53,7 @@ public class WishlistActivity extends AppCompatActivity implements View.OnClickL
         fmaProgressDialog = new FMAProgressDialog(this);
         fetchDataFromCache();
 
-        adapter = new WishlistListViewAdpter(this, R.layout.item_list_wishlist, list);
+        adapter = new WishlistListViewAdapter(this, R.layout.item_list_wishlist, list);
         listView.setAdapter(adapter);
 
     }

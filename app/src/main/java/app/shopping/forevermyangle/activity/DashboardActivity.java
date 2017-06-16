@@ -200,7 +200,7 @@ public class DashboardActivity extends FMAActivity implements BottomNavigationVi
                 mFragmentTransaction.commit();
                 break;
 
-            case 2:         // Load Current Page.
+            case 2:         // Load Current Fragment.
 
                 loadFragment();
             default:

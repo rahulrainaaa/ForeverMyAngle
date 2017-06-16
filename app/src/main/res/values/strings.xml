@@ -27,8 +27,9 @@
     </string>
     <string name="title_activity_address">Address</string>
     <string name="title_activity_checkout">Checkout</string>
+    <string name="title_activity_order_placed">Order Placed</string>
+    <string name="title_activity_order_history">Order History</string>
     <string name="action_settings">Settings</string>
-    <string name="section_format">Hello World from section: %1$d</string>
     <string name="title_activity_cart">CartActivity</string>
 
 

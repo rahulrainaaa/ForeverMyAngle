@@ -21,6 +21,7 @@ import app.shopping.forevermyangle.R;
 import app.shopping.forevermyangle.activity.AddressActivity;
 import app.shopping.forevermyangle.activity.DashboardActivity;
 import app.shopping.forevermyangle.activity.LoginActivity;
+import app.shopping.forevermyangle.activity.OrderHistoryActivity;
 import app.shopping.forevermyangle.fragment.base.BaseFragment;
 import app.shopping.forevermyangle.model.login.Login;
 import app.shopping.forevermyangle.utils.Constants;
@@ -145,6 +146,7 @@ public class UserProfileFragment extends BaseFragment implements View.OnClickLis
                 break;
             case R.id.btn_order_history:
 
+                startActivity(new Intent(getActivity(), OrderHistoryActivity.class));
                 break;
             case R.id.btn_privacy:
 

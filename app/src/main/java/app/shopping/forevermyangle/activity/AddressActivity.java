@@ -19,6 +19,10 @@ import org.json.JSONObject;
 import app.shopping.forevermyangle.R;
 import app.shopping.forevermyangle.utils.GlobalData;
 
+/**
+ * @class AddressActivity
+ * @desc Activity to show the shipping and billing address in {@link ViewPager}.
+ */
 public class AddressActivity extends AppCompatActivity {
 
     private SectionsPagerAdapter mSectionsPagerAdapter;
