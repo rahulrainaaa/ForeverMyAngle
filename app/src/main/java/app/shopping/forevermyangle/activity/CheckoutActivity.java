@@ -211,7 +211,7 @@ public class CheckoutActivity extends AppCompatActivity implements View.OnClickL
                 break;
             case 2:
 
-                Toast.makeText(this, "Order Placed. But not removed from cart.\nPlease remove it manually.", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, "Order Placed, but  items still present in cart.\nPlease remove manually.", Toast.LENGTH_LONG).show();
                 break;
         }
 

@@ -53,6 +53,11 @@ public class HttpsTask extends AsyncTask<String, String, String> {
     }
 
     @Override
+    protected void onPreExecute() {
+        super.onPreExecute();
+    }
+
+    @Override
     protected String doInBackground(String... params) {
 
 
@@ -131,6 +136,7 @@ public class HttpsTask extends AsyncTask<String, String, String> {
 
                 e.printStackTrace();
                 mStatusMsg = mStatusMsg + " :: " + e.getMessage();
+                responseFail();
             }
         }
 
