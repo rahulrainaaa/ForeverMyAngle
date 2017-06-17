@@ -34,4 +34,8 @@
 
 
     <string name="roboto_light">sans-serif-light</string>
+
+    <string name="title_activity_zoom_image">ZoomImageActivity</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
 </resources>

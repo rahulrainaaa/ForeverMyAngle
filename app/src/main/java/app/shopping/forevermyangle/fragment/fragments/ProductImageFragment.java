@@ -1,6 +1,7 @@
 package app.shopping.forevermyangle.fragment.fragments;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -12,8 +13,9 @@ import android.widget.ImageView;
 import com.squareup.picasso.Picasso;
 
 import app.shopping.forevermyangle.R;
+import app.shopping.forevermyangle.activity.ZoomImageActivity;
 
-public class ProductImageFragment extends Fragment {
+public class ProductImageFragment extends Fragment implements View.OnClickListener {
 
     ImageView view;
 
@@ -30,7 +32,15 @@ public class ProductImageFragment extends Fragment {
             e.printStackTrace();
         }
         view = imgView;
+        view.setOnClickListener(this);
         return imgView;
     }
 
+    @Override
+    public void onClick(View v) {
+
+        Intent intent = new Intent(getActivity(), ZoomImageActivity.class);
+        intent.putExtra("url", getArguments().getString("url"));
+        startActivity(intent);
+    }
 }

@@ -112,6 +112,8 @@ public class ProductViewActivity extends AppCompatActivity implements View.OnCli
                 break;
             case R.id.img_btn_cart:
 
+                // Btn hidden.
+                // To show item.
                 break;
             case R.id.img_btn_share:
 
