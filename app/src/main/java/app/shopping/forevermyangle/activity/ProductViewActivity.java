@@ -71,6 +71,7 @@ public class ProductViewActivity extends AppCompatActivity implements View.OnCli
         mFabAddToCart = (FloatingActionButton) findViewById(R.id.fab_addtocart);
         mFabDescription = (FloatingActionButton) findViewById(R.id.fab_description);
         imgBtnCart = (ImageButton) findViewById(R.id.img_btn_cart);
+        imgBtnCart.setVisibility(View.GONE);
         imgBtnShare = (ImageButton) findViewById(R.id.img_btn_share);
 
         // Add onclick events
