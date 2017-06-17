@@ -78,7 +78,7 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity
-            android:name=".activity.OrderHistoryActivity"
+            android:name=".activity.OrderHistoryListActivity"
             android:label="@string/title_activity_order_history"
             android:launchMode="singleInstance"
             android:screenOrientation="portrait" />
@@ -87,6 +87,7 @@
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_zoom_image"
             android:theme="@style/FullscreenTheme" />
+        <activity android:name=".activity.OrderHistoryDescriptionActivity"></activity>
     </application>
 
 </manifest>

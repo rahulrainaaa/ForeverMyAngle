@@ -22,7 +22,7 @@ import app.shopping.forevermyangle.utils.Network;
 import app.shopping.forevermyangle.view.FMAProgressDialog;
 
 
-public class OrderHistoryActivity extends AppCompatActivity implements NetworkCallbackListener {
+public class OrderHistoryListActivity extends AppCompatActivity implements NetworkCallbackListener {
 
     private ListView mListView = null;
     private OrderHistoryListAdapter mAdapter = null;
