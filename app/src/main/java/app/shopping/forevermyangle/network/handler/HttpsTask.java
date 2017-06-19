@@ -146,7 +146,11 @@ public class HttpsTask extends AsyncTask<String, String, String> {
 
         if (mListener != null) {
 
-            mListener.networkSuccessResponse(mRequestCode, object, array);
+            try {
+                mListener.networkSuccessResponse(mRequestCode, object, array);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -154,7 +158,11 @@ public class HttpsTask extends AsyncTask<String, String, String> {
 
         if (mListener != null) {
 
-            mListener.networkFailResponse(mRequestCode, mStatusMsg);
+            try {
+                mListener.networkFailResponse(mRequestCode, mStatusMsg);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 }

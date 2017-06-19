@@ -150,7 +150,11 @@ public class NetworkHandler implements Response.ErrorListener {
         public void onResponse(JSONArray response) {
 
             if (NetworkHandler.this.mNetworkCallbackListener != null) {
-                mNetworkCallbackListener.networkSuccessResponse(NetworkHandler.this.mRequestCode, null, response);
+                try {
+                    mNetworkCallbackListener.networkSuccessResponse(NetworkHandler.this.mRequestCode, null, response);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         }
     }
@@ -169,7 +173,11 @@ public class NetworkHandler implements Response.ErrorListener {
         }
 
         if (this.mNetworkCallbackListener != null) {
-            mNetworkCallbackListener.networkFailResponse(this.mRequestCode, responseMessage);
+            try {
+                mNetworkCallbackListener.networkFailResponse(this.mRequestCode, responseMessage);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 }

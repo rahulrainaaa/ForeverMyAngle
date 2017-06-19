@@ -144,7 +144,8 @@ public class SearchProductActivity extends FragmentActivity implements AdapterVi
                 updateProductList(rawArray);
                 break;
         }
-        Toast.makeText(this, requestCode + " success from response from http handler.", Toast.LENGTH_SHORT).show();
+        // Toast.makeText(this, requestCode + " success from response from http handler.", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Fetched products", Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -185,6 +186,9 @@ public class SearchProductActivity extends FragmentActivity implements AdapterVi
      */
     private void getProductList() {
 
+        if (fmaProgressDialog.isVisible()) {
+            return;
+        }
         if (mPageNumber == 1) {         // Show progress dialog in case of first page loading only.
             fmaProgressDialog.show();
         }
