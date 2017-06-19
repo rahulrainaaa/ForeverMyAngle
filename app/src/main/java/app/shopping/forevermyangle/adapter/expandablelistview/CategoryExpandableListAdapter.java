@@ -2,7 +2,6 @@ package app.shopping.forevermyangle.adapter.expandablelistview;
 
 
 import android.content.Context;
-import android.graphics.Typeface;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -114,7 +113,7 @@ public class CategoryExpandableListAdapter extends BaseExpandableListAdapter {
             convertView = layoutInflater.inflate(R.layout.elv_category_item, null);
         }
         TextView listTitleTextView = (TextView) convertView.findViewById(R.id.listTitle);
-        listTitleTextView.setTypeface(null, Typeface.BOLD);
+//        listTitleTextView.setTypeface(null, Typeface.BOLD);
         listTitleTextView.setText(listTitle);
         return convertView;
     }
