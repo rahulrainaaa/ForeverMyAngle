@@ -73,9 +73,9 @@ public class RatingListAdapter extends ArrayAdapter<Rating> {
         }
 
         rating = mList.get(position);
-//        holder.txtOrderId.setText("OrderID: " + order.getId());
-//        holder.txtPrice.setText(order.getCurrency() + " " + order.getTotal());
-//        holder.txtDateTime.setText("" + order.getDatePaid());
+        holder.ratingBar.setRating(rating.getRating());
+        holder.txtReview.setText(rating.getReview());
+        holder.txtUser.setText("By: " + rating.getName());
 
         return view;
     }

@@ -49,11 +49,7 @@ public class RatingActivity extends AppCompatActivity implements NetworkCallback
                 | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
                 | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
         setContentView(R.layout.activity_rating);
-
         fmaProgressDialog = new FMAProgressDialog(this);
-        for (int i = 0; i < 100; i++) {
-            mList.add(new Rating());
-        }
         mListView = (ListView) findViewById(R.id.list_view);
         mAdapter = new RatingListAdapter(this, R.layout.item_list_rating, mList);
         mListView.setAdapter(mAdapter);
@@ -93,6 +89,10 @@ public class RatingActivity extends AppCompatActivity implements NetworkCallback
         Gson gson = new Gson();
         try {
             int length = raw.length();
+            if (length < 1) {
+                Toast.makeText(this, "No Review Available.", Toast.LENGTH_SHORT).show();
+                finish();
+            }
             for (int i = 0; i < length; i++) {
                 JSONObject jsonObject = raw.getJSONObject(i);
                 rating = gson.fromJson(jsonObject.toString(), Rating.class);
