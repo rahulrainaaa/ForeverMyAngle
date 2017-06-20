@@ -61,4 +61,9 @@ public class Network {
      * URL to get orders.
      */
     public static final String URL_GET_ORDERS = "https://forevermyangel.com/wp-json/wc/v2/orders";
+
+    /**
+     * URL to get product reviews.
+     */
+    public static final String URL_GET_PROD_REVIEWS = "https://forevermyangel.com/wp-json/wc/v2/products"; // "/<PROD_ID>/reviews"
 }

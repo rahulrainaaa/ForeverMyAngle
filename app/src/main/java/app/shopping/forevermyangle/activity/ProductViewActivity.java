@@ -105,6 +105,7 @@ public class ProductViewActivity extends AppCompatActivity implements View.OnCli
                 break;
             case R.id.fab_review:
 
+                fabShowReview();
                 break;
             case R.id.fab_description:
 
@@ -223,6 +224,15 @@ public class ProductViewActivity extends AppCompatActivity implements View.OnCli
         }
         bottomSheetDialog.setContentView(view);
         bottomSheetDialog.show();
+    }
+
+    /**
+     * @method fabShowReview
+     * @desc Method to show Rating Activity.
+     */
+    private void fabShowReview() {
+
+        startActivity(new Intent(this, RatingActivity.class));
     }
 
     /**
