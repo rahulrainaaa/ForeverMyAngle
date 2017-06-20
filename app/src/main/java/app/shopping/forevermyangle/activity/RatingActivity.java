@@ -6,6 +6,8 @@ import android.view.View;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -20,14 +22,23 @@ import app.shopping.forevermyangle.utils.GlobalData;
 import app.shopping.forevermyangle.utils.Network;
 import app.shopping.forevermyangle.view.FMAProgressDialog;
 
+/**
+ * @class RatingActivity
+ * @desc Activity class for showing Ratings and reviews of a product.
+ */
 public class RatingActivity extends AppCompatActivity implements NetworkCallbackListener {
 
+    /**
+     * Private class data members.
+     */
     private ListView mListView = null;
     private ArrayList<Rating> mList = new ArrayList<>();
     private RatingListAdapter mAdapter = null;
     private FMAProgressDialog fmaProgressDialog = null;
 
-
+    /**
+     * {@link}
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,6 +73,7 @@ public class RatingActivity extends AppCompatActivity implements NetworkCallback
             NetworkHandler networkHandler = new NetworkHandler();
             fmaProgressDialog.show();
             networkHandler.httpCreate(1, this, this, new JSONObject(), url, NetworkHandler.RESPONSE_ARRAY);
+            networkHandler.executeGet();
         } catch (Exception e) {
             e.printStackTrace();
             Toast.makeText(this, "Exception: " + e.getMessage(), Toast.LENGTH_SHORT).show();
@@ -69,8 +81,29 @@ public class RatingActivity extends AppCompatActivity implements NetworkCallback
 
     }
 
+    /**
+     * @param raw {@link JSONArray}
+     * @method parseList
+     * @desc Method to parse the http response array of reviews.
+     */
     private void parseList(JSONArray raw) {
 
+        Rating rating = null;
+        mList.clear();
+        Gson gson = new Gson();
+        try {
+            int length = raw.length();
+            for (int i = 0; i < length; i++) {
+                JSONObject jsonObject = raw.getJSONObject(i);
+                rating = gson.fromJson(jsonObject.toString(), Rating.class);
+                mList.add(rating);
+            }
+            mAdapter.notifyDataSetChanged();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            Toast.makeText(this, "Exception: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+        }
     }
 
     /**
@@ -79,7 +112,8 @@ public class RatingActivity extends AppCompatActivity implements NetworkCallback
     @Override
     public void networkSuccessResponse(int requestCode, JSONObject rawObject, JSONArray rawArray) {
 
-        switch (requestCode) {
+        fmaProgressDialog.hide();
+        switch (requestCode) {      // Fetched all ratings.
             case 1:
 
                 parseList(rawArray);
@@ -90,7 +124,8 @@ public class RatingActivity extends AppCompatActivity implements NetworkCallback
     @Override
     public void networkFailResponse(int requestCode, String message) {
 
-        switch (requestCode) {
+        fmaProgressDialog.hide();
+        switch (requestCode) {      // Get all reviews.
             case 1:
 
                 Toast.makeText(this, requestCode + " Http failed", Toast.LENGTH_SHORT).show();
