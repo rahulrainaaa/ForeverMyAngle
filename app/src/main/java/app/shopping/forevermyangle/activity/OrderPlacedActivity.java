@@ -23,8 +23,9 @@ public class OrderPlacedActivity extends AppCompatActivity implements View.OnCli
         setContentView(R.layout.activity_order_placed);
 
         TextView txtOrderId = (TextView) findViewById(R.id.txt_orderid);
-        String id = getIntent().getExtras().getString("id");
-        txtOrderId.setText("Order ID: " + id.trim());
+//        String id = getIntent().getExtras().getString("id");
+//        txtOrderId.setText("Order ID: " + id.trim());
+        txtOrderId.setVisibility(View.GONE);
 
         findViewById(R.id.btn_done).setOnClickListener(this);
     }

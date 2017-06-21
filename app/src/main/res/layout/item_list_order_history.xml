@@ -15,12 +15,14 @@
         android:orientation="horizontal">
 
         <LinearLayout
+            android:id="@+id/indicator"
             android:layout_width="6dp"
             android:layout_height="match_parent"
             android:layout_marginBottom="5dp"
             android:layout_marginLeft="7dp"
             android:layout_marginTop="5dp"
-            android:background="@drawable/curve_border_order_history" />
+            android:background="@drawable/curve_border_order_history"
+            android:orientation="horizontal" />
 
         <LinearLayout
             android:layout_width="match_parent"

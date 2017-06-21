@@ -8,12 +8,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 
 import app.shopping.forevermyangle.R;
 import app.shopping.forevermyangle.model.order.Order;
+import app.shopping.forevermyangle.utils.Constants;
 
 /**
  * @class OrderHistoryListAdapter
@@ -43,6 +45,7 @@ public class OrderHistoryListAdapter extends ArrayAdapter<Order> {
         public TextView txtOrderId = null;
         public TextView txtPrice = null;
         public TextView txtDateTime = null;
+        public LinearLayout indicator = null;
     }
 
     /**
@@ -70,6 +73,7 @@ public class OrderHistoryListAdapter extends ArrayAdapter<Order> {
             holder.txtOrderId = (TextView) view.findViewById(R.id.txt_orderid);
             holder.txtPrice = (TextView) view.findViewById(R.id.txt_price);
             holder.txtDateTime = (TextView) view.findViewById(R.id.txt_datetime);
+            holder.indicator = (LinearLayout) view.findViewById(R.id.indicator);
             view.setTag(holder);
         } else {
             holder = (Holder) view.getTag();
@@ -80,6 +84,30 @@ public class OrderHistoryListAdapter extends ArrayAdapter<Order> {
         holder.txtPrice.setText(order.getCurrency() + " " + order.getTotal());
         holder.txtDateTime.setText("" + order.getDatePaid());
 
+        int color = Constants.COLOR_ORANGE;
+        if (order.getStatus().contains("pending")) {
+
+            color = Constants.COLOR_ORANGE;
+        } else if (order.getStatus().toLowerCase().contains("onhold")) {
+
+            color = Constants.COLOR_GRAY;
+        } else if (order.getStatus().toLowerCase().contains("processing")) {
+
+            color = Constants.COLOR_GREEN;
+        } else if (order.getStatus().toLowerCase().contains("completed")) {
+
+            color = Constants.COLOR_BLUE;
+        } else if (order.getStatus().toLowerCase().contains("refunded")) {
+
+            color = Constants.COLOR_GRAY;
+        } else if (order.getStatus().toLowerCase().contains("failed")) {
+
+            color = Constants.COLOR_YELLOW;
+        } else if (order.getStatus().toLowerCase().contains("cancelled")) {
+
+            color = Constants.COLOR_RED;
+        }
+        holder.indicator.setBackgroundColor(color);
         return view;
     }
 }
