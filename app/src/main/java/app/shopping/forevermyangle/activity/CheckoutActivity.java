@@ -193,8 +193,18 @@ public class CheckoutActivity extends AppCompatActivity implements View.OnClickL
                 break;
             case 2:     // items removed from cart after ordering.
 
-                Toast.makeText(this, "Done.", Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(this, OrderPlacedActivity.class));
+                try {
+                    int id = rawObject.getInt("id");
+                    Toast.makeText(this, "Done.", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(this, OrderPlacedActivity.class);
+                    intent.putExtra("id", String.valueOf(id));
+                    startActivity(intent);
+
+                } catch (Exception exception) {
+                    exception.printStackTrace();
+                    Toast.makeText(this, "Exception: " + exception.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+
                 finish();
                 break;
         }
