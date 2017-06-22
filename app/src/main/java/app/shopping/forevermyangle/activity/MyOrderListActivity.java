@@ -121,6 +121,6 @@ public class MyOrderListActivity extends AppCompatActivity implements NetworkCal
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
         GlobalData.orderHistory = mList.get(position);
-        startActivity(new Intent(this, OrderHistoryDescriptionActivity.class));
+        startActivity(new Intent(this, MyOrderDescriptionActivity.class));
     }
 }

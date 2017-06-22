@@ -9,7 +9,7 @@ import app.shopping.forevermyangle.R;
 import app.shopping.forevermyangle.model.order.Order;
 import app.shopping.forevermyangle.utils.GlobalData;
 
-public class OrderHistoryDescriptionActivity extends AppCompatActivity {
+public class MyOrderDescriptionActivity extends AppCompatActivity {
 
     /**
      * Class private data members.

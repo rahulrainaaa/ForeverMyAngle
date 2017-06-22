@@ -79,7 +79,7 @@
             android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity
             android:name=".activity.MyOrderListActivity"
-            android:label="@string/title_activity_order_history"
+            android:label="@string/title_my_orders"
             android:launchMode="singleInstance"
             android:screenOrientation="portrait" />
         <activity
@@ -87,8 +87,14 @@
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_zoom_image"
             android:theme="@style/FullscreenTheme" />
-        <activity android:name=".activity.OrderHistoryDescriptionActivity" />
-        <activity android:name=".activity.RatingActivity"></activity>
+        <activity
+            android:name=".activity.MyOrderDescriptionActivity"
+            android:label="@string/title_order_description"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.RatingActivity"
+            android:label="@string/title_rating"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>
