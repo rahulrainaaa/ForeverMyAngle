@@ -46,7 +46,7 @@ public class RatingListAdapter extends ArrayAdapter<Rating> {
      * @param activity
      * @param resource
      * @param list
-     * @constructor OrderHistoryListAdapter
+     * @constructor MyOrderListAdapter
      */
     public RatingListAdapter(@NonNull Activity activity, @LayoutRes int resource, ArrayList<Rating> list) {
         super(activity, resource, list);

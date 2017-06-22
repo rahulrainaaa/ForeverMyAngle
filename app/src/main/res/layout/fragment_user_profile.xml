@@ -73,8 +73,9 @@
                 android:text="Address"
                 android:textAllCaps="false" />
 
+
             <Button
-                android:id="@+id/btn_track_order"
+                android:id="@+id/my_orders"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/profile_btn_outline"
@@ -82,19 +83,7 @@
                 android:gravity="center_vertical"
                 android:paddingLeft="15dp"
                 android:paddingRight="15dp"
-                android:text="Track Order"
-                android:textAllCaps="false" />
-
-            <Button
-                android:id="@+id/btn_order_history"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/profile_btn_outline"
-                android:drawableRight="@drawable/history"
-                android:gravity="center_vertical"
-                android:paddingLeft="15dp"
-                android:paddingRight="15dp"
-                android:text="Order History"
+                android:text="My Orders"
                 android:textAllCaps="false" />
 
             <Button
@@ -119,6 +108,18 @@
                 android:paddingLeft="15dp"
                 android:paddingRight="15dp"
                 android:text="Terms n Conditions"
+                android:textAllCaps="false" />
+
+            <Button
+                android:id="@+id/helpnsupport"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/profile_btn_outline"
+                android:drawableRight="@drawable/history"
+                android:gravity="center_vertical"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:text="Help and Support"
                 android:textAllCaps="false" />
 
             <Button

@@ -6,6 +6,8 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import app.shopping.forevermyangle.R;
+import app.shopping.forevermyangle.model.order.Order;
+import app.shopping.forevermyangle.utils.GlobalData;
 
 public class OrderHistoryDescriptionActivity extends AppCompatActivity {
 
@@ -16,6 +18,7 @@ public class OrderHistoryDescriptionActivity extends AppCompatActivity {
     private TextView bName, bCompany, bAddress, bCity, bState, bPostal, bCountry, bEmail, bPhone;
     private TextView price, shipping, total;
     private Button btnCheckOut = null;
+    private Order orderHistory = GlobalData.orderHistory;
 
     /**
      * {@link AppCompatActivity} override methods.
@@ -50,8 +53,27 @@ public class OrderHistoryDescriptionActivity extends AppCompatActivity {
         btnCheckOut = (Button) findViewById(R.id.button_place_order);
         btnCheckOut.setOnClickListener(null);
 
+        bName.setText(orderHistory.getBilling().getFirstName() + " " + orderHistory.getBilling().getLastName());
+        bCompany.setText(orderHistory.getBilling().getCompany());
+        bAddress.setText(orderHistory.getBilling().getAddress1() + "\n" + orderHistory.getBilling().getAddress2());
+        bCity.setText(orderHistory.getBilling().getCity());
+        bState.setText(orderHistory.getBilling().getState());
+        bPostal.setText(orderHistory.getBilling().getPostcode());
+        bCountry.setText(orderHistory.getBilling().getCountry());
+        bEmail.setText(orderHistory.getBilling().getEmail());
+        bPhone.setText(orderHistory.getBilling().getPhone());
 
+
+        sName.setText(orderHistory.getShipping().getFirstName() + " " + orderHistory.getShipping().getLastName());
+        sCompany.setText(orderHistory.getShipping().getCompany());
+        sAddress.setText(orderHistory.getShipping().getAddress1() + "\n" + orderHistory.getShipping().getAddress2());
+        sCity.setText(orderHistory.getShipping().getCity());
+        sState.setText(orderHistory.getShipping().getState());
+        sPostal.setText(orderHistory.getShipping().getPostcode());
+        sCountry.setText(orderHistory.getShipping().getCountry());
+
+        price.setText("AED " + orderHistory.getTotal());
+        total.setText("AED " + orderHistory.getTotal());
     }
-
 
 }

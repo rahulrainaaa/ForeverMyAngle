@@ -10,6 +10,7 @@ import java.util.List;
 
 import app.shopping.forevermyangle.model.category.Category;
 import app.shopping.forevermyangle.model.login.Login;
+import app.shopping.forevermyangle.model.order.Order;
 import app.shopping.forevermyangle.model.products.CartProduct;
 import app.shopping.forevermyangle.model.products.Product;
 import app.shopping.forevermyangle.receiver.callback.ConnectionReceiverCallback;
@@ -66,4 +67,8 @@ public class GlobalData {
      */
     public static int TotalPrice = 0;
 
+    /**
+     * Shared Order object from MyOrderListActivity to OrderHistoryDescriprionActivity.
+     */
+    public static Order orderHistory = null;
 }

@@ -18,10 +18,10 @@ import app.shopping.forevermyangle.model.order.Order;
 import app.shopping.forevermyangle.utils.Constants;
 
 /**
- * @class OrderHistoryListAdapter
- * @desc ArrayAdapter class to show the list orders in the order history.
+ * @class MyOrderListAdapter
+ * @desc ArrayAdapter class to show the list orders in the orderHistory history.
  */
-public class OrderHistoryListAdapter extends ArrayAdapter<Order> {
+public class MyOrderListAdapter extends ArrayAdapter<Order> {
 
     /**
      * Class private data members.
@@ -35,7 +35,7 @@ public class OrderHistoryListAdapter extends ArrayAdapter<Order> {
      * Temp class private objects.
      */
     private Holder holder = null;
-    private Order order = null;
+    private Order orderHistory = null;
 
     /**
      * @class Holder
@@ -52,9 +52,9 @@ public class OrderHistoryListAdapter extends ArrayAdapter<Order> {
      * @param activity
      * @param resource
      * @param list
-     * @constructor OrderHistoryListAdapter
+     * @constructor MyOrderListAdapter
      */
-    public OrderHistoryListAdapter(@NonNull Activity activity, @LayoutRes int resource, ArrayList<Order> list) {
+    public MyOrderListAdapter(@NonNull Activity activity, @LayoutRes int resource, ArrayList<Order> list) {
         super(activity, resource, list);
 
         this.mActivity = activity;
@@ -79,31 +79,31 @@ public class OrderHistoryListAdapter extends ArrayAdapter<Order> {
             holder = (Holder) view.getTag();
         }
 
-        order = mList.get(position);
-        holder.txtOrderId.setText("OrderID: " + order.getId());
-        holder.txtPrice.setText(order.getCurrency() + " " + order.getTotal());
-        holder.txtDateTime.setText("" + order.getDatePaid());
+        orderHistory = mList.get(position);
+        holder.txtOrderId.setText("OrderID: " + orderHistory.getId());
+        holder.txtPrice.setText(orderHistory.getCurrency() + " " + orderHistory.getTotal());
+        holder.txtDateTime.setText("" + orderHistory.getDatePaid());
 
         int color = Constants.COLOR_ORANGE;
-        if (order.getStatus().contains("pending")) {
+        if (orderHistory.getStatus().contains("pending")) {
 
             color = Constants.COLOR_ORANGE;
-        } else if (order.getStatus().toLowerCase().contains("onhold")) {
+        } else if (orderHistory.getStatus().toLowerCase().contains("onhold")) {
 
             color = Constants.COLOR_GRAY;
-        } else if (order.getStatus().toLowerCase().contains("processing")) {
+        } else if (orderHistory.getStatus().toLowerCase().contains("processing")) {
 
             color = Constants.COLOR_GREEN;
-        } else if (order.getStatus().toLowerCase().contains("completed")) {
+        } else if (orderHistory.getStatus().toLowerCase().contains("completed")) {
 
             color = Constants.COLOR_BLUE;
-        } else if (order.getStatus().toLowerCase().contains("refunded")) {
+        } else if (orderHistory.getStatus().toLowerCase().contains("refunded")) {
 
             color = Constants.COLOR_GRAY;
-        } else if (order.getStatus().toLowerCase().contains("failed")) {
+        } else if (orderHistory.getStatus().toLowerCase().contains("failed")) {
 
             color = Constants.COLOR_YELLOW;
-        } else if (order.getStatus().toLowerCase().contains("cancelled")) {
+        } else if (orderHistory.getStatus().toLowerCase().contains("cancelled")) {
 
             color = Constants.COLOR_RED;
         }

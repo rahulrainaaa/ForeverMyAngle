@@ -1,7 +1,10 @@
 package app.shopping.forevermyangle.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -13,7 +16,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 import app.shopping.forevermyangle.R;
-import app.shopping.forevermyangle.adapter.listviewadapter.OrderHistoryListAdapter;
+import app.shopping.forevermyangle.adapter.listviewadapter.MyOrderListAdapter;
 import app.shopping.forevermyangle.model.order.Order;
 import app.shopping.forevermyangle.network.callback.NetworkCallbackListener;
 import app.shopping.forevermyangle.network.handler.NetworkHandler;
@@ -22,10 +25,10 @@ import app.shopping.forevermyangle.utils.Network;
 import app.shopping.forevermyangle.view.FMAProgressDialog;
 
 
-public class OrderHistoryListActivity extends AppCompatActivity implements NetworkCallbackListener {
+public class MyOrderListActivity extends AppCompatActivity implements NetworkCallbackListener, AdapterView.OnItemClickListener {
 
     private ListView mListView = null;
-    private OrderHistoryListAdapter mAdapter = null;
+    private MyOrderListAdapter mAdapter = null;
     private ArrayList<Order> mList = new ArrayList<>();
     private FMAProgressDialog fmaProgressDialog = null;
 
@@ -36,8 +39,9 @@ public class OrderHistoryListActivity extends AppCompatActivity implements Netwo
         fmaProgressDialog = new FMAProgressDialog(this);
 
         mListView = (ListView) findViewById(R.id.list_view);
-        mAdapter = new OrderHistoryListAdapter(this, R.layout.item_list_order_history, mList);
+        mAdapter = new MyOrderListAdapter(this, R.layout.item_list_order_history, mList);
         mListView.setAdapter(mAdapter);
+        mListView.setOnItemClickListener(this);
         fetchList();
     }
 
@@ -99,8 +103,8 @@ public class OrderHistoryListActivity extends AppCompatActivity implements Netwo
             int length = rawArray.length();
             for (int i = 0; i < length; i++) {
                 jsonTemp = rawArray.getJSONObject(i);
-                Order tempOrder = gson.fromJson(jsonTemp.toString(), Order.class);
-                mList.add(tempOrder);
+                Order tempOrderHistory = gson.fromJson(jsonTemp.toString(), Order.class);
+                mList.add(tempOrderHistory);
             }
             mAdapter.notifyDataSetChanged();
         } catch (Exception e) {
@@ -108,7 +112,15 @@ public class OrderHistoryListActivity extends AppCompatActivity implements Netwo
             e.printStackTrace();
             Toast.makeText(this, "Exception: " + e.getMessage(), Toast.LENGTH_SHORT).show();
         }
-
     }
 
+    /**
+     * {@link android.widget.AdapterView.OnItemClickListener} listener callback methods.
+     */
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+        GlobalData.orderHistory = mList.get(position);
+        startActivity(new Intent(this, OrderHistoryDescriptionActivity.class));
+    }
 }

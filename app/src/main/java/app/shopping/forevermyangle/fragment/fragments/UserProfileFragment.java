@@ -21,7 +21,7 @@ import app.shopping.forevermyangle.R;
 import app.shopping.forevermyangle.activity.AddressActivity;
 import app.shopping.forevermyangle.activity.DashboardActivity;
 import app.shopping.forevermyangle.activity.LoginActivity;
-import app.shopping.forevermyangle.activity.OrderHistoryListActivity;
+import app.shopping.forevermyangle.activity.MyOrderListActivity;
 import app.shopping.forevermyangle.fragment.base.BaseFragment;
 import app.shopping.forevermyangle.model.login.Login;
 import app.shopping.forevermyangle.utils.Constants;
@@ -39,7 +39,7 @@ public class UserProfileFragment extends BaseFragment implements View.OnClickLis
     private TextView txtFullName = null;
     private TextView txtEmail = null;
     private LinearLayout layout = null;
-    private Button btnLogin, btnAddress, btnTrackOrder, btnOrderHistory, btnPrivacyPolicy, btnTerms, btnLogout;
+    private Button btnLogin, btnAddress, btnHelpNSupport, btnMyOrders, btnPrivacyPolicy, btnTerms, btnLogout;
 
     /**
      * {@link BaseFragment} class override methods.
@@ -55,16 +55,16 @@ public class UserProfileFragment extends BaseFragment implements View.OnClickLis
         layout = (LinearLayout) view.findViewById(R.id.option_layout);
         btnLogin = (Button) view.findViewById(R.id.btn_login);
         btnAddress = (Button) view.findViewById(R.id.btn_address);
-        btnTrackOrder = (Button) view.findViewById(R.id.btn_track_order);
-        btnOrderHistory = (Button) view.findViewById(R.id.btn_order_history);
+        btnHelpNSupport = (Button) view.findViewById(R.id.helpnsupport);
+        btnMyOrders = (Button) view.findViewById(R.id.my_orders);
         btnPrivacyPolicy = (Button) view.findViewById(R.id.btn_privacy);
         btnTerms = (Button) view.findViewById(R.id.btn_terms);
         btnLogout = (Button) view.findViewById(R.id.btn_logout);
 
         btnLogin.setOnClickListener(this);
         btnAddress.setOnClickListener(this);
-        btnTrackOrder.setOnClickListener(this);
-        btnOrderHistory.setOnClickListener(this);
+        btnHelpNSupport.setOnClickListener(this);
+        btnMyOrders.setOnClickListener(this);
         btnPrivacyPolicy.setOnClickListener(this);
         btnTerms.setOnClickListener(this);
         btnLogout.setOnClickListener(this);
@@ -109,8 +109,8 @@ public class UserProfileFragment extends BaseFragment implements View.OnClickLis
         btnLogin.setVisibility(View.GONE);
         //layout.setVisibility(View.VISIBLE);
         btnAddress.setVisibility(View.VISIBLE);
-        btnOrderHistory.setVisibility(View.VISIBLE);
-        btnTrackOrder.setVisibility(View.VISIBLE);
+        btnMyOrders.setVisibility(View.VISIBLE);
+        btnHelpNSupport.setVisibility(View.VISIBLE);
         btnLogout.setVisibility(View.VISIBLE);
     }
 
@@ -120,8 +120,8 @@ public class UserProfileFragment extends BaseFragment implements View.OnClickLis
         // layout.setVisibility(View.GONE);
 
         btnAddress.setVisibility(View.GONE);
-        btnOrderHistory.setVisibility(View.GONE);
-        btnTrackOrder.setVisibility(View.GONE);
+        btnMyOrders.setVisibility(View.GONE);
+        btnHelpNSupport.setVisibility(View.GONE);
         btnLogout.setVisibility(View.GONE);
     }
 
@@ -141,12 +141,12 @@ public class UserProfileFragment extends BaseFragment implements View.OnClickLis
 
                 startActivity(new Intent(getActivity(), AddressActivity.class));
                 break;
-            case R.id.btn_track_order:
+            case R.id.helpnsupport:
 
                 break;
-            case R.id.btn_order_history:
+            case R.id.my_orders:
 
-                startActivity(new Intent(getActivity(), OrderHistoryListActivity.class));
+                startActivity(new Intent(getActivity(), MyOrderListActivity.class));
                 break;
             case R.id.btn_privacy:
 

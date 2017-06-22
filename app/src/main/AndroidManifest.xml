@@ -78,7 +78,7 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity
-            android:name=".activity.OrderHistoryListActivity"
+            android:name=".activity.MyOrderListActivity"
             android:label="@string/title_activity_order_history"
             android:launchMode="singleInstance"
             android:screenOrientation="portrait" />
