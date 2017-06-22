@@ -1,7 +1,7 @@
 package app.shopping.forevermyangle;
 
 /**
- * Created by osxuser on 6/19/17.
+ * Created by Android on 6/19/17.
  */
 
 public class ToDo {

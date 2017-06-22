@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:paddingBottom="5dp"
+    android:paddingTop="5dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/curve_border_ratebar"
+        android:orientation="vertical"
+        android:paddingBottom="7dp"
+        android:paddingLeft="7dp"
+        android:paddingRight="7dp"
+        android:paddingTop="7dp">
+
+        <TextView
+            android:id="@+id/prod_id"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center|start"
+            android:text="OrderID: OD0239402349"
+            android:textSize="15dp" />
+
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:weightSum="20">
+
+            <TextView
+                android:id="@+id/prod_name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="3dp"
+                android:layout_weight="13"
+                android:ellipsize="end"
+                android:gravity="left|center"
+                android:maxLines="3"
+                android:scrollHorizontally="true"
+                android:text="Product Name Here AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                android:textSize="12dp" />
+
+            <TextView
+                android:id="@+id/prod_qty"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="7"
+                android:gravity="right|center"
+                android:paddingRight="7dp"
+                android:text="Qty: 2"
+                android:textSize="12dp" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/prod_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:gravity="left|center"
+            android:text="Total: AED 1000"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="12dp" />
+
+
+    </LinearLayout>
+</LinearLayout>

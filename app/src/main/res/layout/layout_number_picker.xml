@@ -15,5 +15,5 @@
     app:np_selectedTextColor="@color/colorAccent"
     app:np_textColor="@color/colorAccent"
     app:np_textSize="40sp"
-    app:np_typeface="@string/roboto_light"
+    app:np_typeface="sans-serif-light"
     app:np_width="40sp" />

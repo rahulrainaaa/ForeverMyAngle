@@ -2,10 +2,15 @@ package app.shopping.forevermyangle.activity;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
 import app.shopping.forevermyangle.R;
+import app.shopping.forevermyangle.model.order.LineItem;
 import app.shopping.forevermyangle.model.order.Order;
 import app.shopping.forevermyangle.utils.GlobalData;
 
@@ -19,6 +24,7 @@ public class MyOrderDescriptionActivity extends AppCompatActivity {
     private TextView price, shipping, total;
     private Button btnCheckOut = null;
     private Order orderHistory = GlobalData.orderHistory;
+    private LinearLayout layoutItems = null;
 
     /**
      * {@link AppCompatActivity} override methods.
@@ -27,6 +33,8 @@ public class MyOrderDescriptionActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order_history_description);
+
+        layoutItems = (LinearLayout) findViewById(R.id.items_list);
 
         sName = (TextView) findViewById(R.id.s_name);
         sCompany = (TextView) findViewById(R.id.s_company);
@@ -74,6 +82,19 @@ public class MyOrderDescriptionActivity extends AppCompatActivity {
 
         price.setText("AED " + orderHistory.getTotal());
         total.setText("AED " + orderHistory.getTotal());
+
+        ArrayList<LineItem> items = (ArrayList) orderHistory.getLineItems();
+        int itemCount = items.size();
+
+        for (int i = 0; i < itemCount; i++) {
+            View view = (View) getLayoutInflater().inflate(R.layout.item_orders, null);
+            LineItem lineItem = items.get(i);
+            ((TextView) view.findViewById(R.id.prod_id)).setText("OrderID: " + lineItem.getId());
+            ((TextView) view.findViewById(R.id.prod_name)).setText(lineItem.getName());
+            ((TextView) view.findViewById(R.id.prod_qty)).setText("Qty: " + lineItem.getQuantity());
+            ((TextView) view.findViewById(R.id.prod_price)).setText("Total: AED " + lineItem.getTotal());
+            layoutItems.addView(view);
+        }
     }
 
 }
