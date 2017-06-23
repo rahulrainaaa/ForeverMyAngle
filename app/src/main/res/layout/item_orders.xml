@@ -9,7 +9,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/curve_border_ratebar"
+        android:background="@drawable/box_order_item"
         android:orientation="vertical"
         android:paddingBottom="7dp"
         android:paddingLeft="7dp"
@@ -41,7 +41,7 @@
                 android:gravity="left|center"
                 android:maxLines="3"
                 android:scrollHorizontally="true"
-                android:text="Product Name Here AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                android:text="Product Name Here"
                 android:textSize="12dp" />
 
             <TextView

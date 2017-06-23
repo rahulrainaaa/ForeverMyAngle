@@ -15,6 +15,11 @@
 
     <corners android:radius="5dp" />
 
-    <solid android:color="@color/colorPrimary" />
+    <gradient
+        android:centerColor="#f7f7f7"
+        android:endColor="#ececec"
+        android:gradientRadius="200dp"
+        android:startColor="#ececec"
+        android:type="linear" />
 
 </shape>
