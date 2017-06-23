@@ -50,6 +50,11 @@ public class DashboardActivity extends FMAActivity implements BottomNavigationVi
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
+        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
+                | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
+
+
         FacebookSdk.sdkInitialize(getApplicationContext());
         super.onCreate(savedInstanceState);
 

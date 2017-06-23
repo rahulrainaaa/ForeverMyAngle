@@ -6,7 +6,8 @@
     android:layout_marginRight="2dp"
     android:layout_marginTop="2dp"
     android:background="@color/colorText"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:scrollbars="none">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -17,7 +18,8 @@
         <AdapterViewFlipper
             android:id="@+id/adapterviewflipper"
             android:layout_width="match_parent"
-            android:layout_height="440px" />
+            android:layout_height="440px"
+            android:layout_marginTop="24dp" />
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rv_category"

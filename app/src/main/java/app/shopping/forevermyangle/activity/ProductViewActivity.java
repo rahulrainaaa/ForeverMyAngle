@@ -218,7 +218,7 @@ public class ProductViewActivity extends AppCompatActivity implements View.OnCli
             txtProdName.setText(mProductJsonObject.getString("name"));
             txtProdPrice.setText("AED " + mProductJsonObject.getString("price"));
             txtProdRating.setText(mProductJsonObject.getString("average_rating"));
-            txtProdDescription.setText(mProductJsonObject.getString("short_description"));
+            txtProdDescription.setText(mProductJsonObject.getString("short_description") + "\n" + mProductJsonObject.getString("description"));
         } catch (Exception e) {
             e.printStackTrace();
         }
