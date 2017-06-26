@@ -74,7 +74,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:foregroundGravity="center"
-            android:src="@android:drawable/star_on"
+            android:src="@drawable/add_to_cart"
             fab:fab_label="Add to cart"
             fab:fab_size="mini" />
 
@@ -83,7 +83,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:foregroundGravity="center"
-            android:src="@android:drawable/star_on"
+            android:src="@drawable/add_to_wishlist"
             fab:fab_label="Add to wishlist"
             fab:fab_size="mini" />
 
@@ -92,7 +92,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:foregroundGravity="center"
-            android:src="@android:drawable/ic_menu_sort_by_size"
+            android:src="@drawable/rating"
             fab:fab_label="Ratings and Review"
             fab:fab_size="mini" />
 
@@ -101,7 +101,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:foregroundGravity="center"
-            android:src="@android:drawable/ic_menu_info_details"
+            android:src="@drawable/note"
             fab:fab_label="Show description"
             fab:fab_size="mini" />
 

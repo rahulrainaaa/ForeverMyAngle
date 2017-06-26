@@ -56,6 +56,7 @@ public class CartDashboardFragment extends BaseFragment implements View.OnClickL
     private FMAProgressDialog fmaProgressDialog = null;
     private JSONObject mRawJsonResponse = null;
     private LinearLayout mBottomPanel = null;
+    private JSONArray jsonArrayUsedby = null;       // holds the used_by field from (list-all coupon) api.
 
     /**
      * {@link BaseFragment} Class override method(s).
@@ -180,6 +181,7 @@ public class CartDashboardFragment extends BaseFragment implements View.OnClickL
             }
             JSONObject jsonCoupon = raw.getJSONObject(0);
             int couponID = jsonCoupon.getInt("id");
+            jsonArrayUsedby = jsonCoupon.getJSONArray("used_by");
             getCart(couponID);
         } catch (JSONException jsonE) {
             Toast.makeText(getActivity(), "Exception: " + jsonE.getMessage(), Toast.LENGTH_SHORT).show();
@@ -442,6 +444,15 @@ public class CartDashboardFragment extends BaseFragment implements View.OnClickL
             int userID = GlobalData.jsonUserDetail.getInt("id");
             JSONObject jsonRequest = new JSONObject();
             jsonRequest.put("userid", "" + userID);
+
+            // Adding 'used_by' field in Request.
+            if (jsonArrayUsedby != null) {
+                jsonRequest.put("usedby", jsonArrayUsedby);
+            } else {
+                jsonRequest.put("usedby", new JSONArray());
+            }
+
+            // Adding 'coupon_id' field in Request.
             if (couponId != null) {
                 jsonRequest.put("couponId", String.valueOf(couponId));
             } else {
