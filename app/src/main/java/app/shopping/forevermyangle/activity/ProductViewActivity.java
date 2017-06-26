@@ -12,6 +12,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -213,13 +214,27 @@ public class ProductViewActivity extends AppCompatActivity implements View.OnCli
         TextView txtProdPrice = (TextView) view.findViewById(R.id.txt_product_price);
         TextView txtProdRating = (TextView) view.findViewById(R.id.txt_prod_rating);
         TextView txtProdDescription = (TextView) view.findViewById(R.id.txt_product_desc);
+        LinearLayout containrtLayout = (LinearLayout) view.findViewById(R.id.container_layout);
 
         try {
             txtProdName.setText(mProductJsonObject.getString("name"));
             txtProdPrice.setText("AED " + mProductJsonObject.getString("price"));
             txtProdRating.setText(mProductJsonObject.getString("average_rating"));
             txtProdDescription.setText(mProductJsonObject.getString("short_description") + "\n" + mProductJsonObject.getString("description"));
+            int attrLength = mProductJsonObject.getJSONArray("default_attributes").length();
+            for (int i = 0; i < attrLength; i++) {
+
+                JSONObject jsonAttr = mProductJsonObject.getJSONArray("default_attributes").getJSONObject(i);
+                View attrCell = (View) getLayoutInflater().inflate(R.layout.cell_prod_attr, null);
+                TextView txtAttributeKey = (TextView) attrCell.findViewById(R.id.txt_key);
+                TextView txtAttributeValue = (TextView) attrCell.findViewById(R.id.txt_key_value);
+                txtAttributeKey.setText("" + jsonAttr.getString("name"));
+                txtAttributeValue.setText("" + jsonAttr.getString("option"));
+                containrtLayout.addView(attrCell);
+            }
+
         } catch (Exception e) {
+            Toast.makeText(this, "Exception: " + e.getMessage(), Toast.LENGTH_SHORT).show();
             e.printStackTrace();
         }
         bottomSheetDialog.setContentView(view);
