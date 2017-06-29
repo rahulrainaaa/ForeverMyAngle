@@ -6,12 +6,15 @@ package app.shopping.forevermyangle;
 
 public class ToDo {
 
-
     /**
      *
      * Register New User
      *
      * Forgot Password
+     *
+     * cart..... error.... move to wishlist.
+     *
+     * default alphabet order. and sorting urls.
      *
      */
 }

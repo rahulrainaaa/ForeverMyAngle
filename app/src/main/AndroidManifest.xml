@@ -74,13 +74,11 @@
         <activity
             android:name=".activity.OrderPlacedActivity"
             android:label="@string/title_activity_order_placed"
-            android:launchMode="singleInstance"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity
             android:name=".activity.MyOrderListActivity"
             android:label="@string/title_my_orders"
-            android:launchMode="singleInstance"
             android:screenOrientation="portrait" />
         <activity
             android:name=".activity.ZoomImageActivity"

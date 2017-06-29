@@ -125,7 +125,7 @@ public class CartDashboardFragment extends BaseFragment implements View.OnClickL
 
                 showDescription((int) view.getTag());
                 break;
-            case R.id.txt_product_name:     // Show description.
+            case R.id.txt_product_name:      // Show description.
 
                 showDescription((int) view.getTag());
                 break;
