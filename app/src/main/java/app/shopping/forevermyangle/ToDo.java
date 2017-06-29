@@ -9,12 +9,9 @@ public class ToDo {
 
     /**
      *
-     * Terms & Conditions -- Privacy policy
-     *
      * Register New User
      *
      * Forgot Password
-     *
      *
      */
 }

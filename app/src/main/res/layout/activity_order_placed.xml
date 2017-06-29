@@ -10,8 +10,7 @@
     <ImageView
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:background="@drawable/outline_box"
-        android:src="@drawable/f" />
+        android:src="@drawable/logo_fx" />
 
     <TextView
         android:layout_width="wrap_content"

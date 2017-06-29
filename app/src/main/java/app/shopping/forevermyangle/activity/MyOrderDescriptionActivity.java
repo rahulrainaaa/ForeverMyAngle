@@ -59,7 +59,12 @@ public class MyOrderDescriptionActivity extends AppCompatActivity {
         total = (TextView) findViewById(R.id.total);
 
         btnCheckOut = (Button) findViewById(R.id.button_place_order);
-        btnCheckOut.setOnClickListener(null);
+        btnCheckOut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
         bName.setText(orderHistory.getBilling().getFirstName() + " " + orderHistory.getBilling().getLastName());
         bCompany.setText(orderHistory.getBilling().getCompany());

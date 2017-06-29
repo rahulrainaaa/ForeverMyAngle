@@ -2,6 +2,7 @@ package app.shopping.forevermyangle.fragment.fragments;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
@@ -143,6 +144,8 @@ public class UserProfileFragment extends BaseFragment implements View.OnClickLis
                 break;
             case R.id.helpnsupport:
 
+                Intent intentHelp = new Intent(Intent.ACTION_VIEW, Uri.parse("https://forevermyangel.com/contact-us/"));
+                startActivity(intentHelp);
                 break;
             case R.id.my_orders:
 
@@ -150,9 +153,13 @@ public class UserProfileFragment extends BaseFragment implements View.OnClickLis
                 break;
             case R.id.btn_privacy:
 
+                Intent intentPrivacy = new Intent(Intent.ACTION_VIEW, Uri.parse("https://forevermyangel.com/privacy-policy/"));
+                startActivity(intentPrivacy);
                 break;
             case R.id.btn_terms:
 
+                Intent intentTnC = new Intent(Intent.ACTION_VIEW, Uri.parse("https://forevermyangel.com/terms-and-conditions/"));
+                startActivity(intentTnC);
                 break;
             case R.id.btn_logout:
 
