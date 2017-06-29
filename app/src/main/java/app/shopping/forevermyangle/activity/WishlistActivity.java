@@ -19,6 +19,7 @@ import java.util.Map;
 
 import app.shopping.forevermyangle.R;
 import app.shopping.forevermyangle.adapter.listviewadapter.WishlistListViewAdapter;
+import app.shopping.forevermyangle.model.login.Login;
 import app.shopping.forevermyangle.model.products.WishlistProduct;
 import app.shopping.forevermyangle.network.callback.NetworkCallbackListener;
 import app.shopping.forevermyangle.network.handler.NetworkHandler;
@@ -148,6 +149,12 @@ public class WishlistActivity extends AppCompatActivity implements View.OnClickL
     private void moveToCart(View view) {
 
         try {
+            if (GlobalData.jsonUserDetail == null) {
+
+                startActivity(new Intent(this, LoginActivity.class));
+                Toast.makeText(this, "Need login.", Toast.LENGTH_SHORT).show();
+                return;
+            }
             int userID = GlobalData.jsonUserDetail.getInt("id");
             position = (int) view.getTag();
             int productID = list.get(position).prodid;

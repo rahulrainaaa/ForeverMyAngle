@@ -9,7 +9,7 @@ public class ToDo {
 
     /**
      *
-     * json exception -- null object reference.
+     * elv expansion and close to happen simultaneously.
      *
      * show stock quantity for product.
      *

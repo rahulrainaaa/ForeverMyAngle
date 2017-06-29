@@ -272,6 +272,12 @@ public class ProductViewActivity extends AppCompatActivity implements View.OnCli
     private void fabAddToCart() {
 
         try {
+            if (GlobalData.jsonUserDetail == null) {
+
+                startActivity(new Intent(this, LoginActivity.class));
+                Toast.makeText(this, "Need login.", Toast.LENGTH_SHORT).show();
+                return;
+            }
             int userID = GlobalData.jsonUserDetail.getInt("id");
             int productID = GlobalData.SelectedProduct.getInt("id");
             String ProductQty = "1";

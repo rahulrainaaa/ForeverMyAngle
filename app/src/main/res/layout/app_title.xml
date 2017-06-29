@@ -10,15 +10,23 @@
         android:layout_height="40dp"
         android:src="@drawable/logo_fx" />
 
-    <TextView
+    <!--<TextView-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:gravity="center"-->
+    <!--android:paddingLeft="10dp"-->
+    <!--android:text="FOREVER MY ANGEL"-->
+    <!--android:textColor="@color/colorText"-->
+    <!--android:textSize="12sp"-->
+    <!--android:textStyle="bold"-->
+    <!--android:typeface="serif" />-->
+    <!---->
+
+    <ImageView
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:gravity="center"
         android:paddingLeft="10dp"
-        android:text="FOREVER MY ANGEL"
-        android:textColor="@color/colorText"
-        android:textSize="12sp"
-        android:textStyle="bold"
-        android:typeface="serif" />
+        android:src="@drawable/fma_text" />
 
 </LinearLayout>
