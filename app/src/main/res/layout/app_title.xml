@@ -27,6 +27,6 @@
         android:layout_height="match_parent"
         android:gravity="center"
         android:paddingLeft="10dp"
-        android:src="@drawable/fma_text" />
+        android:src="@drawable/fma_text_w" />
 
 </LinearLayout>

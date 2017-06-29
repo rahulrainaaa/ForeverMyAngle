@@ -9,10 +9,6 @@ public class ToDo {
 
     /**
      *
-     * elv expansion and close to happen simultaneously.
-     *
-     * show stock quantity for product.
-     *
      * Terms & Conditions -- Privacy policy
      *
      * Register New User

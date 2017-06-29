@@ -1,6 +1,7 @@
 package app.shopping.forevermyangle.adapter.listviewadapter;
 
 import android.app.Activity;
+import android.graphics.Paint;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -47,10 +48,10 @@ public class ProductListViewAdapter extends ArrayAdapter<Product> {
      * @desc Holder class to hold the id (reference) of view.
      */
     private static class Holder {
-        private ImageView imgproduct = null;
+        private ImageView imgProduct = null;
         private TextView txtProductName = null;
         private TextView txtProductPrice = null;
-        private TextView txtproductRate = null;
+        private TextView txtProductRate = null;
     }
 
     /**
@@ -73,26 +74,31 @@ public class ProductListViewAdapter extends ArrayAdapter<Product> {
         View view = convertView;
         if (view == null) {
             view = mInflater.inflate(mResource, null);
-            holder.imgproduct = (ImageView) view.findViewById(R.id.img_product);
+            holder.imgProduct = (ImageView) view.findViewById(R.id.img_product);
             holder.txtProductName = (TextView) view.findViewById(R.id.txt_product_name);
             holder.txtProductPrice = (TextView) view.findViewById(R.id.txt_product_price);
-            holder.txtproductRate = (TextView) view.findViewById(R.id.txt_rate);
+            holder.txtProductRate = (TextView) view.findViewById(R.id.txt_rate);
             view.setTag(holder);
         } else {
             holder = (Holder) view.getTag();
         }
 
         int viewHeight = (Constants.RES_WIDTH - 100) / 2;
-        holder.imgproduct.getLayoutParams().height = viewHeight;
+        holder.imgProduct.getLayoutParams().height = viewHeight;
 
-        imgproduct = holder.imgproduct;
+        imgproduct = holder.imgProduct;
         txtProductName = holder.txtProductName;
         txtProductPrice = holder.txtProductPrice;
-        txtproductRate = holder.txtproductRate;
+        txtproductRate = holder.txtProductRate;
 
         Product product = mList.get(position);
 
         try {
+            if (product.in_stock) {
+                txtProductName.setPaintFlags(txtProductName.getPaintFlags() & (~Paint.STRIKE_THRU_TEXT_FLAG));
+            } else {       // Strike out the text - out of stock.
+                txtProductName.setPaintFlags(txtProductName.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+            }
             Picasso.with(mActivity).load(product.image.trim()).into(imgproduct);
             txtProductName.setText(product.name);
             txtProductPrice.setText("AED " + product.price);
