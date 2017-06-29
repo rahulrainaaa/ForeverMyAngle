@@ -8,7 +8,7 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:background="#cfcfcf"
+        android:background="#efefef"
         android:paddingBottom="3dp"
         android:paddingLeft="20dp"
         android:paddingTop="3dp">
@@ -18,7 +18,7 @@
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:layout_marginBottom="3dp"
-            android:background="#cfcfcf"
+            android:background="#efefef"
             android:scaleType="fitXY" />
 
     </LinearLayout>
@@ -30,7 +30,7 @@
         android:layout_height="match_parent"
         android:layout_marginLeft="0dp"
         android:layout_marginRight="0dp"
-        android:background="#cfcfcf"
+        android:background="#efefef"
         android:gravity="center|left"
         android:paddingBottom="10dp"
         android:paddingLeft="20dp"

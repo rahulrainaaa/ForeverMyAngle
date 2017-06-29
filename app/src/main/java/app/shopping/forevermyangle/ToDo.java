@@ -8,23 +8,10 @@ public class ToDo {
 
 
     /**
-     * Login Activity
      *
-     * Dashboard Activity
-     * * Dashboard Fragment
-     * * Category Fragment
-     * * Cart Fragment
-     * * User Profile
+     * json exception -- null object reference.
      *
-     * Show Product
-     *
-     * Wishlist Activity
-     *
-     * Rating & Review
-     *
-     * Order History List Activity
-     *
-     * Order description
+     * show stock quantity for product.
      *
      * Terms & Conditions -- Privacy policy
      *
