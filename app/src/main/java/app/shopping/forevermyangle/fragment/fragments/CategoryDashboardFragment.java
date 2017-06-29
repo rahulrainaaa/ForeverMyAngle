@@ -32,6 +32,7 @@ public class CategoryDashboardFragment extends BaseFragment {
     private ExpandableListView mCategoryExpandableListView = null;
     private ExpandableListAdapter expandableListAdapter = null;
     private HashMap<Integer, List<Category>> mSubCategoriesMap = null;
+    private int expandedPosition = -1;
 
     /**
      * {@link BaseFragment} Class override methods.
@@ -45,21 +46,25 @@ public class CategoryDashboardFragment extends BaseFragment {
 
         expandableListAdapter = new CategoryExpandableListAdapter(getActivity(), GlobalData.parentCategories, GlobalData.category);
         mCategoryExpandableListView.setAdapter(expandableListAdapter);
-        mCategoryExpandableListView.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
-
-            @Override
-            public void onGroupExpand(int groupPosition) {
-
-                //expandable list expanded.
-            }
-        });
 
         mCategoryExpandableListView.setOnGroupCollapseListener(new ExpandableListView.OnGroupCollapseListener() {
 
             @Override
             public void onGroupCollapse(int groupPosition) {
 
-                // expandable list collapsed.
+                expandedPosition = -1;
+
+            }
+        });
+
+        mCategoryExpandableListView.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
+            @Override
+            public void onGroupExpand(int groupPosition) {
+
+                if (expandedPosition != -1) {
+                    mCategoryExpandableListView.collapseGroup(expandedPosition);
+                }
+                expandedPosition = groupPosition;
 
             }
         });
