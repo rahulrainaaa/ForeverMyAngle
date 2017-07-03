@@ -25,9 +25,15 @@ import app.shopping.forevermyangle.utils.GlobalData;
  */
 public class AddressActivity extends AppCompatActivity {
 
+    /**
+     * Class private data members.
+     */
     private SectionsPagerAdapter mSectionsPagerAdapter;
     private ViewPager mViewPager;
 
+    /**
+     * {@link AppCompatActivity} class override methods.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

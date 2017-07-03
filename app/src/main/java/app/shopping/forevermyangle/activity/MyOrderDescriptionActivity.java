@@ -14,6 +14,10 @@ import app.shopping.forevermyangle.model.order.LineItem;
 import app.shopping.forevermyangle.model.order.Order;
 import app.shopping.forevermyangle.utils.GlobalData;
 
+/**
+ * @class MyOrderDescriptionActivity
+ * @desc Acticity to show the description of an order placed (from My Orders).
+ */
 public class MyOrderDescriptionActivity extends AppCompatActivity {
 
     /**

@@ -37,7 +37,7 @@ public class RatingActivity extends AppCompatActivity implements NetworkCallback
     private FMAProgressDialog fmaProgressDialog = null;
 
     /**
-     * {@link}
+     * {@link AppCompatActivity} override methods.
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -24,14 +24,23 @@ import app.shopping.forevermyangle.utils.GlobalData;
 import app.shopping.forevermyangle.utils.Network;
 import app.shopping.forevermyangle.view.FMAProgressDialog;
 
-
+/**
+ * @class MyOrderListActivity
+ * @desc Activity to show all the orders placed.
+ */
 public class MyOrderListActivity extends AppCompatActivity implements NetworkCallbackListener, AdapterView.OnItemClickListener {
 
+    /**
+     * Class private data members.
+     */
     private ListView mListView = null;
     private MyOrderListAdapter mAdapter = null;
     private ArrayList<Order> mList = new ArrayList<>();
     private FMAProgressDialog fmaProgressDialog = null;
 
+    /**
+     * {@link MyOrderListActivity} override methods.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,6 +54,10 @@ public class MyOrderListActivity extends AppCompatActivity implements NetworkCal
         fetchList();
     }
 
+    /**
+     * @method fetchList
+     * @desc Method to fetch order list from the API.
+     */
     private void fetchList() {
 
         try {

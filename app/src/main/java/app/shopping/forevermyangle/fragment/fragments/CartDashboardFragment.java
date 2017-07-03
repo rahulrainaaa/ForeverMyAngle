@@ -245,6 +245,7 @@ public class CartDashboardFragment extends BaseFragment implements View.OnClickL
     private void moveToWishlist(int position) {
 
         try {
+            // Check the older response before proceeding.
             int statusCode = mRawJsonResponse.getInt("code");
             String statusMsg = mRawJsonResponse.getString("message");
             if (statusCode == 204) {

@@ -19,6 +19,10 @@ import app.shopping.forevermyangle.utils.GlobalData;
 import app.shopping.forevermyangle.utils.Network;
 import app.shopping.forevermyangle.view.FMAProgressDialog;
 
+/**
+ * @class CheckoutActivity
+ * @desc Activity class to show the Activity checkout details and proceed to place an order successfully.
+ */
 public class CheckoutActivity extends AppCompatActivity implements View.OnClickListener, NetworkCallbackListener {
 
     /**

@@ -221,11 +221,11 @@ public class ProductViewActivity extends AppCompatActivity implements View.OnCli
             txtProdPrice.setText("AED " + mProductJsonObject.getString("price"));
             txtProdRating.setText(mProductJsonObject.getString("average_rating"));
             String html = mProductJsonObject.getString("short_description") + "\n" + mProductJsonObject.getString("description");
-            html = html.replaceAll("<(.*?)\\>"," ");//Removes all items in brackets
-            html = html.replaceAll("<(.*?)\\\n"," ");//Must be undeneath
+            html = html.replaceAll("<(.*?)\\>", " ");//Removes all items in brackets
+            html = html.replaceAll("<(.*?)\\\n", " ");//Must be undeneath
             html = html.replaceFirst("(.*?)\\>", " ");//Removes any connected item to the last bracket
-            html = html.replaceAll("&nbsp;"," ");
-            html = html.replaceAll("&amp;"," ");
+            html = html.replaceAll("&nbsp;", " ");
+            html = html.replaceAll("&amp;", " ");
             txtProdDescription.setText(html);
             int attrLength = mProductJsonObject.getJSONArray("default_attributes").length();
             for (int i = 0; i < attrLength; i++) {
@@ -275,6 +275,10 @@ public class ProductViewActivity extends AppCompatActivity implements View.OnCli
         }
     }
 
+    /**
+     * @method fabAddToCart
+     * @desc Method to add product to cart.
+     */
     private void fabAddToCart() {
 
         try {
