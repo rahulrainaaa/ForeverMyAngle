@@ -248,6 +248,11 @@ public class SearchProductActivity extends FragmentActivity implements AdapterVi
             @Override
             public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
 
+                GlobalData.TotalProducts.clear();
+                mAdapter.notifyDataSetChanged();
+                mPageNumber = 1;
+                getProductList();
+                Toast.makeText(SearchProductActivity.this, "Fetching.", Toast.LENGTH_SHORT).show();
                 bottomSheetDialog.hide();
                 switch (checkedId) {
                     case R.id.option_1:
@@ -263,11 +268,10 @@ public class SearchProductActivity extends FragmentActivity implements AdapterVi
 
                         break;
                 }
-                GlobalData.TotalProducts.clear();
-                mAdapter.notifyDataSetChanged();
-                mPageNumber = 1;
-                getProductList();
-                Toast.makeText(SearchProductActivity.this, "Fetching.", Toast.LENGTH_SHORT).show();
+                String url = Network.URL_GET_ALL_PRODUCTS + "?per_page=" + sPRODUCTS_PERPAGE + "&page=" + mPageNumber;
+                url = url + "" + mStrSrchString + mStrSrchOrder + mStrSrchOrderBy + mStrSrchStatus + mStrSrchInStock + mStrSrchMaxPrice + mStrSrchMinPrice + mStrSrchOnSale + mStrSrchCategotyId;
+                mNetworkHandler.httpCreate(1, SearchProductActivity.this, SearchProductActivity.this, new JSONObject(), url, NetworkHandler.RESPONSE_ARRAY);
+                mNetworkHandler.executeGet();
             }
         });
         bottomSheetDialog.setContentView(view);
