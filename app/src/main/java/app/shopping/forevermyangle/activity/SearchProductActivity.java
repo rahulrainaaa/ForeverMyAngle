@@ -173,7 +173,7 @@ public class SearchProductActivity extends FragmentActivity implements AdapterVi
 
         Snackbar.make(view, "first:" + firstVisibleItem + ", visible:" + visibleItemCount + ", total:" + totalItemCount, Snackbar.LENGTH_LONG).show();
 
-        if (((firstVisibleItem + visibleItemCount) == totalItemCount) && (mFlagRefresh == false)) {
+        if (((firstVisibleItem + visibleItemCount) == totalItemCount) && (!mFlagRefresh)) {
 
             mFlagRefresh = true;
             getProductList();
