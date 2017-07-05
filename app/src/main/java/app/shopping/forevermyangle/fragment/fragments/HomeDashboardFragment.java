@@ -271,32 +271,32 @@ public class HomeDashboardFragment extends BaseFragment implements View.OnTouchL
         if (GlobalData.NewArrivedProducts.length() == 0) {    // New Arrival products. - 3
 
             NetworkHandler networkHandlerNewArrivals = new NetworkHandler();
-            String urlNewArrivals = Network.URL_GET_ALL_PRODUCTS + "?per_page=4&category=26";
+            String urlNewArrivals = Network.URL_GET_ALL_PRODUCTS + "?per_page=12&category=26";
             networkHandlerNewArrivals.httpCreate(2, getActivity(), this, new JSONObject(), urlNewArrivals, 2);
             networkHandlerNewArrivals.executeGet();
         } else {
             updateNewArrivals(GlobalData.NewArrivedProducts);
         }
-
-        if (GlobalData.TopRatedProducts.length() == 0) {    // Top Reviews products. - 1
-
-            NetworkHandler networkHandlerTopProducts = new NetworkHandler();
-            String urlTopProducts = Network.URL_GET_ALL_PRODUCTS + "?per_page=4&category=24";
-            networkHandlerTopProducts.httpCreate(3, getActivity(), this, new JSONObject(), urlTopProducts, 2);
-            networkHandlerTopProducts.executeGet();
-        } else {
-            updateTopReview(GlobalData.TopRatedProducts);
-        }
-
-        if (GlobalData.TopSellProducts.length() == 0) {    // Top Sell products. - 2
-
-            NetworkHandler networkHandlerTopSell = new NetworkHandler();
-            String urlTopSell = Network.URL_GET_ALL_PRODUCTS + "?per_page=4&category=18";
-            networkHandlerTopSell.httpCreate(4, getActivity(), this, new JSONObject(), urlTopSell, 2);
-            networkHandlerTopSell.executeGet();
-        } else {
-            updateTopSelled(GlobalData.TopSellProducts);
-        }
+//
+//        if (GlobalData.TopRatedProducts.length() == 0) {    // Top Reviews products. - 1
+//
+//            NetworkHandler networkHandlerTopProducts = new NetworkHandler();
+//            String urlTopProducts = Network.URL_GET_ALL_PRODUCTS + "?per_page=4&category=24";
+//            networkHandlerTopProducts.httpCreate(3, getActivity(), this, new JSONObject(), urlTopProducts, 2);
+//            networkHandlerTopProducts.executeGet();
+//        } else {
+//            updateTopReview(GlobalData.TopRatedProducts);
+//        }
+//
+//        if (GlobalData.TopSellProducts.length() == 0) {    // Top Sell products. - 2
+//
+//            NetworkHandler networkHandlerTopSell = new NetworkHandler();
+//            String urlTopSell = Network.URL_GET_ALL_PRODUCTS + "?per_page=4&category=18";
+//            networkHandlerTopSell.httpCreate(4, getActivity(), this, new JSONObject(), urlTopSell, 2);
+//            networkHandlerTopSell.executeGet();
+//        } else {
+//            updateTopSelled(GlobalData.TopSellProducts);
+//        }
     }
 
     /**
