@@ -200,26 +200,22 @@ public class HomeDashboardFragment extends BaseFragment implements View.OnTouchL
 
             case 2:     // get all 4 new arrival products.
                 try {
-                    JSONArray jsonList1 = new JSONArray();
-                    JSONArray jsonList2 = new JSONArray();
-                    JSONArray jsonList3 = new JSONArray();
+                    GlobalData.NewArrivedProducts.put(rawArray.get(0));
+                    GlobalData.NewArrivedProducts.put(rawArray.get(1));
+                    GlobalData.NewArrivedProducts.put(rawArray.get(2));
+                    GlobalData.NewArrivedProducts.put(rawArray.get(3));
+                    GlobalData.TopRatedProducts.put(rawArray.get(4));
+                    GlobalData.TopRatedProducts.put(rawArray.get(5));
+                    GlobalData.TopRatedProducts.put(rawArray.get(6));
+                    GlobalData.TopRatedProducts.put(rawArray.get(7));
+                    GlobalData.TopSellProducts.put(rawArray.get(8));
+                    GlobalData.TopSellProducts.put(rawArray.get(9));
+                    GlobalData.TopSellProducts.put(rawArray.get(10));
+                    GlobalData.TopSellProducts.put(rawArray.get(11));
 
-                    jsonList1.put(rawArray.get(0));
-                    jsonList1.put(rawArray.get(1));
-                    jsonList1.put(rawArray.get(2));
-                    jsonList1.put(rawArray.get(3));
-                    jsonList2.put(rawArray.get(4));
-                    jsonList2.put(rawArray.get(5));
-                    jsonList2.put(rawArray.get(6));
-                    jsonList2.put(rawArray.get(7));
-                    jsonList3.put(rawArray.get(8));
-                    jsonList3.put(rawArray.get(9));
-                    jsonList3.put(rawArray.get(10));
-                    jsonList3.put(rawArray.get(11));
-
-                    updateNewArrivals(jsonList1);
-                    updateTopReview(jsonList2);
-                    updateTopSelled(jsonList3);
+                    updateNewArrivals(GlobalData.NewArrivedProducts);
+                    updateTopReview(GlobalData.TopRatedProducts);
+                    updateTopSelled(GlobalData.TopSellProducts);
 
                 } catch (Exception e) {
 
@@ -296,10 +292,12 @@ public class HomeDashboardFragment extends BaseFragment implements View.OnTouchL
 
             NetworkHandler networkHandlerNewArrivals = new NetworkHandler();
             String urlNewArrivals = Network.URL_GET_ALL_PRODUCTS + "?per_page=12";
-            networkHandlerNewArrivals.httpCreate(2, getActivity(), this, new JSONObject(), urlNewArrivals, 2);
+            networkHandlerNewArrivals.httpCreate(2, getActivity(), this, new JSONObject(), urlNewArrivals, NetworkHandler.RESPONSE_ARRAY);
             networkHandlerNewArrivals.executeGet();
         } else {
             updateNewArrivals(GlobalData.NewArrivedProducts);
+            updateTopReview(GlobalData.TopRatedProducts);
+            updateTopSelled(GlobalData.TopSellProducts);
         }
 //
 //        if (GlobalData.TopRatedProducts.length() == 0) {    // Top Reviews products. - 1

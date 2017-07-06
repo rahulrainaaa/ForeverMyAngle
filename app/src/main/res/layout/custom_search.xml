@@ -36,7 +36,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="5dp"
-            android:text="Price: Low to high"
+            android:text="Sort by arrival date: New first"
             android:textColor="@color/colorTextLight"
             android:textSize="14dp" />
 
@@ -45,7 +45,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="5dp"
-            android:text="Price: High to low"
+            android:text="Sort by arrival date: Older first"
             android:textColor="@color/colorTextLight"
             android:textSize="14dp" />
 
@@ -54,7 +54,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="5dp"
-            android:text="Sort by popularity"
+            android:text="Sort by title: Ascending"
             android:textColor="@color/colorTextLight"
             android:textSize="14dp" />
 
@@ -62,7 +62,7 @@
             android:id="@+id/option_4"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Sort by arrival"
+            android:text="Sort by title: Descending"
             android:textColor="@color/colorTextLight"
             android:textSize="14dp" />
 

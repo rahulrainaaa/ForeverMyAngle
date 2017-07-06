@@ -257,14 +257,26 @@ public class SearchProductActivity extends FragmentActivity implements AdapterVi
                 switch (checkedId) {
                     case R.id.option_1:
 
+                        mStrSrchOrderBy = "&order=asc";
+                        mStrSrchOrder = "&orderby=date";
+
                         break;
                     case R.id.option_2:
+
+                        mStrSrchOrderBy = "&order=desc";
+                        mStrSrchOrder = "&orderby=date";
 
                         break;
                     case R.id.option_3:
 
+                        mStrSrchOrderBy = "&order=asc";
+                        mStrSrchOrder = "&orderby=title";
+
                         break;
                     case R.id.option_4:
+
+                        mStrSrchOrderBy = "&order=desc";
+                        mStrSrchOrder = "&orderby=title";
 
                         break;
                 }

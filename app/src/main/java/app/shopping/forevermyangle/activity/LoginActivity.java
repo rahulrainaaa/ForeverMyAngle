@@ -1,6 +1,7 @@
 package app.shopping.forevermyangle.activity;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
@@ -60,6 +61,8 @@ public class LoginActivity extends FragmentActivity implements View.OnClickListe
         facebookLogin = (LoginButton) findViewById(R.id.login_facebook);
         facebookLogin.setReadPermissions("email");
 
+        findViewById(R.id.link_forgot_password).setOnClickListener(this);
+        findViewById(R.id.link_new_user).setOnClickListener(this);
         mTxtUsername = (TextView) findViewById(R.id.txt_username);
         mTxtPassword = (TextView) findViewById(R.id.txt_password);
         findViewById(R.id.login_btn).setOnClickListener(this);
@@ -105,6 +108,26 @@ public class LoginActivity extends FragmentActivity implements View.OnClickListe
             case R.id.login_btn:
 
                 sendLoginRequest();
+                break;
+            case R.id.link_forgot_password:
+
+                try {
+                    Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://forevermyangel.com/my-account/"));
+                    startActivity(browserIntent);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    Toast.makeText(this, "Exception: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+                break;
+            case R.id.link_new_user:
+
+                try {
+                    Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://forevermyangel.com/my-account/"));
+                    startActivity(browserIntent);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    Toast.makeText(this, "Exception: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                }
                 break;
             default:
 
@@ -275,10 +298,21 @@ public class LoginActivity extends FragmentActivity implements View.OnClickListe
             mFMAProgressDialog.show();
             handler.httpCreate(2, this, this, new JSONObject(), url, NetworkHandler.RESPONSE_ARRAY);
             handler.executeGet();
+            return;
         } catch (Exception e) {
             e.printStackTrace();
             Toast.makeText(this, "Exception: " + e.getMessage(), Toast.LENGTH_SHORT).show();
         }
 
+        try {
+            String url = Network.URL_FMA_USER_DETAIL + "?email=" + object.getString("id") + "@facebook.com" + "&role=subscriber";
+            NetworkHandler handler = new NetworkHandler();
+            mFMAProgressDialog.show();
+            handler.httpCreate(2, this, this, new JSONObject(), url, NetworkHandler.RESPONSE_ARRAY);
+            handler.executeGet();
+        } catch (Exception e) {
+            e.printStackTrace();
+            Toast.makeText(this, "Exception: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+        }
     }
 }
