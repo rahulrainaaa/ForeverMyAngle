@@ -145,7 +145,6 @@ public class SearchProductActivity extends FragmentActivity implements AdapterVi
                 break;
         }
         // Toast.makeText(this, requestCode + " success from response from http handler.", Toast.LENGTH_SHORT).show();
-        Toast.makeText(this, "Fetched products", Toast.LENGTH_SHORT).show();
     }
 
     @Override
