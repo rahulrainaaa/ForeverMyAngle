@@ -199,16 +199,40 @@ public class HomeDashboardFragment extends BaseFragment implements View.OnTouchL
                 break;
 
             case 2:     // get all 4 new arrival products.
+                try {
+                    JSONArray jsonList1 = new JSONArray();
+                    JSONArray jsonList2 = new JSONArray();
+                    JSONArray jsonList3 = new JSONArray();
 
-                updateNewArrivals(rawArray);
+                    jsonList1.put(rawArray.get(0));
+                    jsonList1.put(rawArray.get(1));
+                    jsonList1.put(rawArray.get(2));
+                    jsonList1.put(rawArray.get(3));
+                    jsonList2.put(rawArray.get(4));
+                    jsonList2.put(rawArray.get(5));
+                    jsonList2.put(rawArray.get(6));
+                    jsonList2.put(rawArray.get(7));
+                    jsonList3.put(rawArray.get(8));
+                    jsonList3.put(rawArray.get(9));
+                    jsonList3.put(rawArray.get(10));
+                    jsonList3.put(rawArray.get(11));
+
+                    updateNewArrivals(jsonList1);
+                    updateTopReview(jsonList2);
+                    updateTopSelled(jsonList3);
+
+                } catch (Exception e) {
+
+                    Toast.makeText(activity, "Exception: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                }
                 break;
             case 3:     // Top review products.
 
-                updateTopReview(rawArray);
+
                 break;
             case 4:     // Top sell products.
 
-                updateTopSelled(rawArray);
+
                 break;
             default:    // Unknown request code.
 
@@ -271,7 +295,7 @@ public class HomeDashboardFragment extends BaseFragment implements View.OnTouchL
         if (GlobalData.NewArrivedProducts.length() == 0) {    // New Arrival products. - 3
 
             NetworkHandler networkHandlerNewArrivals = new NetworkHandler();
-            String urlNewArrivals = Network.URL_GET_ALL_PRODUCTS + "?per_page=12&category=26";
+            String urlNewArrivals = Network.URL_GET_ALL_PRODUCTS + "?per_page=12";
             networkHandlerNewArrivals.httpCreate(2, getActivity(), this, new JSONObject(), urlNewArrivals, 2);
             networkHandlerNewArrivals.executeGet();
         } else {
@@ -294,7 +318,7 @@ public class HomeDashboardFragment extends BaseFragment implements View.OnTouchL
 //            String urlTopSell = Network.URL_GET_ALL_PRODUCTS + "?per_page=4&category=18";
 //            networkHandlerTopSell.httpCreate(4, getActivity(), this, new JSONObject(), urlTopSell, 2);
 //            networkHandlerTopSell.executeGet();
-//        } else {
+//        } else {+
 //            updateTopSelled(GlobalData.TopSellProducts);
 //        }
     }
