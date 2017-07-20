@@ -102,7 +102,7 @@ public class SearchProductActivity extends FragmentActivity implements AdapterVi
                 GlobalData.TotalProducts.clear();
                 SearchProductActivity.this.mAdapter.notifyDataSetChanged();
                 mFlagRefresh = false;
-                mProductGridList.setOnScrollListener(SearchProductActivity.this);
+                //mProductGridList.setOnScrollListener(SearchProductActivity.this);
                 Toast.makeText(SearchProductActivity.this, "Searching.", Toast.LENGTH_SHORT).show();
                 return true;
             }
@@ -121,7 +121,7 @@ public class SearchProductActivity extends FragmentActivity implements AdapterVi
                 GlobalData.TotalProducts.clear();
                 SearchProductActivity.this.mAdapter.notifyDataSetChanged();
                 mFlagRefresh = false;
-                mProductGridList.setOnScrollListener(SearchProductActivity.this);
+                // mProductGridList.setOnScrollListener(SearchProductActivity.this);
                 Toast.makeText(SearchProductActivity.this, "Fetching.", Toast.LENGTH_SHORT).show();
                 return true;
             }
@@ -231,6 +231,7 @@ public class SearchProductActivity extends FragmentActivity implements AdapterVi
         }
         mAdapter.notifyDataSetChanged();
         mFlagRefresh = false;
+        mProductGridList.setOnScrollListener(this);
     }
 
     /**
@@ -267,10 +268,11 @@ public class SearchProductActivity extends FragmentActivity implements AdapterVi
 
                 RadioButton radio = (RadioButton) view.findViewById(checkedId);
                 if (!radio.isChecked()) {
-
                     // Return in case if the button is not checked.
                     return;
                 }
+
+                mProductGridList.setOnScrollListener(null);
                 GlobalData.TotalProducts.clear();
                 mAdapter.notifyDataSetChanged();
                 mPageNumber = 1;
@@ -302,6 +304,7 @@ public class SearchProductActivity extends FragmentActivity implements AdapterVi
 
                         break;
                 }
+                fmaProgressDialog.show();
                 String url = Network.URL_GET_ALL_PRODUCTS + "?per_page=" + sPRODUCTS_PERPAGE + "&page=" + mPageNumber;
                 url = url + "" + mStrSrchString + mStrSrchOrder + mStrSrchOrderBy + mStrSrchStatus + mStrSrchInStock + mStrSrchMaxPrice + mStrSrchMinPrice + mStrSrchOnSale + mStrSrchCategotyId;
                 mNetworkHandler.httpCreate(1, SearchProductActivity.this, SearchProductActivity.this, new JSONObject(), url, NetworkHandler.RESPONSE_ARRAY);
@@ -344,6 +347,7 @@ public class SearchProductActivity extends FragmentActivity implements AdapterVi
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
 
+                        mProductGridList.setOnScrollListener(null);
                         mStrSrchMaxPrice = "&min_price=" + priceRangeBar.getLeftPinValue();
                         mStrSrchMinPrice = "&max_price=" + priceRangeBar.getRightPinValue();
                         GlobalData.TotalProducts.clear();
