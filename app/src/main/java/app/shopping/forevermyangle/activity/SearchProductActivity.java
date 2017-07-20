@@ -113,6 +113,19 @@ public class SearchProductActivity extends FragmentActivity implements AdapterVi
             }
         });
 
+        mProductSearchView.setOnCloseListener(new SearchView.OnCloseListener() {
+            @Override
+            public boolean onClose() {
+                SearchProductActivity.this.mStrSrchString = "";
+                SearchProductActivity.this.mPageNumber = 1;
+                GlobalData.TotalProducts.clear();
+                SearchProductActivity.this.mAdapter.notifyDataSetChanged();
+                mFlagRefresh = false;
+                mProductGridList.setOnScrollListener(SearchProductActivity.this);
+                Toast.makeText(SearchProductActivity.this, "Fetching.", Toast.LENGTH_SHORT).show();
+                return true;
+            }
+        });
     }
 
     @Override
@@ -144,6 +157,9 @@ public class SearchProductActivity extends FragmentActivity implements AdapterVi
 
             case 1:             // Product list response.
 
+                if ((mPageNumber == 1) && (rawArray.length() < 1)) {
+                    Toast.makeText(this, "No Products", Toast.LENGTH_SHORT).show();
+                }
                 updateProductList(rawArray);
                 break;
         }
