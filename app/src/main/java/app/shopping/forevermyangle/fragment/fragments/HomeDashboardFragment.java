@@ -121,7 +121,6 @@ public class HomeDashboardFragment extends BaseFragment implements View.OnTouchL
         mCategoryRecyclerView = (RecyclerView) view.findViewById(R.id.rv_category);
         mCategoryRecyclerView.setHasFixedSize(true);
         mCategoryRecyclerView.setLayoutManager(categoryLayoutManager);
-        //mCategoryRecyclerView
         mCategoryRecyclerAdapter = new CategoryRecyclerAdapter(getActivity(), this, mCategoryList);
         mCategoryRecyclerView.setAdapter(mCategoryRecyclerAdapter);
         mCategoryRecyclerAdapter.notifyDataSetChanged();
