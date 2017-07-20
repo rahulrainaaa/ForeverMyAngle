@@ -94,10 +94,12 @@ public class ProductListViewAdapter extends ArrayAdapter<Product> {
         Product product = mList.get(position);
 
         try {
-            if (product.in_stock) {
+            if (product.in_stock && (product.stock_qty > 0)) {
                 txtProductName.setPaintFlags(txtProductName.getPaintFlags() & (~Paint.STRIKE_THRU_TEXT_FLAG));
+                txtProductPrice.setPaintFlags(txtProductName.getPaintFlags() & (~Paint.STRIKE_THRU_TEXT_FLAG));
             } else {       // Strike out the text - out of stock.
                 txtProductName.setPaintFlags(txtProductName.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+                txtProductPrice.setPaintFlags(txtProductName.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
             }
             Picasso.with(mActivity).load(product.image.trim()).into(imgproduct);
             txtProductName.setText(product.name);

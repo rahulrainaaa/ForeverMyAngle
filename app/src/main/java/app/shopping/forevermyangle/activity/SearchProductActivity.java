@@ -16,6 +16,7 @@ import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -73,6 +74,7 @@ public class SearchProductActivity extends FragmentActivity implements AdapterVi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
+        GlobalData.TotalProducts.clear();
         fmaProgressDialog = new FMAProgressDialog(this);
 
         mLayoutTabSort = (LinearLayout) findViewById(R.id.tab_filter);
@@ -117,6 +119,7 @@ public class SearchProductActivity extends FragmentActivity implements AdapterVi
     protected void onDestroy() {
         super.onDestroy();
         GlobalData.TotalProducts.clear();
+        GlobalData.srch_category_id = "";
     }
 
     /**
@@ -144,7 +147,6 @@ public class SearchProductActivity extends FragmentActivity implements AdapterVi
                 updateProductList(rawArray);
                 break;
         }
-        // Toast.makeText(this, requestCode + " success from response from http handler.", Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -241,16 +243,21 @@ public class SearchProductActivity extends FragmentActivity implements AdapterVi
     private void getSortedProducts() {
 
         final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(this);
-        View view = (View) getLayoutInflater().inflate(R.layout.custom_search, null);
+        final View view = (View) getLayoutInflater().inflate(R.layout.custom_search, null);
         RadioGroup radioGroup = (RadioGroup) view.findViewById(R.id.sort_radiogroup);
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
 
+                RadioButton radio = (RadioButton) view.findViewById(checkedId);
+                if (!radio.isChecked()) {
+
+                    // Return in case if the button is not checked.
+                    return;
+                }
                 GlobalData.TotalProducts.clear();
                 mAdapter.notifyDataSetChanged();
                 mPageNumber = 1;
-                getProductList();
                 Toast.makeText(SearchProductActivity.this, "Fetching.", Toast.LENGTH_SHORT).show();
                 bottomSheetDialog.hide();
                 switch (checkedId) {

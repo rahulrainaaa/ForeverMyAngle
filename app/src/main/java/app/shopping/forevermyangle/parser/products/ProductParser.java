@@ -52,6 +52,17 @@ public class ProductParser extends BaseParser {
             product.average_rating = json.getString("average_rating");
             product.rating_count = json.getString("rating_count");
             product.image = json.getJSONArray("images").getJSONObject(0).getString("src");
+            String prod_qty = json.getString("stock_quantity");
+            if (prod_qty == null) {
+                product.stock_qty = 0;
+            }
+            if (prod_qty == "null") {
+                product.stock_qty = 0;
+            } else if (Integer.valueOf(prod_qty) <= 0) {
+                product.stock_qty = 0;
+            } else {
+                product.stock_qty = Integer.valueOf(prod_qty);
+            }
 
             GlobalData.TotalProducts.add(product);
         }
