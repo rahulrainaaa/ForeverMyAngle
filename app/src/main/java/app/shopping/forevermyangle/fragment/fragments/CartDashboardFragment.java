@@ -53,6 +53,7 @@ public class CartDashboardFragment extends BaseFragment implements View.OnClickL
     private ArrayList<CartProduct> list = new ArrayList<>();
     private int mTotal, mSubTotal;
     private Button mBtnTotalPrice = null;
+    private Button mCoupponButton = null;
     private FMAProgressDialog fmaProgressDialog = null;
     private JSONObject mRawJsonResponse = null;
     private LinearLayout mBottomPanel = null;
@@ -69,7 +70,8 @@ public class CartDashboardFragment extends BaseFragment implements View.OnClickL
 
         view.findViewById(R.id.btn_proceed).setOnClickListener(this);
         mBtnTotalPrice = (Button) view.findViewById(R.id.txt_total_price);
-        mBtnTotalPrice.setOnClickListener(this);
+        mCoupponButton = (Button) view.findViewById(R.id.ihaveacoupon);
+        mCoupponButton.setOnClickListener(this);
 
         mBottomPanel = (LinearLayout) view.findViewById(R.id.bottom_panel);
         mListView = (ListView) view.findViewById(R.id.list_view);
@@ -113,7 +115,7 @@ public class CartDashboardFragment extends BaseFragment implements View.OnClickL
 
         switch (view.getId()) {
 
-            case R.id.txt_total_price:      // Input and apply coupon.
+            case R.id.ihaveacoupon:      // Input and apply coupon.
 
                 inputCoupon();
                 break;
@@ -485,6 +487,28 @@ public class CartDashboardFragment extends BaseFragment implements View.OnClickL
 
 
             Toast.makeText(getActivity(), "Need login", Toast.LENGTH_SHORT).show();
+        } catch (NullPointerException npE) {
+            npE.printStackTrace();
+
+            AlertDialog alertDialog = new AlertDialog.Builder(getActivity()).create();
+            alertDialog.setTitle("Alert");
+            alertDialog.setMessage("Need login to show cart.");
+            alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "Login",
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            startActivity(new Intent(getActivity(), LoginActivity.class));
+                        }
+                    });
+            alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "Not now",
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    });
+            alertDialog.show();
+
+            Toast.makeText(getActivity(), "Need login", Toast.LENGTH_SHORT).show();
+
         } catch (Exception e) {
             e.printStackTrace();
             Toast.makeText(getActivity(), "Exception:" + e.getMessage(), Toast.LENGTH_SHORT).show();

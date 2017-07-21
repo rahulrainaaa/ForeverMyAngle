@@ -67,7 +67,8 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="40dp"
+            android:orientation="horizontal"
             android:weightSum="10">
 
             <Button
@@ -78,18 +79,20 @@
                 android:background="#f4f4f4"
                 android:text="Move to wishlist"
                 android:textColor="@color/colorTextLight"
-                android:textSize="10sp" />
+                android:textSize="10sp"
+                android:visibility="gone" />
 
             <LinearLayout
                 android:layout_width="1dp"
                 android:layout_height="match_parent"
-                android:background="@color/colorShadow" />
+                android:background="@color/colorShadow"
+                android:visibility="gone" />
 
             <Button
                 android:id="@+id/btn_remove"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="5"
+                android:layout_weight="10"
                 android:background="#f4f4f4"
                 android:text="Remove"
                 android:textColor="@color/colorTextLight"

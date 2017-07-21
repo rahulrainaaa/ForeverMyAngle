@@ -98,7 +98,7 @@ public class MyOrderDescriptionActivity extends AppCompatActivity {
         for (int i = 0; i < itemCount; i++) {
             View view = (View) getLayoutInflater().inflate(R.layout.item_orders, null);
             LineItem lineItem = items.get(i);
-            ((TextView) view.findViewById(R.id.prod_id)).setText("OrderID: " + lineItem.getId());
+            ((TextView) view.findViewById(R.id.prod_id)).setText("ProductID: " + lineItem.getId());
             ((TextView) view.findViewById(R.id.prod_name)).setText(lineItem.getName());
             ((TextView) view.findViewById(R.id.prod_qty)).setText("Qty: " + lineItem.getQuantity());
             ((TextView) view.findViewById(R.id.prod_price)).setText("Total: AED " + lineItem.getTotal());
