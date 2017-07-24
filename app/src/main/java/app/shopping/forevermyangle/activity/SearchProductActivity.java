@@ -159,6 +159,7 @@ public class SearchProductActivity extends FragmentActivity implements AdapterVi
 
                 if ((mPageNumber == 1) && (rawArray.length() < 1)) {
                     Toast.makeText(this, "No more products", Toast.LENGTH_SHORT).show();
+                    return;
                 }
                 updateProductList(rawArray);
                 break;
