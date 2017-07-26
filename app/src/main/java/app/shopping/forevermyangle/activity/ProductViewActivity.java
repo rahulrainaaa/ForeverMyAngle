@@ -227,15 +227,15 @@ public class ProductViewActivity extends AppCompatActivity implements View.OnCli
             html = html.replaceAll("&nbsp;", " ");
             html = html.replaceAll("&amp;", " ");
             txtProdDescription.setText(html);
-            int attrLength = mProductJsonObject.getJSONArray("default_attributes").length();
+            int attrLength = mProductJsonObject.getJSONArray("attributes").length();
             for (int i = 0; i < attrLength; i++) {
 
-                JSONObject jsonAttr = mProductJsonObject.getJSONArray("default_attributes").getJSONObject(i);
+                JSONObject jsonAttr = mProductJsonObject.getJSONArray("attributes").getJSONObject(i);
                 View attrCell = (View) getLayoutInflater().inflate(R.layout.cell_prod_attr, null);
                 TextView txtAttributeKey = (TextView) attrCell.findViewById(R.id.txt_key);
                 TextView txtAttributeValue = (TextView) attrCell.findViewById(R.id.txt_key_value);
                 txtAttributeKey.setText("" + jsonAttr.getString("name"));
-                txtAttributeValue.setText("" + jsonAttr.getString("option"));
+                txtAttributeValue.setText("" + jsonAttr.getJSONArray("options").getString(0));
                 containrtLayout.addView(attrCell);
             }
 
