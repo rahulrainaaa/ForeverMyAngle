@@ -9,11 +9,15 @@ public class ToDo {
     /**
      *
      *
-     * cart..... error.... move to wishlist.
+     * remove lazy loading notification.
      *
-     * default alphabet order. and sorting urls.
+     * remove credentials form login screen.
      *
-     * Trending.
+     * Add comments and header docs.
+     *
+     *
+     *
+     *
      *
      */
 }
