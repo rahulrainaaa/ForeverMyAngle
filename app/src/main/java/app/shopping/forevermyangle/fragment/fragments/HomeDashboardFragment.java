@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterViewFlipper;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
@@ -63,6 +64,8 @@ public class HomeDashboardFragment extends BaseFragment implements View.OnTouchL
     private ImageView imgTopRated1, imgTopRated2, imgTopRated3, imgTopRated4;
     private ImageView imgTopSell1, imgTopSell2, imgTopSell3, imgTopSell4;
     private ImageView imgNewArrivalsItem1, imgNewArrivalsItem2, imgNewArrivalsItem3, imgNewArrivalsItem4;
+    TextView tName1, tName2, tName3, tName4, tName5, tName6, tName7, tName8, tName9, tName10, tName11, tName12;
+    TextView tPrice1, tPrice2, tPrice3, tPrice4, tPrice5, tPrice6, tPrice7, tPrice8, tPrice9, tPrice10, tPrice11, tPrice12;
     private LinearLayout mLayoutBestSeller;
     private DashboardActivity activity;
 
@@ -104,6 +107,31 @@ public class HomeDashboardFragment extends BaseFragment implements View.OnTouchL
         imgNewArrivalsItem2 = (ImageView) view.findViewById(R.id.imgNewArrivals2);
         imgNewArrivalsItem3 = (ImageView) view.findViewById(R.id.imgNewArrivals3);
         imgNewArrivalsItem4 = (ImageView) view.findViewById(R.id.imgNewArrivals4);
+
+                tName1
+                tName2
+                tName3
+                tName4
+                tName5
+                tName6
+                tName7
+                tName8
+                tName9
+                tName10
+                tName11
+                tName12
+                tPrice1
+                tPrice2
+                tPrice3
+                tPrice4
+                tPrice5
+                tPrice6
+                tPrice7
+                tPrice8
+                tPrice9
+                tPrice10
+                tPrice11
+                tPrice12
 
         // Setting up AdapterViewFlipper - Animated image banner.
         mFlipperBanner = (AdapterViewFlipper) view.findViewById(R.id.adapterviewflipper);
