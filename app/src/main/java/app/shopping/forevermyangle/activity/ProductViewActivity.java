@@ -72,7 +72,7 @@ public class ProductViewActivity extends AppCompatActivity implements View.OnCli
         mFabAddToCart = (FloatingActionButton) findViewById(R.id.fab_addtocart);
         mFabDescription = (FloatingActionButton) findViewById(R.id.fab_description);
         imgBtnCart = (ImageButton) findViewById(R.id.img_btn_cart);
-        imgBtnCart.setVisibility(View.GONE);
+        //imgBtnCart.setVisibility(View.GONE);
         imgBtnShare = (ImageButton) findViewById(R.id.img_btn_share);
 
         // Add onclick events
@@ -114,8 +114,7 @@ public class ProductViewActivity extends AppCompatActivity implements View.OnCli
                 break;
             case R.id.img_btn_cart:
 
-                // Btn currently kept hidden.
-                // To show item.
+                startActivity(new Intent(this, CartActivity.class));
                 break;
             case R.id.img_btn_share:
 

@@ -93,6 +93,10 @@
             android:name=".activity.RatingActivity"
             android:label="@string/title_rating"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.CartActivity"
+            android:label="@string/title_cart"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>
