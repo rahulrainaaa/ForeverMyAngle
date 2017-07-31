@@ -79,22 +79,24 @@
                     <ImageView
                         android:id="@+id/imgCategoryItem1"
                         android:layout_width="match_parent"
-                        android:layout_height="100dp"
+                        android:layout_height="120dp"
                         android:layout_marginRight="1dp"
                         android:background="@drawable/shadow_small"
                         android:scaleType="fitXY" />
 
                     <TextView
+                        android:id="@+id/cat1_name1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="12sp"
-                        android:text="name1" />
+                        android:text="name1"
+                        android:textSize="12sp" />
 
                     <TextView
+                        android:id="@+id/cat1_price1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="14sp"
-                        android:text="price1" />
+                        android:text="price1"
+                        android:textSize="14sp" />
 
                 </LinearLayout>
 
@@ -102,15 +104,29 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="5"
-                    android:gravity="center">
+                    android:gravity="center"
+                    android:orientation="vertical">
 
                     <ImageView
                         android:id="@+id/imgCategoryItem2"
                         android:layout_width="match_parent"
-                        android:layout_height="100dp"
+                        android:layout_height="120dp"
                         android:background="@drawable/shadow_small"
                         android:scaleType="fitXY" />
 
+                    <TextView
+                        android:id="@+id/cat1_name2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="name1"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:id="@+id/cat1_price2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="price1"
+                        android:textSize="14sp" />
 
                 </LinearLayout>
 
@@ -128,15 +144,30 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="5"
-                    android:gravity="center">
+                    android:gravity="center"
+                    android:orientation="vertical">
 
                     <ImageView
                         android:id="@+id/imgCategoryItem3"
                         android:layout_width="match_parent"
-                        android:layout_height="100dp"
+                        android:layout_height="120dp"
                         android:layout_marginRight="1dp"
                         android:background="@drawable/shadow_small"
                         android:scaleType="fitXY" />
+
+                    <TextView
+                        android:id="@+id/cat1_name3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="name1"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:id="@+id/cat1_price3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="price1"
+                        android:textSize="14sp" />
 
                 </LinearLayout>
 
@@ -144,14 +175,29 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="5"
-                    android:gravity="center">
+                    android:gravity="center"
+                    android:orientation="vertical">
 
                     <ImageView
                         android:id="@+id/imgCategoryItem4"
                         android:layout_width="match_parent"
-                        android:layout_height="100dp"
+                        android:layout_height="120dp"
                         android:background="@drawable/shadow_small"
                         android:scaleType="fitXY" />
+
+                    <TextView
+                        android:id="@+id/cat1_name4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="name1"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:id="@+id/cat1_price4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="price1"
+                        android:textSize="14sp" />
 
                 </LinearLayout>
 
@@ -188,106 +234,157 @@
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="horizontal">
-
-
-        </LinearLayout>
-
-        <LinearLayout
             android:id="@+id/layout_bestSeller"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:orientation="horizontal"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
             android:weightSum="2">
 
             <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="1dp"
                 android:layout_weight="1"
-                android:orientation="vertical"
+                android:orientation="horizontal"
                 android:weightSum="10">
 
                 <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
                     android:layout_weight="5"
-                    android:gravity="center">
+                    android:gravity="center"
+                    android:orientation="vertical">
 
                     <ImageView
                         android:id="@+id/imgBestSellerItem1"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="120dp"
                         android:layout_marginRight="1dp"
                         android:background="@drawable/shadow_small"
                         android:scaleType="fitXY" />
 
-                </LinearLayout>
+                    <TextView
+                        android:id="@+id/sell1_name1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="name1"
+                        android:textSize="12sp" />
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="5"
-                    android:gravity="center">
-
-                    <ImageView
-                        android:id="@+id/imgBestSellerItem3"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginRight="1dp"
-                        android:layout_marginTop="1dp"
-                        android:background="@drawable/shadow_small"
-                        android:scaleType="fitXY" />
+                    <TextView
+                        android:id="@+id/sell1_price1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="price1"
+                        android:textSize="14sp" />
 
                 </LinearLayout>
 
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:orientation="vertical"
-                android:weightSum="10">
-
                 <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
                     android:layout_weight="5"
-                    android:gravity="center">
+                    android:gravity="center"
+                    android:orientation="vertical">
 
                     <ImageView
                         android:id="@+id/imgBestSellerItem2"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="120dp"
+                        android:background="@drawable/shadow_small"
+                        android:scaleType="fitXY" />
+
+                    <TextView
+                        android:id="@+id/sell1_name2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="name1"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:id="@+id/sell1_price2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="price1"
+                        android:textSize="14sp" />
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:weightSum="10">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="5"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/imgBestSellerItem3"
+                        android:layout_width="match_parent"
+                        android:layout_height="120dp"
                         android:layout_marginRight="1dp"
                         android:background="@drawable/shadow_small"
                         android:scaleType="fitXY" />
+
+                    <TextView
+                        android:id="@+id/sell1_name3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="name1"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:id="@+id/sell1_price3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="price1"
+                        android:textSize="14sp" />
 
                 </LinearLayout>
 
                 <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
                     android:layout_weight="5"
-                    android:gravity="center">
+                    android:gravity="center"
+                    android:orientation="vertical">
 
                     <ImageView
                         android:id="@+id/imgBestSellerItem4"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginRight="1dp"
-                        android:layout_marginTop="1dp"
+                        android:layout_height="120dp"
                         android:background="@drawable/shadow_small"
                         android:scaleType="fitXY" />
 
+                    <TextView
+                        android:id="@+id/sell1_name4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="name1"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:id="@+id/sell1_price4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="price1"
+                        android:textSize="14sp" />
+
                 </LinearLayout>
+
 
             </LinearLayout>
 
         </LinearLayout>
+
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -334,15 +431,30 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="5"
-                    android:gravity="center">
+                    android:gravity="center"
+                    android:orientation="vertical">
 
                     <ImageView
                         android:id="@+id/imgNewArrivals1"
                         android:layout_width="match_parent"
-                        android:layout_height="100dp"
+                        android:layout_height="120dp"
                         android:layout_marginRight="1dp"
                         android:background="@drawable/shadow_small"
                         android:scaleType="fitXY" />
+
+                    <TextView
+                        android:id="@+id/new1_name1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="name1"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:id="@+id/new1_price1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="price1"
+                        android:textSize="14sp" />
 
                 </LinearLayout>
 
@@ -350,14 +462,29 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="5"
-                    android:gravity="center">
+                    android:gravity="center"
+                    android:orientation="vertical">
 
                     <ImageView
                         android:id="@+id/imgNewArrivals2"
                         android:layout_width="match_parent"
-                        android:layout_height="100dp"
+                        android:layout_height="120dp"
                         android:background="@drawable/shadow_small"
                         android:scaleType="fitXY" />
+
+                    <TextView
+                        android:id="@+id/new1_name2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="name1"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:id="@+id/new1_price2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="price1"
+                        android:textSize="14sp" />
 
                 </LinearLayout>
 
@@ -374,15 +501,30 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="5"
-                    android:gravity="center">
+                    android:gravity="center"
+                    android:orientation="vertical">
 
                     <ImageView
                         android:id="@+id/imgNewArrivals3"
                         android:layout_width="match_parent"
-                        android:layout_height="100dp"
+                        android:layout_height="120dp"
                         android:layout_marginRight="1dp"
                         android:background="@drawable/shadow_small"
                         android:scaleType="fitXY" />
+
+                    <TextView
+                        android:id="@+id/new1_name3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="name1"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:id="@+id/new1_price3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="price1"
+                        android:textSize="14sp" />
 
                 </LinearLayout>
 
@@ -390,14 +532,29 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="5"
-                    android:gravity="center">
+                    android:gravity="center"
+                    android:orientation="vertical">
 
                     <ImageView
                         android:id="@+id/imgNewArrivals4"
                         android:layout_width="match_parent"
-                        android:layout_height="100dp"
+                        android:layout_height="120dp"
                         android:background="@drawable/shadow_small"
                         android:scaleType="fitXY" />
+
+                    <TextView
+                        android:id="@+id/new1_name4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="name1"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:id="@+id/new1_price4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="price1"
+                        android:textSize="14sp" />
 
                 </LinearLayout>
 

@@ -64,8 +64,8 @@ public class HomeDashboardFragment extends BaseFragment implements View.OnTouchL
     private ImageView imgTopRated1, imgTopRated2, imgTopRated3, imgTopRated4;
     private ImageView imgTopSell1, imgTopSell2, imgTopSell3, imgTopSell4;
     private ImageView imgNewArrivalsItem1, imgNewArrivalsItem2, imgNewArrivalsItem3, imgNewArrivalsItem4;
-    TextView tName1, tName2, tName3, tName4, tName5, tName6, tName7, tName8, tName9, tName10, tName11, tName12;
-    TextView tPrice1, tPrice2, tPrice3, tPrice4, tPrice5, tPrice6, tPrice7, tPrice8, tPrice9, tPrice10, tPrice11, tPrice12;
+    TextView tCatName1, tCatName2, tCatName3, tCatName4, tSellName1, tSellName2, tSellName3, tSellName4, tNewName1, tNewName2, tNewName3, tNewName4;
+    TextView tCatPrice1, tCatPrice2, tCatPrice3, tCatPrice4, tSellPrice1, tSellPrice2, tSellPrice3, tSellPrice4, tNewPrice1, tNewPrice2, tNewPrice3, tNewPrice4;
     private LinearLayout mLayoutBestSeller;
     private DashboardActivity activity;
 
@@ -108,30 +108,31 @@ public class HomeDashboardFragment extends BaseFragment implements View.OnTouchL
         imgNewArrivalsItem3 = (ImageView) view.findViewById(R.id.imgNewArrivals3);
         imgNewArrivalsItem4 = (ImageView) view.findViewById(R.id.imgNewArrivals4);
 
-                tName1
-                tName2
-                tName3
-                tName4
-                tName5
-                tName6
-                tName7
-                tName8
-                tName9
-                tName10
-                tName11
-                tName12
-                tPrice1
-                tPrice2
-                tPrice3
-                tPrice4
-                tPrice5
-                tPrice6
-                tPrice7
-                tPrice8
-                tPrice9
-                tPrice10
-                tPrice11
-                tPrice12
+        tCatName1 = (TextView) view.findViewById(R.id.cat1_name1);
+        tCatName2 = (TextView) view.findViewById(R.id.cat1_name2);
+        tCatName3 = (TextView) view.findViewById(R.id.cat1_name3);
+        tCatName4 = (TextView) view.findViewById(R.id.cat1_name4);
+        tSellName1 = (TextView) view.findViewById(R.id.sell1_name1);
+        tSellName2 = (TextView) view.findViewById(R.id.sell1_name2);
+        tSellName3 = (TextView) view.findViewById(R.id.sell1_name3);
+        tSellName4 = (TextView) view.findViewById(R.id.sell1_name4);
+        tNewName1 = (TextView) view.findViewById(R.id.new1_name1);
+        tNewName2 = (TextView) view.findViewById(R.id.new1_name2);
+        tNewName3 = (TextView) view.findViewById(R.id.new1_name3);
+        tNewName4 = (TextView) view.findViewById(R.id.new1_name4);
+
+        tCatPrice1 = (TextView) view.findViewById(R.id.cat1_price1);
+        tCatPrice2 = (TextView) view.findViewById(R.id.cat1_price2);
+        tCatPrice3 = (TextView) view.findViewById(R.id.cat1_price3);
+        tCatPrice4 = (TextView) view.findViewById(R.id.cat1_price4);
+        tSellPrice1 = (TextView) view.findViewById(R.id.sell1_price1);
+        tSellPrice2 = (TextView) view.findViewById(R.id.sell1_price2);
+        tSellPrice3 = (TextView) view.findViewById(R.id.sell1_price3);
+        tSellPrice4 = (TextView) view.findViewById(R.id.sell1_price4);
+        tNewPrice1 = (TextView) view.findViewById(R.id.new1_price1);
+        tNewPrice2 = (TextView) view.findViewById(R.id.new1_price2);
+        tNewPrice3 = (TextView) view.findViewById(R.id.new1_price3);
+        tNewPrice4 = (TextView) view.findViewById(R.id.new1_price4);
 
         // Setting up AdapterViewFlipper - Animated image banner.
         mFlipperBanner = (AdapterViewFlipper) view.findViewById(R.id.adapterviewflipper);
@@ -357,6 +358,8 @@ public class HomeDashboardFragment extends BaseFragment implements View.OnTouchL
 
         GlobalData.NewArrivedProducts = rawJsonArray;
         ImageView[] imgHolder = {imgNewArrivalsItem1, imgNewArrivalsItem2, imgNewArrivalsItem3, imgNewArrivalsItem4};
+        TextView[] txtNewName = {tNewName1, tNewName2, tNewName3, tNewName4};
+        TextView[] txtNewPrice = {tNewPrice1, tNewPrice2, tNewPrice3, tNewPrice4};
         int length = rawJsonArray.length();
         int i;
         for (i = 0; i < length; i++) {
@@ -364,6 +367,8 @@ public class HomeDashboardFragment extends BaseFragment implements View.OnTouchL
             try {
 
                 JSONObject jsonProd = rawJsonArray.getJSONObject(i);
+                txtNewName[i].setText("" + jsonProd.getString("name"));
+                txtNewPrice[i].setText("AED " + jsonProd.getString("price"));
                 String strImgUrl = jsonProd.getJSONArray("images").getJSONObject(0).getString("src");
                 Picasso.with(getActivity()).load(strImgUrl.toString()).into(imgHolder[i]);
                 imgHolder[i].setOnClickListener(this);
@@ -392,6 +397,8 @@ public class HomeDashboardFragment extends BaseFragment implements View.OnTouchL
 
         GlobalData.TopRatedProducts = rawJsonArray;
         ImageView[] imgHolder = {imgTopRated1, imgTopRated2, imgTopRated3, imgTopRated4};
+        TextView[] txtSellName = {tSellName1, tSellName2, tSellName3, tSellName4};
+        TextView[] txtSellPrice = {tSellPrice1, tSellPrice2, tSellPrice3, tSellPrice4};
         int length = rawJsonArray.length();
         int i;
         for (i = 0; i < length; i++) {
@@ -399,6 +406,8 @@ public class HomeDashboardFragment extends BaseFragment implements View.OnTouchL
             try {
 
                 JSONObject jsonProd = rawJsonArray.getJSONObject(i);
+                txtSellName[i].setText("" + jsonProd.getString("name"));
+                txtSellPrice[i].setText("AED " + jsonProd.getString("price"));
                 String strImgUrl = jsonProd.getJSONArray("images").getJSONObject(0).getString("src");
                 Picasso.with(getActivity()).load(strImgUrl.toString()).into(imgHolder[i]);
                 imgHolder[i].setOnClickListener(this);
@@ -427,6 +436,8 @@ public class HomeDashboardFragment extends BaseFragment implements View.OnTouchL
 
         GlobalData.TopSellProducts = rawJsonArray;
         ImageView[] imgHolder = {imgTopSell1, imgTopSell2, imgTopSell3, imgTopSell4};
+        TextView[] txtCatName = {tCatName1, tCatName2, tCatName3, tCatName4};
+        TextView[] txtCatPrice = {tCatPrice1, tCatPrice2, tCatPrice3, tCatPrice4};
         int length = rawJsonArray.length();
         int i;
         for (i = 0; i < length; i++) {
@@ -434,6 +445,8 @@ public class HomeDashboardFragment extends BaseFragment implements View.OnTouchL
             try {
 
                 JSONObject jsonProd = rawJsonArray.getJSONObject(i);
+                txtCatName[i].setText("" + jsonProd.getString("name"));
+                txtCatPrice[i].setText("AED " + jsonProd.getString("price"));
                 String strImgUrl = jsonProd.getJSONArray("images").getJSONObject(0).getString("src");
                 Picasso.with(getActivity()).load(strImgUrl.toString()).into(imgHolder[i]);
                 imgHolder[i].setOnClickListener(this);
