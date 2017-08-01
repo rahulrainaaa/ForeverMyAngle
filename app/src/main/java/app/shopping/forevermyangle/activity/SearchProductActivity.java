@@ -157,10 +157,7 @@ public class SearchProductActivity extends FragmentActivity implements AdapterVi
 
             case 1:             // Product list response.
 
-                if ((mPageNumber == 1) && (rawArray.length() < 1)) {
-                    Toast.makeText(this, "No more products", Toast.LENGTH_SHORT).show();
-                    return;
-                }
+
                 updateProductList(rawArray);
                 break;
         }
@@ -233,6 +230,12 @@ public class SearchProductActivity extends FragmentActivity implements AdapterVi
         mAdapter.notifyDataSetChanged();
         mFlagRefresh = false;
         mProductGridList.setOnScrollListener(this);
+
+        if (raw.length() < sPRODUCTS_PERPAGE) {
+
+            mProductGridList.setOnScrollListener(null);
+            return;
+        }
     }
 
     /**

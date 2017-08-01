@@ -120,7 +120,6 @@ public class HomeDashboardFragment extends BaseFragment implements View.OnTouchL
         tNewName2 = (TextView) view.findViewById(R.id.new1_name2);
         tNewName3 = (TextView) view.findViewById(R.id.new1_name3);
         tNewName4 = (TextView) view.findViewById(R.id.new1_name4);
-
         tCatPrice1 = (TextView) view.findViewById(R.id.cat1_price1);
         tCatPrice2 = (TextView) view.findViewById(R.id.cat1_price2);
         tCatPrice3 = (TextView) view.findViewById(R.id.cat1_price3);
@@ -133,6 +132,31 @@ public class HomeDashboardFragment extends BaseFragment implements View.OnTouchL
         tNewPrice2 = (TextView) view.findViewById(R.id.new1_price2);
         tNewPrice3 = (TextView) view.findViewById(R.id.new1_price3);
         tNewPrice4 = (TextView) view.findViewById(R.id.new1_price4);
+
+        tCatName1.setText("");
+        tCatName2.setText("");
+        tCatName3.setText("");
+        tCatName4.setText("");
+        tSellName1.setText("");
+        tSellName2.setText("");
+        tSellName3.setText("");
+        tSellName4.setText("");
+        tNewName1.setText("");
+        tNewName2.setText("");
+        tNewName3.setText("");
+        tNewName4.setText("");
+        tCatPrice1.setText("");
+        tCatPrice2.setText("");
+        tCatPrice3.setText("");
+        tCatPrice4.setText("");
+        tSellPrice1.setText("");
+        tSellPrice2.setText("");
+        tSellPrice3.setText("");
+        tSellPrice4.setText("");
+        tNewPrice1.setText("");
+        tNewPrice2.setText("");
+        tNewPrice3.setText("");
+        tNewPrice4.setText("");
 
         // Setting up AdapterViewFlipper - Animated image banner.
         mFlipperBanner = (AdapterViewFlipper) view.findViewById(R.id.adapterviewflipper);
