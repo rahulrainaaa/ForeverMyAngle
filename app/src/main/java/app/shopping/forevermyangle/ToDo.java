@@ -15,6 +15,8 @@ public class ToDo {
      *
      * Add comments and header docs.
      *
+     * remove toast -- show categoryID selected to show products.
+     *
      *
      *
      *
