@@ -69,9 +69,6 @@ public class CartActivity extends AppCompatActivity implements View.OnClickListe
 
         fmaProgressDialog = new FMAProgressDialog(this);
 
-        if (!fmaProgressDialog.isVisible()) {
-            getCart(null);
-        }
     }
 
     @Override
@@ -84,6 +81,7 @@ public class CartActivity extends AppCompatActivity implements View.OnClickListe
         } else {
             // App login... show buttons to proceed.
             mBottomPanel.setVisibility(View.VISIBLE);
+            getCart(null);
         }
     }
 
