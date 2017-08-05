@@ -81,7 +81,9 @@ public class DashboardActivity extends FMAActivity implements BottomNavigationVi
     @Override
     protected void onResume() {
         super.onResume();
-        loadFragment();
+        if (mCurrentFragment == null) {
+            loadFragment();
+        }
         GlobalData.connectionCallback = this;
     }
 
