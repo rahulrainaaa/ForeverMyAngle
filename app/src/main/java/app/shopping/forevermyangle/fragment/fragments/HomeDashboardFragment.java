@@ -81,10 +81,10 @@ public class HomeDashboardFragment extends BaseFragment implements View.OnTouchL
         // Dashboard sliding screen.
         mBannerImagesUrl = new String[]{
 
-                "https://forevermyangel.com/wp-content/uploads/2017/06/a.jpg",
-                "https://forevermyangel.com/wp-content/uploads/2017/06/b.jpg",
-                "https://forevermyangel.com/wp-content/uploads/2017/06/c.jpg",
-                "https://forevermyangel.com/wp-content/uploads/2017/06/d.jpg"
+                "https://forevermyangel.com/wp-content/uploads/2017/08/banner1.png",
+                "https://forevermyangel.com/wp-content/uploads/2017/08/banner2.png",
+                "https://forevermyangel.com/wp-content/uploads/2017/08/banner3.png",
+                "https://forevermyangel.com/wp-content/uploads/2017/08/banner4.png"
         };
 
         mCategoryList = GlobalData.parentCategories;
