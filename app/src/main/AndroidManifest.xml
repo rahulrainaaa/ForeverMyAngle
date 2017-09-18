@@ -97,6 +97,11 @@
             android:name=".activity.CartActivity"
             android:label="@string/title_cart"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.RegisterCustomerActivity"
+            android:label="@string/title_activity_register_customer"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>

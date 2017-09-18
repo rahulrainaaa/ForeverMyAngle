@@ -31,11 +31,15 @@
     <string name="dashboard_menu_share">Share</string>
     <string name="title_activity_product_view">ProductViewActivity</string>
 
+    <string name="cannot_be_empty">Cannot be empty</string>
+    <string name="confirm_password_not_match">Confirm password not matching</string>
+
     <string name="large_text">
         "Material is the metaphor.\n\n"
 
         "A material metaphor is the unifying theory of a rationalized space and a system of motion."
         "The material is grounded in tactile reality, inspired by the study of paper and ink.
     </string>
+    <string name="title_activity_register_customer">New User</string>
 
 </resources>

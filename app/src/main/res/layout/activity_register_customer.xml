@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
+    tools:context="app.shopping.forevermyangle.activity.RegisterCustomerActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:paddingLeft="30dp"
+        android:paddingRight="30dp">
+
+
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:background="@drawable/outline_box"
+            android:src="@drawable/f" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="FOREVER MY ANGEL"
+            android:textColor="@color/colorText"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            android:typeface="serif" />
+
+        <EditText
+            android:id="@+id/first_name"
+            android:layout_width="match_parent"
+            android:layout_height="38dp"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/outline_box"
+            android:gravity="left|center"
+            android:hint="First Name*"
+            android:maxLines="1"
+            android:paddingLeft="10dp"
+            android:selectAllOnFocus="true"
+            android:singleLine="true"
+            android:textColor="@color/colorText"
+            android:textColorHint="@color/colorTextHint"
+            android:textSize="17sp" />
+
+        <EditText
+            android:id="@+id/last_name"
+            android:layout_width="match_parent"
+            android:layout_height="38dp"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/outline_box"
+            android:gravity="left|center"
+            android:hint="Last Name"
+            android:maxLines="1"
+            android:paddingLeft="10dp"
+            android:selectAllOnFocus="true"
+            android:singleLine="true"
+            android:textColor="@color/colorText"
+            android:textColorHint="@color/colorTextHint"
+            android:textSize="17sp" />
+
+        <EditText
+            android:id="@+id/username"
+            android:layout_width="match_parent"
+            android:layout_height="38dp"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/outline_box"
+            android:gravity="left|center"
+            android:hint="Username*"
+            android:maxLines="1"
+            android:paddingLeft="10dp"
+            android:selectAllOnFocus="true"
+            android:singleLine="true"
+            android:textColor="@color/colorText"
+            android:textColorHint="@color/colorTextHint"
+            android:textSize="17sp" />
+
+        <EditText
+            android:id="@+id/email"
+            android:layout_width="match_parent"
+            android:layout_height="38dp"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/outline_box"
+            android:gravity="left|center"
+            android:hint="Email*"
+            android:maxLines="1"
+            android:paddingLeft="10dp"
+            android:selectAllOnFocus="true"
+            android:singleLine="true"
+            android:textColor="@color/colorText"
+            android:textColorHint="@color/colorTextHint"
+            android:textSize="17sp" />
+
+        <EditText
+            android:id="@+id/phone"
+            android:layout_width="match_parent"
+            android:layout_height="38dp"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/outline_box"
+            android:gravity="left|center"
+            android:hint="Phone"
+            android:maxLines="1"
+            android:paddingLeft="10dp"
+            android:selectAllOnFocus="true"
+            android:singleLine="true"
+            android:textColor="@color/colorText"
+            android:textColorHint="@color/colorTextHint"
+            android:textSize="17sp" />
+
+        <EditText
+            android:id="@+id/address1"
+            android:layout_width="match_parent"
+            android:layout_height="38dp"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/outline_box"
+            android:gravity="left|center"
+            android:hint="Address Line 1*"
+            android:maxLines="1"
+            android:paddingLeft="10dp"
+            android:selectAllOnFocus="true"
+            android:singleLine="true"
+            android:textColor="@color/colorText"
+            android:textColorHint="@color/colorTextHint"
+            android:textSize="17sp" />
+
+        <EditText
+            android:id="@+id/address2"
+            android:layout_width="match_parent"
+            android:layout_height="38dp"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/outline_box"
+            android:gravity="left|center"
+            android:hint="Address Line 2"
+            android:maxLines="1"
+            android:paddingLeft="10dp"
+            android:selectAllOnFocus="true"
+            android:singleLine="true"
+            android:textColor="@color/colorText"
+            android:textColorHint="@color/colorTextHint"
+            android:textSize="17sp" />
+
+        <EditText
+            android:id="@+id/city"
+            android:layout_width="match_parent"
+            android:layout_height="38dp"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/outline_box"
+            android:gravity="left|center"
+            android:hint="City"
+            android:maxLines="1"
+            android:paddingLeft="10dp"
+            android:selectAllOnFocus="true"
+            android:singleLine="true"
+            android:textColor="@color/colorText"
+            android:textColorHint="@color/colorTextHint"
+            android:textSize="17sp" />
+
+        <EditText
+            android:id="@+id/state"
+            android:layout_width="match_parent"
+            android:layout_height="38dp"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/outline_box"
+            android:gravity="left|center"
+            android:hint="State"
+            android:maxLines="1"
+            android:paddingLeft="10dp"
+            android:selectAllOnFocus="true"
+            android:singleLine="true"
+            android:textColor="@color/colorText"
+            android:textColorHint="@color/colorTextHint"
+            android:textSize="17sp" />
+
+        <EditText
+            android:id="@+id/postal_code"
+            android:layout_width="match_parent"
+            android:layout_height="38dp"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/outline_box"
+            android:gravity="left|center"
+            android:hint="Postal Code*"
+            android:maxLines="1"
+            android:paddingLeft="10dp"
+            android:selectAllOnFocus="true"
+            android:singleLine="true"
+            android:textColor="@color/colorText"
+            android:textColorHint="@color/colorTextHint"
+            android:textSize="17sp" />
+
+        <EditText
+            android:id="@+id/country"
+            android:layout_width="match_parent"
+            android:layout_height="38dp"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/outline_box"
+            android:gravity="left|center"
+            android:hint="Counrty*"
+            android:maxLines="1"
+            android:paddingLeft="10dp"
+            android:selectAllOnFocus="true"
+            android:singleLine="true"
+            android:textColor="@color/colorText"
+            android:textColorHint="@color/colorTextHint"
+            android:textSize="17sp" />
+
+        <EditText
+            android:id="@+id/password"
+            android:layout_width="match_parent"
+            android:layout_height="38dp"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/outline_box"
+            android:ems="10"
+            android:gravity="left|center"
+            android:hint="Password*"
+            android:inputType="textPassword"
+            android:maxLines="1"
+            android:paddingLeft="10dp"
+            android:singleLine="true"
+            android:textColor="@color/colorText"
+            android:textColorHint="@color/colorTextHint"
+            android:textSize="17sp" />
+
+        <EditText
+            android:id="@+id/confirm_password"
+            android:layout_width="match_parent"
+            android:layout_height="38dp"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/outline_box"
+            android:ems="10"
+            android:gravity="left|center"
+            android:hint="Confirm Password*"
+            android:inputType="textPassword"
+            android:maxLines="1"
+            android:paddingLeft="10dp"
+            android:singleLine="true"
+            android:textColor="@color/colorText"
+            android:textColorHint="@color/colorTextHint"
+            android:textSize="17sp" />
+
+        <CheckBox
+            android:id="@+id/check_accept_terms"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Accept terms and conditions"
+            android:textColor="@android:color/white" />
+
+        <Button
+            android:id="@+id/btn_register"
+            android:layout_width="match_parent"
+            android:layout_height="38dp"
+            android:layout_marginBottom="40dp"
+            android:layout_marginTop="15dp"
+            android:alpha="0.7"
+            android:background="@drawable/grad_login_button"
+            android:enabled="false"
+            android:text="Register"
+            android:textColor="@color/colorText"
+            android:textSize="17sp" />
+
+    </LinearLayout>
+
+</ScrollView>

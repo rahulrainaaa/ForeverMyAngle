@@ -121,13 +121,9 @@ public class LoginActivity extends FragmentActivity implements View.OnClickListe
                 break;
             case R.id.link_new_user:
 
-                try {
-                    Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://forevermyangel.com/my-account/"));
-                    startActivity(browserIntent);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    Toast.makeText(this, "Exception: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-                }
+                Intent intent = new Intent(this, RegisterCustomerActivity.class);
+                intent.putExtra("role", "customer");
+                startActivity(intent);
                 break;
             default:
 
@@ -141,7 +137,6 @@ public class LoginActivity extends FragmentActivity implements View.OnClickListe
      * @method checkValidation
      * @desc Method to check the username and password field input data validation. true = valid, false = invalid
      */
-
     private boolean checkValidation() {
 
         boolean validationFlag = true;
@@ -179,13 +174,13 @@ public class LoginActivity extends FragmentActivity implements View.OnClickListe
             try {
                 jsonRequest.put("username", mStrUsername.trim());
                 jsonRequest.put("password", mStrPassword.trim());
+                HttpsTask httpsTask = new HttpsTask(1, this, this, "POST", Network.URL_FMA_USER_LOGIN, jsonRequest, HttpsTask.RESPONSE_TYPE_OBJECT);
+                httpsTask.execute("");
+                mFMAProgressDialog.show();
             } catch (Exception exception) {
                 exception.printStackTrace();
                 Toast.makeText(this, "" + exception.getMessage(), Toast.LENGTH_SHORT).show();
             }
-            HttpsTask httpsTask = new HttpsTask(1, this, this, "POST", Network.URL_FMA_USER_LOGIN, jsonRequest, HttpsTask.RESPONSE_TYPE_OBJECT);
-            httpsTask.execute("");
-            mFMAProgressDialog.show();
 
         } else {
             // Validation failed for the Username-Password login fields.
