@@ -264,7 +264,7 @@ public class RegisterCustomerActivity extends AppCompatActivity implements Netwo
 
         Gson gson = new Gson();
         Profile profile = gson.fromJson(json.toString(), Profile.class);
-        Toast.makeText(this, "Registration successful", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Registration successful #" + profile.id, Toast.LENGTH_SHORT).show();
         finish();
     }
 }
