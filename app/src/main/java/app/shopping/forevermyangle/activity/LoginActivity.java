@@ -19,7 +19,10 @@ import com.facebook.login.widget.LoginButton;
 import com.google.gson.Gson;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.Random;
 
 import app.shopping.forevermyangle.R;
 import app.shopping.forevermyangle.model.login.Login;
@@ -48,6 +51,10 @@ public class LoginActivity extends FragmentActivity implements View.OnClickListe
     private TextView mTxtPassword = null;
     private String mStrUsername = null;
     private String mStrPassword = null;
+
+    // Temp purpose for holding social email and userID.
+    private String mStrSocialEmail = null;
+    private String mStrSocialId = null;
 
     /**
      * {@link FragmentActivity} class override methods.
@@ -203,6 +210,10 @@ public class LoginActivity extends FragmentActivity implements View.OnClickListe
                 detailsFetched(rawArray);
                 break;
 
+            case 3:
+
+                checkSocialUserPresent(rawArray);
+                break;
         }
     }
 
@@ -224,9 +235,18 @@ public class LoginActivity extends FragmentActivity implements View.OnClickListe
 
                 Toast.makeText(this, "Unable to fetch user data.", Toast.LENGTH_SHORT).show();
                 break;
+            case 3:
+
+                Toast.makeText(this, "Error: " + message, Toast.LENGTH_SHORT).show();
+                break;
         }
     }
 
+    /**
+     * @param jsonResponse {@link Login} model class equivalent.
+     * @method loginSuccessfully
+     * @desc Method to handle manual login response and proceed for fetching profile.
+     */
     private void loginSuccessfully(JSONObject jsonResponse) {
 
         Gson gson = new Gson();
@@ -243,6 +263,11 @@ public class LoginActivity extends FragmentActivity implements View.OnClickListe
         handler.executeGet();
     }
 
+    /**
+     * @param jsonArray
+     * @method detailsFetched
+     * @desc Method to fetch the user profile data and save in the cache.
+     */
     private void detailsFetched(JSONArray jsonArray) {
 
         mFMAProgressDialog.hide();
@@ -255,20 +280,16 @@ public class LoginActivity extends FragmentActivity implements View.OnClickListe
             GlobalData.jsonUserDetail = jsonArray.getJSONObject(0);
             getSharedPreferences(Constants.CACHE_USER, 0).edit().putString(Constants.CACHE_KEY_USER_DETAIL, GlobalData.jsonUserDetail.toString()).commit();
 
-            if (jsonArray.getJSONObject(0).getString("role").contains("subscriber")) {
+            Gson gson = new Gson();
+            Login login = new Login();
+            GlobalData.login = login;
+            login.setToken("");
+            login.setUserDisplayName(jsonArray.getJSONObject(0).getString("first_name") + " " + jsonArray.getJSONObject(0).getString("last_name"));
+            login.setUserEmail(jsonArray.getJSONObject(0).getString("email"));
+            login.setUserNicename(jsonArray.getJSONObject(0).getString("username"));
+            String jsonLoginData = gson.toJson(login);
+            getSharedPreferences(Constants.CACHE_USER, 0).edit().putString(Constants.CACHE_KEY_LOGIN, jsonLoginData).commit();
 
-                // Saving user data
-                Gson gson = new Gson();
-                Login login = new Login();
-                GlobalData.login = login;
-                login.setToken("");
-                login.setUserDisplayName(jsonArray.getJSONObject(0).getString("first_name") + " " + jsonArray.getJSONObject(0).getString("last_name"));
-                login.setUserEmail(jsonArray.getJSONObject(0).getString("email"));
-                login.setUserNicename(jsonArray.getJSONObject(0).getString("username"));
-                String jsonLoginData = gson.toJson(login);
-                getSharedPreferences(Constants.CACHE_USER, 0).edit().putString(Constants.CACHE_KEY_LOGIN, jsonLoginData).commit();
-
-            }
 
             Toast.makeText(this, "Login Successfully.", Toast.LENGTH_SHORT).show();
             finish();
@@ -279,6 +300,48 @@ public class LoginActivity extends FragmentActivity implements View.OnClickListe
         }
     }
 
+    /**
+     * @param arr single object (user profile) in JSONArray.
+     * @method checkValidation
+     * @desc Method to check if the social login is not present, then proceed for default register and then login.
+     */
+    private void checkSocialUserPresent(JSONArray arr) {
+
+        int length = arr.length();
+
+        if (length > 0) {
+
+            // If the social (role = subscriber) customer is present.
+            detailsFetched(arr);
+            return;
+        }
+
+        /**
+         * The social user is not yet registered.
+         * Proceed for the new subscriber registration.
+         */
+
+        Toast.makeText(this, "Registering as new customer.", Toast.LENGTH_SHORT).show();
+        try {
+            JSONObject jsonRequest = new JSONObject();
+
+            jsonRequest.put("email", mStrSocialEmail);
+            jsonRequest.put("username", mStrSocialId);
+            Random r = new Random();
+            jsonRequest.put("password", String.valueOf(r.nextDouble()));
+            jsonRequest.put("password", "password");
+
+            HttpsTask httpsTask = new HttpsTask(2, this, this, "POST", Network.URL_REGISTER_NEW, jsonRequest, HttpsTask.RESPONSE_TYPE_ARRAY);
+            httpsTask.execute("");
+            mFMAProgressDialog.show();
+        } catch (JSONException jsonExc) {
+
+            jsonExc.printStackTrace();
+            Toast.makeText(this, "JSONException: " + jsonExc.getMessage(), Toast.LENGTH_SHORT).show();
+        }
+
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         callbackManager.onActivityResult(requestCode, resultCode, data);
@@ -287,11 +350,14 @@ public class LoginActivity extends FragmentActivity implements View.OnClickListe
 
     @Override
     public void onCompleted(JSONObject object, GraphResponse response) {
+
         try {
-            String url = Network.URL_FMA_USER_DETAIL + "?email=" + object.getString("email") + "&role=subscriber";
+            mStrSocialId = object.getString("id");
+            mStrSocialEmail = object.getString("email");
+            String url = Network.URL_FMA_USER_DETAIL + "?email=" + mStrSocialEmail + "";
             NetworkHandler handler = new NetworkHandler();
             mFMAProgressDialog.show();
-            handler.httpCreate(2, this, this, new JSONObject(), url, NetworkHandler.RESPONSE_ARRAY);
+            handler.httpCreate(3, this, this, new JSONObject(), url, NetworkHandler.RESPONSE_ARRAY);
             handler.executeGet();
             return;
         } catch (Exception e) {
@@ -300,10 +366,12 @@ public class LoginActivity extends FragmentActivity implements View.OnClickListe
         }
 
         try {
-            String url = Network.URL_FMA_USER_DETAIL + "?email=" + object.getString("id") + "@facebook.com" + "&role=subscriber";
+            mStrSocialId = object.getString("id");
+            mStrSocialEmail = object.getString("id") + "@facebook.com";
+            String url = Network.URL_FMA_USER_DETAIL + "?email=" + mStrSocialEmail + "";
             NetworkHandler handler = new NetworkHandler();
             mFMAProgressDialog.show();
-            handler.httpCreate(2, this, this, new JSONObject(), url, NetworkHandler.RESPONSE_ARRAY);
+            handler.httpCreate(3, this, this, new JSONObject(), url, NetworkHandler.RESPONSE_ARRAY);
             handler.executeGet();
         } catch (Exception e) {
             e.printStackTrace();

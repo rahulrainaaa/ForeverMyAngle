@@ -143,6 +143,7 @@ public class EditProfileActivity extends AppCompatActivity implements NetworkCal
         try {
             jsonRegisterRequest.put("first_name", strFirstName.trim());
             jsonRegisterRequest.put("last_name", strLastName.trim());
+            jsonRegisterRequest.put("last_name", strLastName.trim());
 
             jsonBillingAddress.put("first_name", strFirstName);
             jsonBillingAddress.put("last_name", strLastName);
@@ -169,7 +170,7 @@ public class EditProfileActivity extends AppCompatActivity implements NetworkCal
             jsonRegisterRequest.put("shipping", jsonShippingAddress);
 
             String URL = Network.URL_REGISTER_NEW + "//" + mStrCustomerId;
-            HttpsTask httpsTask = new HttpsTask(1, this, this, "POST", URL, jsonRegisterRequest, HttpsTask.RESPONSE_TYPE_OBJECT);
+            HttpsTask httpsTask = new HttpsTask(1, this, this, "POST        ", URL, jsonRegisterRequest, HttpsTask.RESPONSE_TYPE_OBJECT);
             httpsTask.execute("");
 
             mFMAProgressDialog.show();
