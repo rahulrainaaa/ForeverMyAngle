@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.facebook.login.LoginManager;
 
@@ -21,6 +22,7 @@ import org.json.JSONObject;
 import app.shopping.forevermyangle.R;
 import app.shopping.forevermyangle.activity.AddressActivity;
 import app.shopping.forevermyangle.activity.DashboardActivity;
+import app.shopping.forevermyangle.activity.EditProfileActivity;
 import app.shopping.forevermyangle.activity.LoginActivity;
 import app.shopping.forevermyangle.activity.MyOrderListActivity;
 import app.shopping.forevermyangle.fragment.base.BaseFragment;
@@ -40,7 +42,7 @@ public class UserProfileFragment extends BaseFragment implements View.OnClickLis
     private TextView txtFullName = null;
     private TextView txtEmail = null;
     private LinearLayout layout = null;
-    private Button btnLogin, btnAddress, btnHelpNSupport, btnMyOrders, btnPrivacyPolicy, btnTerms, btnLogout;
+    private Button btnLogin, btnUpdateProfile, btnAddress, btnHelpNSupport, btnMyOrders, btnPrivacyPolicy, btnTerms, btnLogout;
 
     /**
      * {@link BaseFragment} class override methods.
@@ -61,9 +63,11 @@ public class UserProfileFragment extends BaseFragment implements View.OnClickLis
         btnPrivacyPolicy = (Button) view.findViewById(R.id.btn_privacy);
         btnTerms = (Button) view.findViewById(R.id.btn_terms);
         btnLogout = (Button) view.findViewById(R.id.btn_logout);
+        btnUpdateProfile = (Button) view.findViewById(R.id.update_profile);
 
         btnLogin.setOnClickListener(this);
         btnAddress.setOnClickListener(this);
+        btnUpdateProfile.setOnClickListener(this);
         btnHelpNSupport.setOnClickListener(this);
         btnMyOrders.setOnClickListener(this);
         btnPrivacyPolicy.setOnClickListener(this);
@@ -108,7 +112,7 @@ public class UserProfileFragment extends BaseFragment implements View.OnClickLis
     private void onSessionValid() {
 
         btnLogin.setVisibility(View.GONE);
-        //layout.setVisibility(View.VISIBLE);
+        btnUpdateProfile.setVisibility(View.VISIBLE);
         btnAddress.setVisibility(View.VISIBLE);
         btnMyOrders.setVisibility(View.VISIBLE);
         btnHelpNSupport.setVisibility(View.VISIBLE);
@@ -118,8 +122,7 @@ public class UserProfileFragment extends BaseFragment implements View.OnClickLis
     private void onNoSession() {
 
         btnLogin.setVisibility(View.VISIBLE);
-        // layout.setVisibility(View.GONE);
-
+        btnUpdateProfile.setVisibility(View.GONE);
         btnAddress.setVisibility(View.GONE);
         btnMyOrders.setVisibility(View.GONE);
         btnHelpNSupport.setVisibility(View.GONE);
@@ -137,6 +140,19 @@ public class UserProfileFragment extends BaseFragment implements View.OnClickLis
             case R.id.btn_login:
 
                 startActivity(new Intent(getActivity(), LoginActivity.class));
+                break;
+            case R.id.update_profile:
+
+                try {
+                    Intent intent = new Intent(getActivity(), EditProfileActivity.class);
+                    intent.putExtra("id", GlobalData.jsonUserDetail.getString("id"));
+                    startActivity(intent);
+                } catch (JSONException jsonExc) {
+
+                    jsonExc.printStackTrace();
+                    Toast.makeText(getActivity(), "EXCEPTION: " + jsonExc.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+
                 break;
             case R.id.btn_address:
 

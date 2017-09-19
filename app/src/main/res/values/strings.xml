@@ -41,5 +41,6 @@
         "The material is grounded in tactile reality, inspired by the study of paper and ink.
     </string>
     <string name="title_activity_register_customer">New User</string>
+    <string name="title_update_user_detail_profile">Update Profile</string>
 
 </resources>

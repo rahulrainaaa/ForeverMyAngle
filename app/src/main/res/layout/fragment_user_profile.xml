@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -20,7 +21,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="120dp"
                 android:layout_marginTop="20dp"
-                android:src="@drawable/user_profile" />
+                app:srcCompat="@drawable/icon_persion" />
 
             <TextView
                 android:id="@+id/txt_full_name"
@@ -67,20 +68,31 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/profile_btn_outline"
-                android:drawableRight="@drawable/address"
+                android:drawableRight="@drawable/icon_location"
                 android:gravity="center_vertical"
                 android:paddingLeft="15dp"
                 android:paddingRight="15dp"
                 android:text="Address"
                 android:textAllCaps="false" />
 
+            <Button
+                android:id="@+id/update_profile"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/profile_btn_outline"
+                android:drawableRight="@drawable/icon_edit"
+                android:gravity="center_vertical"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:text="Update Profile"
+                android:textAllCaps="false" />
 
             <Button
                 android:id="@+id/my_orders"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/profile_btn_outline"
-                android:drawableRight="@drawable/track"
+                android:drawableRight="@drawable/icon_car"
                 android:gravity="center_vertical"
                 android:paddingLeft="15dp"
                 android:paddingRight="15dp"
@@ -92,7 +104,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/profile_btn_outline"
-                android:drawableRight="@drawable/privacy"
+                android:drawableRight="@drawable/icon_policy"
                 android:gravity="center_vertical"
                 android:paddingLeft="15dp"
                 android:paddingRight="15dp"
@@ -104,7 +116,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/profile_btn_outline"
-                android:drawableRight="@drawable/terms"
+                android:drawableRight="@drawable/icon_terms"
                 android:gravity="center_vertical"
                 android:paddingLeft="15dp"
                 android:paddingRight="15dp"
@@ -116,7 +128,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/profile_btn_outline"
-                android:drawableRight="@drawable/history"
+                android:drawableRight="@drawable/icon_help"
                 android:gravity="center_vertical"
                 android:paddingLeft="15dp"
                 android:paddingRight="15dp"
@@ -128,7 +140,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/profile_btn_outline"
-                android:drawableRight="@drawable/logout"
+                android:drawableRight="@drawable/icon_logout"
                 android:gravity="center_vertical"
                 android:paddingLeft="15dp"
                 android:paddingRight="15dp"

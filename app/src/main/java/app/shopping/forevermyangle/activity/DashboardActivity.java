@@ -85,6 +85,11 @@ public class DashboardActivity extends FMAActivity implements BottomNavigationVi
             loadFragment();
         }
         GlobalData.connectionCallback = this;
+
+        // Reload Profile fragment everytime in onResume callback.
+        if (mFlagFragment == 4) {
+            loadFragment();
+        }
     }
 
     @Override

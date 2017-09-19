@@ -102,6 +102,10 @@
             android:label="@string/title_activity_register_customer"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activity.EditProfileActivity"
+            android:label="@string/title_update_user_detail_profile"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>
