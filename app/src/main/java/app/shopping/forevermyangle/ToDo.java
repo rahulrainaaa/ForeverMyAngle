@@ -17,7 +17,7 @@ public class ToDo {
      *
      * remove toast -- show categoryID selected to show products.
      *
-     *
+     * Facebook: login attempt failed in username text field.
      *
      *
      *

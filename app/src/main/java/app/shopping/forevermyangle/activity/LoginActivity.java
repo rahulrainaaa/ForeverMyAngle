@@ -5,6 +5,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -47,8 +48,8 @@ public class LoginActivity extends FragmentActivity implements View.OnClickListe
     private NetworkHandler mNetworkHandler = null;
     private LoginButton facebookLogin = null;
     private CallbackManager callbackManager;
-    private TextView mTxtUsername = null;
-    private TextView mTxtPassword = null;
+    private EditText mTxtUsername = null;
+    private EditText mTxtPassword = null;
     private String mStrUsername = null;
     private String mStrPassword = null;
 
@@ -70,8 +71,8 @@ public class LoginActivity extends FragmentActivity implements View.OnClickListe
 
         findViewById(R.id.link_forgot_password).setOnClickListener(this);
         findViewById(R.id.link_new_user).setOnClickListener(this);
-        mTxtUsername = (TextView) findViewById(R.id.txt_username);
-        mTxtPassword = (TextView) findViewById(R.id.txt_password);
+        mTxtUsername = (EditText) findViewById(R.id.txt_username);
+        mTxtPassword = (EditText) findViewById(R.id.txt_password);
         findViewById(R.id.login_btn).setOnClickListener(this);
         mFMAProgressDialog = new FMAProgressDialog(this);
 
