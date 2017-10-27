@@ -89,12 +89,12 @@ public class LoginActivity extends FragmentActivity implements View.OnClickListe
 
             @Override
             public void onCancel() {
-                mTxtUsername.setText("Login attempt cancelled.");
+                Toast.makeText(LoginActivity.this, "Login attempt cancelled.", Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onError(FacebookException e) {
-                mTxtUsername.setText("Login attempt failed.");
+                Toast.makeText(LoginActivity.this, "Login attempt failed.", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -328,7 +328,7 @@ public class LoginActivity extends FragmentActivity implements View.OnClickListe
             jsonRequest.put("email", mStrSocialEmail);
             jsonRequest.put("username", mStrSocialId);
             Random r = new Random();
-            jsonRequest.put("password", String.valueOf(r.nextDouble()));
+//            jsonRequest.put("password", String.valueOf(r.nextDouble()));
             jsonRequest.put("password", "password");
 
             HttpsTask httpsTask = new HttpsTask(2, this, this, "POST", Network.URL_REGISTER_NEW, jsonRequest, HttpsTask.RESPONSE_TYPE_ARRAY);

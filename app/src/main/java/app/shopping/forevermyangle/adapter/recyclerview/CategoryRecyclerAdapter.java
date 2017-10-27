@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
@@ -17,7 +18,7 @@ import java.util.List;
 import app.shopping.forevermyangle.R;
 import app.shopping.forevermyangle.model.category.Category;
 import app.shopping.forevermyangle.utils.Constants;
-import app.shopping.forevermyangle.view.RoundedImageView;
+import app.shopping.forevermyangle.view.CircleTransform;
 
 /**
  * @class CategoryRecyclerAdapter
@@ -32,13 +33,13 @@ public class CategoryRecyclerAdapter extends RecyclerView.Adapter<CategoryRecycl
     public static class CategoryItemHolder extends RecyclerView.ViewHolder {
         public CardView cv;
         public TextView name;
-        public RoundedImageView image;
+        public ImageView image;
 
         CategoryItemHolder(View itemView) {
             super(itemView);
             cv = (CardView) itemView.findViewById(R.id.cv);
             name = (TextView) itemView.findViewById(R.id.name);
-            image = (RoundedImageView) itemView.findViewById(R.id.image);
+            image = (ImageView) itemView.findViewById(R.id.image);
         }
     }
 
@@ -82,7 +83,7 @@ public class CategoryRecyclerAdapter extends RecyclerView.Adapter<CategoryRecycl
 
         // Load image into imageView. (LazyLoading).
         try {
-            Picasso.with(activity).load(category.getImage().getSrc()).into(holder.image);
+            Picasso.with(activity).load(category.getImage().getSrc()).transform(new CircleTransform()).into(holder.image);
             holder.name.setText("" + category.getName().trim());
         } catch (Exception e) {
             e.printStackTrace();
