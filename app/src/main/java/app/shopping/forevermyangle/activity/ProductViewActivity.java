@@ -213,7 +213,7 @@ public class ProductViewActivity extends AppCompatActivity implements View.OnCli
         TextView txtProdPrice = (TextView) view.findViewById(R.id.txt_product_price);
         TextView txtProdRating = (TextView) view.findViewById(R.id.txt_prod_rating);
         TextView txtProdDescription = (TextView) view.findViewById(R.id.txt_product_desc);
-        LinearLayout containrtLayout = (LinearLayout) view.findViewById(R.id.container_layout);
+        LinearLayout containerLayout = (LinearLayout) view.findViewById(R.id.container_layout);
 
         try {
             txtProdName.setText(mProductJsonObject.getString("name"));
@@ -235,7 +235,7 @@ public class ProductViewActivity extends AppCompatActivity implements View.OnCli
                 TextView txtAttributeValue = (TextView) attrCell.findViewById(R.id.txt_key_value);
                 txtAttributeKey.setText("" + jsonAttr.getString("name"));
                 txtAttributeValue.setText("" + jsonAttr.getJSONArray("options").getString(0));
-                containrtLayout.addView(attrCell);
+                containerLayout.addView(attrCell);
             }
 
         } catch (Exception e) {
